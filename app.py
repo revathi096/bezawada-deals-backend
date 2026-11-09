@@ -28,82 +28,117 @@ ADMIN_CREDENTIALS = {
 
 with app.app_context():
     db.create_all()
-    if Deal.query.count() < 6:
+    if Deal.query.count() < 10:
         initial_deals = [
-            # PVP Square Mall Multiple Deals
+            # PVP Mall Multiple Offers
             Deal(
                 place_name="PVP Mall", 
                 category="Clothes", 
                 title="PVP Mall Designer Ethnic Saree Sale", 
-                description="Flat 50% discount on Silk & Festive collections.", 
-                discount="50% OFF", 
+                description="Designer sarees, lehengas, and festival wear collections starting at flat rates.", 
+                discount="Flat 50% OFF", 
                 price=1499.0,
                 image_url="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=80",
-                terms="Valid at PVP Mall 2nd Floor outlet.",
+                terms="Valid till stocks last at PVP Mall 2nd Floor.",
+                address="MG Road, Vijayawada, AP 520010"
+            ),
+            Deal(
+                place_name="PVP Mall", 
+                category="Clothes", 
+                title="PVP Mall Branded Western & Casual Wear", 
+                description="Trendy shirts, jeans, and party wear outfits from top international brands.", 
+                discount="Buy 1 Get 1 Free", 
+                price=999.0,
+                image_url="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80",
+                terms="Valid on select clothing brands inside PVP Square Mall.",
                 address="MG Road, Vijayawada, AP 520010"
             ),
             Deal(
                 place_name="PVP Mall", 
                 category="Food", 
                 title="PVP Mall Food Court Family Combo", 
-                description="Burgers, Pizzas, and Cold Drinks combo pack.", 
-                discount="Buy 1 Get 1 Free", 
+                description="Delicious burgers, cheesy pizzas, French fries, and cool beverages combo pack.", 
+                discount="20% OFF", 
                 price=399.0,
                 image_url="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80",
-                terms="Valid on weekdays at PVP Mall Food Court.",
+                terms="Valid on weekdays at PVP Mall 3rd Floor Food Court.",
                 address="3rd Floor Food Court, PVP Square, Vijayawada"
             ),
 
-            # Trendset Mall Deals
+            # Kalamandir Offers
+            Deal(
+                place_name="Kalamandir", 
+                category="Clothes", 
+                title="Kalamandir Kanchi Pattu Sarees Mega Offer", 
+                description="Pure silk sarees, bridal wear, and festival sarees ranging from ₹499 to ₹5000+.", 
+                discount="Up to 40% OFF", 
+                price=499.0,
+                image_url="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80",
+                terms="Special festival gift voucher on purchases above ₹2000.",
+                address="MG Road, Near Benz Circle, Vijayawada"
+            ),
+
+            # Trendset Mall Offers
             Deal(
                 place_name="Trendset Mall", 
                 category="Clothes", 
-                title="Trendset Mall Branded Footwear Fest", 
-                description="Top sneaker and footwear brands special discount sale.", 
+                title="Trendset Mall Branded Footwear Festival", 
+                description="Top sneaker and footwear collections special clearance discount sale.", 
                 discount="Flat 40% OFF", 
-                price=999.0,
+                price=899.0,
                 image_url="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
                 terms="Offer valid till stocks last at Benz Circle Trendset Mall.",
                 address="Benz Circle, MG Road, Vijayawada"
             ),
 
-            # Supermarkets
+            # Food & Mess Offers
             Deal(
-                place_name="Governorpet", 
-                category="Supermarkets", 
-                title="DMart Wholesale Grocery Savings", 
-                description="Rice, pulses, oils, and kitchen staples at wholesale prices.", 
-                discount="Wholesale Rate", 
-                price=199.0,
-                image_url="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80",
-                terms="Valid at Bavajipet DMart store.",
-                address="Samba Murthy Road, Governorpet, Vijayawada"
-            ),
-
-            # Eluru Road Electronics Hub
-            Deal(
-                place_name="Eluru Road", 
-                category="Electronics", 
-                title="NTR Complex Fast Charger & Screen Guard Combo", 
-                description="Tempered glass, back cases, 65W fast chargers set.", 
-                discount="Special Pack", 
-                price=199.0,
-                image_url="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&q=80",
-                terms="30 days replacement warranty.",
-                address="NTR Complex, Eluru Road, Vijayawada"
-            ),
-
-            # Food / Mess Joints
-            Deal(
-                place_name="Governorpet", 
+                place_name="Sai Charanam Mess", 
                 category="Food", 
-                title="Sai Charanam Aritaku Mess Meals", 
-                description="Authentic Andhra unlimited meals served on traditional banana leaf.", 
-                discount="Best Price", 
+                title="Sai Charanam Traditional Banana Leaf Meals", 
+                description="Authentic Andhra unlimited meals served with hot rice, dal, curries, and ghee.", 
+                discount="Budget Friendly", 
                 price=90.0,
                 image_url="https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=600&q=80",
                 terms="Lunch time only (12 PM to 3:30 PM).",
                 address="Near Santhi Theatre, Governorpet, Vijayawada"
+            ),
+            Deal(
+                place_name="040 Biryani", 
+                category="Food", 
+                title="040 Biryani Special Family Combo", 
+                description="Spicy Hyderabadi and Bezawada style chicken dum biryani with starters.", 
+                discount="15% OFF", 
+                price=299.0,
+                image_url="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80",
+                terms="Applicable on dine-in and takeaway.",
+                address="Gandhi Nagar, Vijayawada"
+            ),
+
+            # Supermarkets
+            Deal(
+                place_name="DMart", 
+                category="Supermarkets", 
+                title="DMart Hypermarket Monthly Grocery Pack", 
+                description="Rice, pulses, cooking oils, and home cleaning essentials at wholesale prices.", 
+                discount="Wholesale Rates", 
+                price=199.0,
+                image_url="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80",
+                terms="Prices subject to daily stock availability.",
+                address="Bavajipet, Samba Murthy Road, Vijayawada"
+            ),
+
+            # Electronics
+            Deal(
+                place_name="NTR Complex", 
+                category="Electronics", 
+                title="NTR Complex Mobile Accessories & Repair Kit", 
+                description="Screen guards, back covers, fast chargers, and earphone kits.", 
+                discount="Up to 40% OFF", 
+                price=150.0,
+                image_url="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&q=80",
+                terms="30 days replacement warranty.",
+                address="Gopala Reddy Road, Governorpet, Vijayawada"
             )
         ]
         for d in initial_deals:
@@ -140,7 +175,7 @@ def admin():
                 new_pass = request.form.get('new_password')
                 if old_pass == ADMIN_CREDENTIALS['password']:
                     ADMIN_CREDENTIALS['password'] = new_pass
-                    success_msg = "Password updated successfully!"
+                    success_msg = "Admin password updated successfully!"
                 else:
                     error_msg = "Incorrect old password!"
             else:
@@ -153,11 +188,12 @@ def admin():
                     price=float(request.form.get('price', 0.0)),
                     image_url=request.form.get('image_url') or "https://images.unsplash.com/photo-1555529771-835f59fc5efe?w=500&q=80",
                     terms=request.form.get('terms') or "Standard store terms apply.",
-                    address=request.form.get('address') or "Vijayawada, AP"
+                    address=request.form.get('address') or "Vijayawada, Andhra Pradesh"
                 )
                 db.session.add(new_deal)
                 db.session.commit()
                 return redirect(url_for('admin'))
+        
         deals = Deal.query.order_by(Deal.id.desc()).all()
         return render_template('admin.html', deals=deals, success_msg=success_msg, error_msg=error_msg)
     
@@ -170,6 +206,7 @@ def admin():
             return redirect(url_for('admin'))
         else:
             error = "Invalid Username or Password!"
+            
     return render_template('login.html', error=error)
 
 @app.route('/logout')
@@ -177,18 +214,43 @@ def logout():
     session.pop('is_admin', None)
     return redirect(url_for('admin'))
 
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 @app.route('/api/offers', methods=['GET'])
 def get_offers():
     category_filter = request.args.get('category')
     search_query = request.args.get('search')
-    query = Deal.query
+    sort_order = request.args.get('sort')
 
+    query = Deal.query
     if category_filter and category_filter != 'All':
         query = query.filter_by(category=category_filter)
+    
     if search_query and search_query != 'All':
-        query = query.filter(Deal.title.ilike(f"%{search_query}%") | Deal.place_name.ilike(f"%{search_query}%"))
+        query = query.filter(
+            Deal.title.ilike(f"%{search_query}%") | 
+            Deal.place_name.ilike(f"%{search_query}%") |
+            Deal.description.ilike(f"%{search_query}%")
+        )
 
-    deals = query.order_by(Deal.id.desc()).all()
+    if sort_order == 'low_to_high':
+        query = query.order_by(Deal.price.asc())
+    elif sort_order == 'high_to_low':
+        query = query.order_by(Deal.price.desc())
+    else:
+        query = query.order_by(Deal.id.desc())
+
+    deals = query.all()
     result = [{
         "id": d.id,
         "place_name": d.place_name,
@@ -201,6 +263,7 @@ def get_offers():
         "terms": d.terms,
         "address": d.address
     } for d in deals]
+    
     return jsonify({"status": "success", "data": result})
 
 if __name__ == '__main__':
