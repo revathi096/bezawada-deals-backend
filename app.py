@@ -1,7 +1,8 @@
-from flask import Flask, jsonify, request, render_template, redirect, url_for
+from flask import Flask, jsonify, request, render_template, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.secret_key = 'bezawada_secret_admin_key_2026'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bezawada_deals.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -18,6 +19,12 @@ class Deal(db.Model):
     image_url = db.Column(db.String(500), nullable=True)
     terms = db.Column(db.Text, nullable=True)
     address = db.Column(db.String(300), nullable=True)
+
+# డిఫాల్ట్ అడ్మిన్ పాస్‌వర్డ్ స్టోర్ చేయడానికి (మెమరీలో సేవ్ అవుతుంది)
+ADMIN_CREDENTIALS = {
+    "username": "revathi",
+    "password": "secure123"
+}
 
 with app.app_context():
     db.create_all()
@@ -67,24 +74,60 @@ def customer_service():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    if request.method == 'POST':
-        new_deal = Deal(
-            place_name=request.form.get('place_name'),
-            category=request.form.get('category'),
-            title=request.form.get('title'),
-            description=request.form.get('description'),
-            discount=request.form.get('discount'),
-            price=float(request.form.get('price', 0.0)),
-            image_url=request.form.get('image_url') or "https://images.unsplash.com/photo-1555529771-835f59fc5efe?w=500&q=80",
-            terms=request.form.get('terms') or "Standard store terms apply.",
-            address=request.form.get('address') or "Vijayawada, Andhra Pradesh"
-        )
-        db.session.add(new_deal)
-        db.session.commit()
-        return redirect(url_for('admin'))
+    if session.get('is_admin'):
+        success_msg = None
+        error_msg = None
+        
+        if request.method == 'POST':
+            action = request.form.get('action')
+            
+            # పాస్‌వర్డ్ మార్చే ఆప్షన్
+            if action == 'change_password':
+                old_pass = request.form.get('old_password')
+                new_pass = request.form.get('new_password')
+                if old_pass == ADMIN_CREDENTIALS['password']:
+                    ADMIN_CREDENTIALS['password'] = new_pass
+                    success_msg = "Admin password updated successfully!"
+                else:
+                    error_msg = "Incorrect old password!"
+            
+            # కొత్త డీల్ పోస్ట్ చేసే ఆప్షన్
+            else:
+                new_deal = Deal(
+                    place_name=request.form.get('place_name'),
+                    category=request.form.get('category'),
+                    title=request.form.get('title'),
+                    description=request.form.get('description'),
+                    discount=request.form.get('discount'),
+                    price=float(request.form.get('price', 0.0)),
+                    image_url=request.form.get('image_url') or "https://images.unsplash.com/photo-1555529771-835f59fc5efe?w=500&q=80",
+                    terms=request.form.get('terms') or "Standard store terms apply.",
+                    address=request.form.get('address') or "Vijayawada, Andhra Pradesh"
+                )
+                db.session.add(new_deal)
+                db.session.commit()
+                return redirect(url_for('admin'))
+        
+        deals = Deal.query.order_by(Deal.id.desc()).all()
+        return render_template('admin.html', deals=deals, success_msg=success_msg, error_msg=error_msg)
     
-    deals = Deal.query.order_by(Deal.id.desc()).all()
-    return render_template('admin.html', deals=deals)
+    error = None
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if username == ADMIN_CREDENTIALS['username'] and password == ADMIN_CREDENTIALS['password']:
+            session['is_admin'] = True
+            return redirect(url_for('admin'))
+        else:
+            error = "Invalid Username or Password!"
+            
+    return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session.pop('is_admin', None)
+    return redirect(url_for('admin'))
 
 @app.route('/privacy')
 def privacy():
