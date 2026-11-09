@@ -1,10 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template_string
 from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
 
-# SQLite డేటాబేస్ సెటప్ (డేటా పర్మినెంట్‌గా సేవ్ అవ్వడానికి)
+# SQLite డేటాబేస్ సెటప్
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bezawada_deals.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -27,7 +27,6 @@ def home():
             return render_template_string(f.read())
     except Exception as e:
         return "BezawadaDeals Database Backend is Live!"
-        
 
 # 1. అన్ని మాల్స్ & ఫుడ్ ఆఫర్లను చూడటానికి (GET API)
 @app.route('/api/offers', methods=['GET'])
@@ -71,4 +70,5 @@ def add_offer():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
     
