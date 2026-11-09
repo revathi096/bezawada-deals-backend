@@ -20,7 +20,6 @@ class Deal(db.Model):
     terms = db.Column(db.Text, nullable=True)
     address = db.Column(db.String(300), nullable=True)
 
-# డిఫాల్ట్ అడ్మిన్ పాస్‌వర్డ్ స్టోర్ చేయడానికి (మెమరీలో సేవ్ అవుతుంది)
 ADMIN_CREDENTIALS = {
     "username": "revathi",
     "password": "secure123"
@@ -28,8 +27,83 @@ ADMIN_CREDENTIALS = {
 
 with app.app_context():
     db.create_all()
-    if Deal.query.count() == 0:
+    
+    # ఒకవేళ డేటాబేస్ ఖాళీగా ఉంటే లేదా కొత్త కేటగిరీలు యాడ్ అవ్వాలంటే అన్నింటిని లోడ్ చేస్తుంది
+    if Deal.query.count() < 5:
         initial_deals = [
+            # Supermarkets
+            Deal(
+                place_name="Bavajipet - Samba Murthy Road", 
+                category="Supermarkets", 
+                title="DMart Hypermarket Daily Needs", 
+                description="Daily groceries, rice, pulses, cooking oils, and home essentials at wholesale prices.", 
+                discount="Wholesale Rates", 
+                price=199.0,
+                image_url="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80",
+                terms="Prices subject to daily stock availability.",
+                address="Bavajipet, Samba Murthy Road, Vijayawada 520003"
+            ),
+            Deal(
+                place_name="Governorpet - Gopala Reddy Road", 
+                category="Supermarkets", 
+                title="Reliance SMART Bazaar Grocery Combo", 
+                description="Groceries, clothing, household items under one roof.", 
+                discount="Flat 20% Savings", 
+                price=499.0,
+                image_url="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=600&q=80",
+                terms="Offer valid on select grocery brands.",
+                address="Gopala Reddy Road, Governorpet, Vijayawada 520002"
+            ),
+            
+            # Electronics
+            Deal(
+                place_name="Governorpet - NTR Complex", 
+                category="Electronics", 
+                title="NTR Complex Mobile Accessories Hub", 
+                description="Screen guards, back covers, fast chargers, cables, and earphone repair kits.", 
+                discount="Up to 40% OFF", 
+                price=150.0,
+                image_url="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&q=80",
+                terms="Warranty valid for 30 days on selected accessories.",
+                address="Gopala Reddy Road, NTR Complex Market, Governorpet, Vijayawada 520002"
+            ),
+            Deal(
+                place_name="Eluru Road, Governorpet", 
+                category="Electronics", 
+                title="Vijay Sales Electronics Festival", 
+                description="Discounts on Smart TVs, ACs, Washing Machines, and Laptops.", 
+                discount="Exchange Bonus", 
+                price=8999.0,
+                image_url="https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=600&q=80",
+                terms="0% Interest EMI options available via major bank cards.",
+                address="Eluru Road, Near Governorpet Junction, Vijayawada 520002"
+            ),
+            
+            # Food & Mess
+            Deal(
+                place_name="Governorpeta, Vijayawada", 
+                category="Food", 
+                title="Sai Charanam Aritaku Tiffins And Mess", 
+                description="Traditional Andhra tiffins & banana leaf meals. Authentic Bezawada flavor.", 
+                discount="Budget Friendly", 
+                price=90.0,
+                image_url="https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=600&q=80",
+                terms="Valid on all days. Dine-in only.",
+                address="Governorpeta, near Santhi Theatre road, Vijayawada 520002"
+            ),
+            Deal(
+                place_name="Gandhi Nagar, Vijayawada", 
+                category="Food", 
+                title="040 Biryani Special Family Combo", 
+                description="Hyderabadi & Spicy Bezawada style Biryani with starters.", 
+                discount="15% OFF", 
+                price=299.0,
+                image_url="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80",
+                terms="Applicable on takeaway and dine-in.",
+                address="26-1-3, Opp Sailaja Theater, Gandhi Nagar, Vijayawada 520003"
+            ),
+
+            # Clothes / Malls
             Deal(
                 place_name="PVP Square Mall (MG Road)", 
                 category="Clothes", 
@@ -40,20 +114,12 @@ with app.app_context():
                 image_url="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&q=80",
                 terms="Valid till stocks last at PVP Mall.",
                 address="MG Road, Vijayawada, AP 520010"
-            ),
-            Deal(
-                place_name="Governorpeta, Vijayawada", 
-                category="Food", 
-                title="Sai Charanam Aritaku Tiffins And Mess", 
-                description="Traditional Andhra tiffins & banana leaf meals.", 
-                discount="Budget Friendly", 
-                price=90.0,
-                image_url="https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=600&q=80",
-                terms="Valid during lunch hours.",
-                address="Governorpeta, Vijayawada, AP 520002"
             )
         ]
-        db.session.bulk_save_objects(initial_deals)
+        for d in initial_deals:
+            exists = Deal.query.filter_by(title=d.title).first()
+            if not exists:
+                db.session.add(d)
         db.session.commit()
 
 @app.route('/')
@@ -80,8 +146,6 @@ def admin():
         
         if request.method == 'POST':
             action = request.form.get('action')
-            
-            # పాస్‌వర్డ్ మార్చే ఆప్షన్
             if action == 'change_password':
                 old_pass = request.form.get('old_password')
                 new_pass = request.form.get('new_password')
@@ -90,8 +154,6 @@ def admin():
                     success_msg = "Admin password updated successfully!"
                 else:
                     error_msg = "Incorrect old password!"
-            
-            # కొత్త డీల్ పోస్ట్ చేసే ఆప్షన్
             else:
                 new_deal = Deal(
                     place_name=request.form.get('place_name'),
@@ -115,7 +177,6 @@ def admin():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        
         if username == ADMIN_CREDENTIALS['username'] and password == ADMIN_CREDENTIALS['password']:
             session['is_admin'] = True
             return redirect(url_for('admin'))
@@ -166,16 +227,4 @@ def get_offers():
         "id": d.id,
         "place_name": d.place_name,
         "category": d.category,
-        "title": d.title,
-        "description": d.description,
-        "discount": d.discount,
-        "price": d.price,
-        "image_url": d.image_url,
-        "terms": d.terms,
-        "address": d.address
-    } for d in deals]
-    
-    return jsonify({"status": "success", "data": result})
-
-if __name__ == '__main__':
-    app.run(debug=True)
+        "title": d.
