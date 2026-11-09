@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BezawadaDeals - Live Offers</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; }
+        h1 { color: #d32f2f; text-align: center; }
+        .deal-card { background: white; padding: 15px; margin: 10px auto; max-width: 500px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .mall { font-weight: bold; color: #555; }
+        .title { font-size: 1.2em; color: #222; margin: 5px 0; }
+        .discount { font-weight: bold; color: #388e3c; }
+    </style>
+</head>
+<body>
+
+    <h1>🔥 Bezawada Live Deals & Offers 🔥</h1>
+    <div id="deals-container">కనెక్ట్ అవుతోంది... ఆఫర్లు లోడ్ అవుతున్నాయి...</div>
+
+    <script>
+        fetch('/api/offers')
+            .then(response => response.json())
+            .then(result => {
+                const container = document.getElementById('deals-container');
+                container.innerHTML = '';
+                
+                if (result.data.length === 0) {
+                    container.innerHTML = '<p style="text-align:center;">ప్రస్తుతానికి కొత్త ఆఫర్లు ఏవీ లేవు.</p>';
+                    return;
+                }
+
+                result.data.forEach(deal => {
+                    const card = `
+                        <div class="deal-card">
+                            <div class="mall">🏢 ${deal.mall_name}</div>
+                            <div class="title">${deal.title}</div>
+                            <div class="discount">🏷️ ${deal.discount}</div>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                });
+            })
+            .catch(err => {
+                document.getElementById('deals-container').innerText = 'డేటా లోడ్ చేయడంలో సమస్య వచ్చింది.';
+            });
+    </script>
+</body>
+</html>
