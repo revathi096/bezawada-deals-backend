@@ -1,8 +1,7 @@
-from flask import Flask, jsonify, request, render_template, redirect, url_for, session
+from flask import Flask, jsonify, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.secret_key = 'bezawada_secret_admin_key_2026' # సెషన్ సెక్యూరిటీ కోసం కీ
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bezawada_deals.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -66,49 +65,26 @@ def account():
 def customer_service():
     return render_template('customer_service.html')
 
-# --- SECURE ADMIN LOGIN & DASHBOARD ROUTE ---
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    # ఒకవేళ లాగిన్ అయి ఉంటే నేరుగా అడ్మిన్ పేజీకి పంపుతుంది
-    if session.get('is_admin'):
-        if request.method == 'POST':
-            new_deal = Deal(
-                place_name=request.form.get('place_name'),
-                category=request.form.get('category'),
-                title=request.form.get('title'),
-                description=request.form.get('description'),
-                discount=request.form.get('discount'),
-                price=float(request.form.get('price', 0.0)),
-                image_url=request.form.get('image_url') or "https://images.unsplash.com/photo-1555529771-835f59fc5efe?w=500&q=80",
-                terms=request.form.get('terms') or "Standard store terms apply.",
-                address=request.form.get('address') or "Vijayawada, Andhra Pradesh"
-            )
-            db.session.add(new_deal)
-            db.session.commit()
-            return redirect(url_for('admin'))
-        
-        deals = Deal.query.order_by(Deal.id.desc()).all()
-        return render_template('admin.html', deals=deals)
-    
-    # ఒకవేళ లాగిన్ అవ్వకపోతే POST ద్వారా పాస్‌వర్డ్ చెక్ చేస్తుంది
-    error = None
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        
-        # ఇక్కడ మీ యూజర్‌నేమ్ మరియు పాస్‌వర్డ్ సెట్ చేసుకోండి (ఉదాహరణకు: revathi మరియు secure123)
-        if username == 'revathi' and password == 'secure123':
-            session['is_admin'] = True
-            return redirect(url_for('admin'))
-        else:
-            error = "Invalid Username or Password! Access Denied."
-            
-    return render_template('login.html', error=error)
-
-@app.route('/logout')
-def logout():
-    session.pop('is_admin', None)
-    return redirect(url_for('admin'))
+        new_deal = Deal(
+            place_name=request.form.get('place_name'),
+            category=request.form.get('category'),
+            title=request.form.get('title'),
+            description=request.form.get('description'),
+            discount=request.form.get('discount'),
+            price=float(request.form.get('price', 0.0)),
+            image_url=request.form.get('image_url') or "https://images.unsplash.com/photo-1555529771-835f59fc5efe?w=500&q=80",
+            terms=request.form.get('terms') or "Standard store terms apply.",
+            address=request.form.get('address') or "Vijayawada, Andhra Pradesh"
+        )
+        db.session.add(new_deal)
+        db.session.commit()
+        return redirect(url_for('admin'))
+    
+    deals = Deal.query.order_by(Deal.id.desc()).all()
+    return render_template('admin.html', deals=deals)
 
 @app.route('/privacy')
 def privacy():
