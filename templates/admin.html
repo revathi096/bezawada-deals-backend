@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchant & Admin Portal - BezawadaDeals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 font-sans text-slate-900">
+    
+    <!-- Admin Header -->
+    <header class="bg-slate-900 text-white p-4 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-rose-500">BezawadaDeals <span class="text-white text-sm font-normal">| Merchant Portal</span></h1>
+            <a href="/" class="bg-slate-700 hover:bg-slate-600 px-3 py-1.5 text-xs rounded font-bold transition">← Back to Site</a>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto p-4 md:p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Add Offer Form -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border md:col-span-1">
+            <h2 class="text-base font-bold text-slate-800 mb-4 border-b pb-2">Post New Vijayawada Deal</h2>
+            <form action="/admin" method="POST" class="space-y-3 text-xs">
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Deal Title</label>
+                    <input type="text" name="title" required placeholder="e.g. Festival Saree Sale" class="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-rose-500">
+                </div>
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Store / Mall Location</label>
+                    <input type="text" name="place_name" required placeholder="e.g. PVP Mall, MG Road" class="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-rose-500">
+                </div>
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Full Address</label>
+                    <input type="text" name="address" placeholder="e.g. Opp Sailaja Theatre, Gandhi Nagar" class="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-rose-500">
+                </div>
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Category</label>
+                    <select name="category" class="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-rose-500">
+                        <option value="Clothes">Clothes / Fashion</option>
+                        <option value="Food">Food / Mess</option>
+                        <option value="Supermarkets">Supermarkets</option>
+                        <option value="Online Groceries">Online Groceries</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Accessories">Accessories</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Discount Text</label>
+                        <input type="text" name="discount" required placeholder="e.g. 50% OFF" class="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-rose-500">
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Price (₹)</label>
+                        <input type="number" step="0.01" name="price" required placeholder="499" class="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-rose-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Image URL</label>
+                    <input type="url" name="image_url" placeholder="https://..." class="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-rose-500">
+                </div>
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Description</label>
+                    <textarea name="description" rows="2" placeholder="Brief details about the deal..." class="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-rose-500"></textarea>
+                </div>
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Terms & Conditions</label>
+                    <textarea name="terms" rows="2" placeholder="e.g. Valid till December 31..." class="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-rose-500"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded transition text-sm">Publish Offer Live</button>
+            </form>
+        </div>
+
+        <!-- Live Offers List -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border md:col-span-2">
+            <h2 class="text-base font-bold text-slate-800 mb-4 border-b pb-2">Active Deals on BezawadaDeals</h2>
+            <div class="space-y-3 overflow-y-auto max-h-[75vh]">
+                {% for deal in deals %}
+                <div class="flex items-center space-x-3 p-3 bg-slate-50 border rounded-lg">
+                    <img src="{{ deal.image_url }}" alt="" class="w-16 h-16 object-cover rounded">
+                    <div class="flex-grow text-xs">
+                        <span class="font-bold text-rose-600 uppercase text-[10px]">{{ deal.category }}</span>
+                        <h3 class="font-bold text-slate-900 text-sm">{{ deal.title }}</h3>
+                        <p class="text-slate-500">📍 {{ deal.place_name }}</p>
+                        <p class="font-extrabold text-slate-800 mt-0.5">{{ deal.discount }} - ₹{{ deal.price }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
