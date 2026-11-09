@@ -1,14 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BezawadaDeals - Vijayawada Malls & Deals Hub</title>
+    <title>BezawadaDeals - Vijayawada Shopping & Food Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-100 text-slate-900 font-sans antialiased min-h-screen flex flex-col justify-between">
     
-    <!-- Top Header -->
+    <!-- Header -->
     <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-md">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
@@ -19,7 +20,7 @@
                 </a>
             </div>
             <div class="hidden md:flex flex-1 max-w-xl mx-6">
-                <input type="text" id="searchInput" placeholder="Search PVP Mall, Trendset, Food, Electronics..." class="w-full px-4 py-2 text-slate-900 rounded-l-lg focus:outline-none text-sm">
+                <input type="text" id="searchInput" placeholder="Search PVP Mall, Kalamandir, Food, DMart..." class="w-full px-4 py-2 text-slate-900 rounded-l-lg focus:outline-none text-sm">
                 <button id="searchBtn" class="bg-rose-600 hover:bg-rose-700 px-5 py-2 rounded-r-lg text-sm font-bold transition">Search</button>
             </div>
             <div class="flex items-center space-x-3 text-xs font-semibold">
@@ -28,7 +29,7 @@
         </div>
     </header>
 
-    <!-- Side Navigation Drawer -->
+    <!-- Side Drawer -->
     <div id="sideDrawer" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden transition-opacity">
         <div class="bg-white w-80 h-full shadow-2xl flex flex-col justify-between overflow-y-auto">
             <div>
@@ -44,59 +45,98 @@
                 </div>
                 
                 <div class="p-4 border-b">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Popular Malls & Hubs</h3>
-                    <ul class="space-y-2 text-sm font-semibold text-slate-700">
-                        <li><a href="#" onclick="filterLocation('PVP Mall'); closeDrawer();" class="hover:text-rose-600 block">🏬 PVP Square Mall (MG Road)</a></li>
-                        <li><a href="#" onclick="filterLocation('Trendset'); closeDrawer();" class="hover:text-rose-600 block">🛍️ Trendset Mall (Benz Circle)</a></li>
-                        <li><a href="#" onclick="filterLocation('Governorpet'); closeDrawer();" class="hover:text-rose-600 block">🛒 Governorpet Wholesale Hub</a></li>
-                        <li><a href="#" onclick="filterLocation('Eluru Road'); closeDrawer();" class="hover:text-rose-600 block">📱 Eluru Road Electronics Market</a></li>
-                    </ul>
-                </div>
-
-                <div class="p-4 border-b">
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Categories</h3>
                     <ul class="space-y-2 text-sm font-semibold text-slate-700">
-                        <li><a href="#" onclick="filterCategory('Clothes'); closeDrawer();" class="hover:text-rose-600 block">👗 Shopping Malls & Clothes</a></li>
-                        <li><a href="#" onclick="filterCategory('Food'); closeDrawer();" class="hover:text-rose-600 block">🍔 Food & Mess Joints</a></li>
-                        <li><a href="#" onclick="filterCategory('Supermarkets'); closeDrawer();" class="hover:text-rose-600 block">🛒 Supermarkets & Groceries</a></li>
-                        <li><a href="#" onclick="filterCategory('Electronics'); closeDrawer();" class="hover:text-rose-600 block">💻 Electronics & Mobiles</a></li>
+                        <li><a href="#" onclick="openStoreModal('Clothes'); closeDrawer();" class="hover:text-rose-600 block">👗 Shopping Malls & Brands</a></li>
+                        <li><a href="#" onclick="openStoreModal('Food'); closeDrawer();" class="hover:text-rose-600 block">🍔 Food & Mess Joints</a></li>
+                        <li><a href="#" onclick="openStoreModal('Supermarkets'); closeDrawer();" class="hover:text-rose-600 block">🛒 Supermarkets & Groceries</a></li>
+                        <li><a href="#" onclick="openStoreModal('Electronics'); closeDrawer();" class="hover:text-rose-600 block">💻 Electronics & Mobiles</a></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="p-4 bg-slate-50 border-t text-xs text-slate-500 text-center">
                 &copy; 1996-2026 BezawadaDeals Hub
             </div>
         </div>
     </div>
 
-    <!-- Main Content Area -->
+    <!-- Main Content Body -->
     <div class="flex-grow">
         <section class="bg-slate-800 text-white py-6 px-4 text-center">
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-xl md:text-2xl font-extrabold mb-1">Vijayawada Major Malls & Markets Portal</h2>
-                <p class="text-slate-300 text-xs mb-3">PVP Square, Trendset Mall, Governorpet & Food Mess Offers</p>
+                <h2 class="text-2xl md:text-3xl font-extrabold mb-1">Vijayawada City Deals & Markets</h2>
+                <p class="text-slate-300 text-xs mb-4">PVP Mall, Kalamandir, Trendset, Governorpet, Eluru Road Offers</p>
+                
+                <div class="flex justify-center items-center gap-2 text-xs font-semibold">
+                    <span class="text-slate-400">Sort By Price:</span>
+                    <button onclick="filterSort('low_to_high')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-full transition">Low to High ₹</button>
+                    <button onclick="filterSort('high_to_low')" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded-full transition">High to Low ₹</button>
+                </div>
             </div>
         </section>
 
-        <!-- Location Filter Tabs (Malls, Restaurants, Supermarkets Seperate) -->
-        <div class="bg-white border-b sticky top-[60px] z-30 shadow-sm overflow-x-auto">
-            <div class="max-w-7xl mx-auto px-4 py-2 flex space-x-3 text-xs font-bold whitespace-nowrap">
-                <button onclick="filterLocation('All')" class="px-4 py-2 bg-rose-600 text-white rounded-full transition">🌟 All Offers</button>
-                <button onclick="filterLocation('PVP Mall')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full transition">🏬 PVP Square Mall</button>
-                <button onclick="filterLocation('Trendset')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full transition">🛍️ Trendset Mall</button>
-                <button onclick="filterLocation('Governorpet')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full transition">🛒 Governorpet Hub</button>
-                <button onclick="filterLocation('Eluru Road')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full transition">📱 Eluru Road Electronics</button>
-            </div>
-        </div>
+        <!-- 4 Main Category Cards (As shown in screenshot) -->
+        <main class="max-w-4xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-2 gap-4 text-center mb-4">
+                
+                <!-- Shopping Malls -->
+                <button onclick="openStoreModal('Clothes')" class="bg-white p-6 rounded-2xl border shadow-sm hover:shadow-md transition flex flex-col items-center justify-center">
+                    <div class="text-4xl mb-2">👗</div>
+                    <div class="font-bold text-sm text-slate-800">Shopping Malls</div>
+                </button>
 
-        <main class="max-w-7xl mx-auto px-4 py-6">
-            <h2 id="sectionTitle" class="text-lg font-bold mb-4 text-slate-800 border-l-4 border-rose-600 pl-3">All Active Offers in Vijayawada</h2>
-            <div id="deals-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+                <!-- Food & Mess -->
+                <button onclick="openStoreModal('Food')" class="bg-white p-6 rounded-2xl border shadow-sm hover:shadow-md transition flex flex-col items-center justify-center">
+                    <div class="text-4xl mb-2">🍔</div>
+                    <div class="font-bold text-sm text-slate-800">Food & Mess</div>
+                </button>
+
+                <!-- Supermarkets -->
+                <button onclick="openStoreModal('Supermarkets')" class="bg-white p-6 rounded-2xl border shadow-sm hover:shadow-md transition flex flex-col items-center justify-center">
+                    <div class="text-4xl mb-2">🛒</div>
+                    <div class="font-bold text-sm text-slate-800">Supermarkets</div>
+                </button>
+
+                <!-- Electronics -->
+                <button onclick="openStoreModal('Electronics')" class="bg-white p-6 rounded-2xl border shadow-sm hover:shadow-md transition flex flex-col items-center justify-center">
+                    <div class="text-4xl mb-2">💻</div>
+                    <div class="font-bold text-sm text-slate-800">Electronics</div>
+                </button>
+            </div>
+
+            <!-- View All Deals Button -->
+            <button onclick="resetFilters()" class="w-full bg-white p-4 rounded-2xl border shadow-sm hover:shadow-md transition flex items-center justify-center space-x-2">
+                <span class="text-xl">🌟</span>
+                <span class="font-bold text-sm text-slate-800">View All Deals</span>
+            </button>
         </main>
+
+        <!-- Deals Grid -->
+        <section class="max-w-7xl mx-auto px-4 py-4 mb-12">
+            <div class="flex justify-between items-center mb-4 border-l-4 border-rose-600 pl-3">
+                <h2 id="sectionTitle" class="text-lg font-bold text-slate-800">Available Deals in Vijayawada</h2>
+                <span id="activeFilterBadge" class="hidden text-xs bg-rose-100 text-rose-700 font-bold px-3 py-1 rounded-full"></span>
+            </div>
+            <div id="deals-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+        </section>
     </div>
 
-    <!-- Detailed Offer Popup -->
+    <!-- POPUP 1: Brand / Store Selection Modal -->
+    <div id="storeModal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl relative">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h3 id="storeModalTitle" class="font-black text-slate-900 text-lg">Select Store / Brand</h3>
+                <button id="closeStoreModal" class="text-2xl font-bold text-slate-400 hover:text-slate-800">&times;</button>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">Choose a specific mall or brand to view all available offers from start to end:</p>
+            
+            <div id="storeListContainer" class="space-y-2.5 max-h-72 overflow-y-auto pr-1">
+                <!-- Dynamically populated brands/stores -->
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP 2: Deal Detail Modal -->
     <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-xl max-w-lg w-full overflow-hidden shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button id="closeModal" class="absolute top-3 right-3 bg-slate-900 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg">&times;</button>
@@ -113,13 +153,13 @@
                         <span id="modalDiscount" class="text-base font-extrabold text-green-600"></span>
                     </div>
                     <div>
-                        <span class="text-xs text-slate-400 block">Offer Price</span>
+                        <span class="text-xs text-slate-400 block">Starting Price</span>
                         <span id="modalPrice" class="text-2xl font-black text-slate-900"></span>
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <h4 class="text-xs font-bold text-slate-800 uppercase mb-1">Offer Details</h4>
+                    <h4 class="text-xs font-bold text-slate-800 uppercase mb-1">Offer Description</h4>
                     <p id="modalDesc" class="text-xs text-slate-600 leading-relaxed"></p>
                 </div>
 
@@ -131,13 +171,47 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="bg-slate-900 text-white mt-auto py-6 text-center text-xs text-slate-400">
-        <p>&copy; 1996-2026 BezawadaDeals Hub | Dedicated Vijayawada Malls & Local Deals Aggregator</p>
+        <p>&copy; 1996-2026 BezawadaDeals Hub | Vijayawada Malls & Local Brands Aggregator</p>
     </footer>
 
     <script>
         let currentCategory = 'All';
-        let currentLoc = 'All';
+        let currentStore = 'All';
+        let currentSort = '';
+
+        // Store lists by category
+        const storeData = {
+            'Clothes': [
+                { name: 'All Shopping Malls & Brands', query: 'All' },
+                { name: '🏬 PVP Square Mall (MG Road)', query: 'PVP Mall' },
+                { name: '🛍️ Kalamandir (MG Road)', query: 'Kalamandir' },
+                { name: '🏬 Trendset Mall (Benz Circle)', query: 'Trendset' },
+                { name: '👗 Kalanikethan (Governorpet)', query: 'Kalanikethan' },
+                { name: '🏬 LEPL Centro Mall', query: 'LEPL Centro' },
+                { name: '👔 RS Brothers Shopping Mall', query: 'RS Brothers' }
+            ],
+            'Food': [
+                { name: 'All Restaurants & Mess Joints', query: 'All' },
+                { name: '🍲 Sai Charanam Aritaku Mess', query: 'Sai Charanam Mess' },
+                { name: '🍗 040 Biryani Special', query: '040 Biryani' },
+                { name: '🍛 Babai Hotel Traditional Tiffins', query: 'Babai Hotel' },
+                { name: '🍕 PVP Mall Food Court', query: 'PVP Food Court' }
+            ],
+            'Supermarkets': [
+                { name: 'All Supermarkets & Groceries', query: 'All' },
+                { name: '🛒 DMart Hypermarket (Bavajipet)', query: 'DMart' },
+                { name: '🛍️ Reliance SMART Bazaar (Governorpet)', query: 'Reliance SMART' },
+                { name: '🥦 Spencers Supermarket', query: 'Spencers' }
+            ],
+            'Electronics': [
+                { name: 'All Electronics Shops', query: 'All' },
+                { name: '📱 NTR Complex Mobile Hub (Governorpet)', query: 'NTR Complex' },
+                { name: '💻 Vijay Sales (Eluru Road)', query: 'Vijay Sales' },
+                { name: '📺 Sonovision Electronics Hub', query: 'Sonovision' }
+            ]
+        };
 
         const menuBtn = document.getElementById('menuBtn');
         const sideDrawer = document.getElementById('sideDrawer');
@@ -147,15 +221,72 @@
         closeMenu.addEventListener('click', closeDrawer);
         function closeDrawer() { sideDrawer.classList.add('hidden'); }
 
+        const storeModal = document.getElementById('storeModal');
+        const closeStoreModal = document.getElementById('closeStoreModal');
+        closeStoreModal.addEventListener('click', () => storeModal.classList.add('hidden'));
+
         const detailModal = document.getElementById('detailModal');
         const closeModal = document.getElementById('closeModal');
         closeModal.addEventListener('click', () => detailModal.classList.add('hidden'));
 
+        function openStoreModal(cat) {
+            currentCategory = cat;
+            const container = document.getElementById('storeListContainer');
+            container.innerHTML = '';
+
+            const categoryNames = {
+                'Clothes': 'Shopping Malls & Clothing Brands',
+                'Food': 'Restaurants & Food Mess',
+                'Supermarkets': 'Supermarkets & Daily Needs',
+                'Electronics': 'Electronics & Mobile Shops'
+            };
+
+            document.getElementById('storeModalTitle').innerText = categoryNames[cat] || 'Select Brand / Store';
+
+            const stores = storeData[cat] || [];
+            stores.forEach(s => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-3.5 bg-slate-50 hover:bg-rose-50 hover:border-rose-300 border rounded-xl font-bold text-xs text-slate-800 transition flex justify-between items-center";
+                btn.innerHTML = `<span>${s.name}</span> <span class="text-rose-600 font-extrabold text-sm">➔</span>`;
+                btn.onclick = () => {
+                    selectStore(s.query, s.name);
+                    storeModal.classList.add('hidden');
+                };
+                container.appendChild(btn);
+            });
+
+            storeModal.classList.remove('hidden');
+        }
+
+        function selectStore(storeQuery, storeDisplayName) {
+            currentStore = storeQuery;
+            
+            const badge = document.getElementById('activeFilterBadge');
+            if (storeQuery !== 'All') {
+                badge.innerText = "Selected: " + storeDisplayName.replace(/^[^\w\s]+/, '').trim();
+                badge.classList.remove('hidden');
+                document.getElementById('sectionTitle').innerText = storeDisplayName.replace(/^[^\w\s]+/, '').trim() + " - Live Offers";
+            } else {
+                badge.classList.add('hidden');
+                document.getElementById('sectionTitle').innerText = currentCategory + " Offers in Vijayawada";
+            }
+
+            fetchDeals();
+        }
+
+        function resetFilters() {
+            currentCategory = 'All';
+            currentStore = 'All';
+            document.getElementById('activeFilterBadge').classList.add('hidden');
+            document.getElementById('sectionTitle').innerText = "Available Deals in Vijayawada";
+            fetchDeals();
+        }
+
         async function fetchDeals() {
             let search = document.getElementById('searchInput').value;
-            if(currentLoc !== 'All') search = currentLoc;
+            if (currentStore !== 'All') search = currentStore;
 
-            let url = `/api/offers?category=${encodeURIComponent(currentCategory)}&search=${encodeURIComponent(search)}`;
+            let url = `/api/offers?category=${encodeURIComponent(currentCategory)}&search=${encodeURIComponent(search)}&sort=${currentSort}`;
             
             try {
                 let res = await fetch(url);
@@ -171,7 +302,9 @@
             container.innerHTML = '';
 
             if (!deals || deals.length === 0) {
-                container.innerHTML = `<p class="text-center text-slate-500 col-span-3 py-10 font-semibold">No active deals found for this selection.</p>`;
+                container.innerHTML = `<div class="col-span-3 text-center py-12 bg-white rounded-xl border border-dashed p-6">
+                    <p class="text-slate-500 font-semibold text-sm">No active offers found for this selection.</p>
+                </div>`;
                 return;
             }
 
@@ -215,17 +348,8 @@
             detailModal.classList.remove('hidden');
         }
 
-        function filterCategory(cat) {
-            currentCategory = cat;
-            currentLoc = 'All';
-            document.getElementById('sectionTitle').innerText = cat + " Deals in Vijayawada";
-            fetchDeals();
-        }
-
-        function filterLocation(loc) {
-            currentLoc = loc;
-            currentCategory = 'All';
-            document.getElementById('sectionTitle').innerText = loc === 'All' ? "All Active Offers in Vijayawada" : loc + " Special Offers";
+        function filterSort(sortType) {
+            currentSort = sortType;
             fetchDeals();
         }
 
