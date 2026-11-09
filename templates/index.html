@@ -1,3 +1,68 @@
+<!-- Deals Display Section -->
+<section class="max-w-7xl mx-auto px-4 py-8" id="deals-section">
+    <h2 class="text-2xl font-bold mb-6 text-slate-800">Available Deals in Vijayawada</h2>
+    <div id="deals-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Deals will load here dynamically -->
+    </div>
+</section>
+
+<!-- JavaScript to fetch and display deals -->
+<script>
+    async function loadDeals(category = 'All') {
+        try {
+            let url = '/api/offers';
+            if (category !== 'All') {
+                url += `?category=${encodeURIComponent(category)}`;
+            }
+            let response = await fetch(url);
+            let result = await response.json();
+            
+            let container = document.getElementById('deals-container');
+            container.innerHTML = '';
+            
+            if (result.data && result.data.length > 0) {
+                result.data.forEach(deal => {
+                    let card = `
+                        bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition flex flex-col justify-between
+                    `;
+                    let cardDiv = document.createElement('div');
+                    cardDiv.className = card;
+                    cardDiv.innerHTML = `
+                        <div>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-rose-100 text-rose-600 rounded-full">${deal.category}</span>
+                            <h3 class="font-bold text-lg text-slate-800 mt-3">${deal.title}</h3>
+                            <p class="text-sm text-slate-500 mt-1">📍 ${deal.place_name}</p>
+                            <p class="text-sm text-slate-600 mt-2">${deal.description}</p>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between border-t pt-4 border-slate-100">
+                            <span class="text-rose-600 font-bold">${deal.discount}</span>
+                            <span class="text-slate-900 font-extrabold text-lg">₹${deal.price}</span>
+                        </div>
+                    `;
+                    container.appendChild(cardDiv);
+                });
+            } else {
+                container.innerHTML = `<p class="text-slate-500 col-span-3 text-center py-6">No deals found for this category right now.</p>`;
+            }
+        } catch (err) {
+            console.error("Error loading deals:", err);
+        }
+    }
+
+    // Page load అయిన వెంటనే అన్ని డీల్స్ చూపించడానికి
+    loadDeals('All');
+
+    // కేటగిరీల (Clothes, Food మొదలైనవి) మీద క్లిక్ చేస్తే ఆటోమేటిక్‌గా ఫిల్టర్ అవ్వడానికి
+    document.querySelectorAll('#Categories div').forEach(item => {
+        item.style.cursor = 'pointer';
+        item.item_category = item.querySelector('h4').innerText.trim();
+        item.addEventListener('click', () => {
+            loadDeals(item.item_category);
+            document.getElementById('deals-section').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
