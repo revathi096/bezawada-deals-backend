@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template_string
+from flask import Flask, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -22,11 +22,8 @@ with app.app_context():
 
 @app.route('/')
 def home():
-    try:
-        with open('index.html', 'r', encoding='utf-8') as f:
-            return render_template_string(f.read())
-    except Exception as e:
-        return "BezawadaDeals Premium Platform is Live!"
+    return render_template('index.html')
+    
 
 @app.route('/api/offers', methods=['GET'])
 def get_offers():
