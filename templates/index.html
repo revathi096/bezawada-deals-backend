@@ -8,7 +8,7 @@
 </head>
 <body class="bg-slate-100 text-slate-900 font-sans antialiased min-h-screen flex flex-col justify-between">
     
-    <!-- Top Header with Custom Logo -->
+    <!-- Top Header with Logo -->
     <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-md">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
@@ -28,19 +28,17 @@
         </div>
     </header>
 
-    <!-- Side Navigation Drawer (Amazon Style Custom Profile Logo) -->
+    <!-- Side Navigation Drawer (Amazon Browse Style) -->
     <div id="sideDrawer" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden transition-opacity">
         <div class="bg-white w-80 h-full shadow-2xl flex flex-col justify-between overflow-y-auto">
             <div>
-                <!-- Custom Profile Logo Header -->
+                <!-- Amazon Browse Style Header -->
                 <div class="bg-slate-900 text-white p-5 flex justify-between items-center">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center font-black text-white text-base shadow-inner">
-                            AR
-                        </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-2xl">👤</span>
                         <div>
-                            <span class="text-xs text-slate-400 block">Hello,</span>
-                            <span class="font-bold text-sm text-white">Angadi Revathi</span>
+                            <span class="text-[10px] text-slate-400 block tracking-wider uppercase font-bold">Browse BezawadaDeals</span>
+                            <span class="font-bold text-base text-white">Hello, Sign in</span>
                         </div>
                     </div>
                     <button id="closeMenu" class="text-2xl font-bold text-slate-300 hover:text-white">&times;</button>
@@ -55,7 +53,7 @@
                 </div>
 
                 <div class="p-4 border-b">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Categories</h3>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Top Categories for You</h3>
                     <ul class="space-y-2 text-sm font-semibold text-slate-700">
                         <li><a href="#" onclick="filterCategory('Clothes'); closeDrawer();" class="hover:text-rose-600 block">👗 Shopping Malls & Clothes</a></li>
                         <li><a href="#" onclick="filterCategory('Food'); closeDrawer();" class="hover:text-rose-600 block">🍔 Food & Mess Joints</a></li>
@@ -65,7 +63,7 @@
                 </div>
 
                 <div class="p-4">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Account & Help</h3>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Programs & Features</h3>
                     <ul class="space-y-2 text-sm font-semibold text-slate-700">
                         <li><a href="/orders" class="hover:text-rose-600 block">📦 Your Saved Orders / Deals</a></li>
                         <li><a href="/account" class="hover:text-rose-600 block">👤 Your Account</a></li>
