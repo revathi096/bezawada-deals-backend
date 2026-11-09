@@ -22,7 +22,12 @@ with app.app_context():
 
 @app.route('/')
 def home():
-    return "BezawadaDeals Database Backend is Live!"
+    try:
+        with open('index.html', 'r', encoding='utf-8') as f:
+            return render_template_string(f.read())
+    except Exception as e:
+        return "BezawadaDeals Database Backend is Live!"
+        
 
 # 1. అన్ని మాల్స్ & ఫుడ్ ఆఫర్లను చూడటానికి (GET API)
 @app.route('/api/offers', methods=['GET'])
