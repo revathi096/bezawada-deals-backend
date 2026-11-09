@@ -53,6 +53,18 @@ with app.app_context():
 def home():
     return render_template('index.html')
 
+@app.route('/orders')
+def orders():
+    return render_template('orders.html')
+
+@app.route('/account')
+def account():
+    return render_template('account.html')
+
+@app.route('/customer-service')
+def customer_service():
+    return render_template('customer_service.html')
+
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
