@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, request, render_template, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 
@@ -27,11 +28,8 @@ ADMIN_CREDENTIALS = {
 
 with app.app_context():
     db.create_all()
-    
-    # ఒకవేళ డేటాబేస్ ఖాళీగా ఉంటే లేదా కొత్త కేటగిరీలు యాడ్ అవ్వాలంటే అన్నింటిని లోడ్ చేస్తుంది
-    if Deal.query.count() < 5:
+    if Deal.query.count() < 4:
         initial_deals = [
-            # Supermarkets
             Deal(
                 place_name="Bavajipet - Samba Murthy Road", 
                 category="Supermarkets", 
@@ -54,8 +52,6 @@ with app.app_context():
                 terms="Offer valid on select grocery brands.",
                 address="Gopala Reddy Road, Governorpet, Vijayawada 520002"
             ),
-            
-            # Electronics
             Deal(
                 place_name="Governorpet - NTR Complex", 
                 category="Electronics", 
@@ -78,8 +74,6 @@ with app.app_context():
                 terms="0% Interest EMI options available via major bank cards.",
                 address="Eluru Road, Near Governorpet Junction, Vijayawada 520002"
             ),
-            
-            # Food & Mess
             Deal(
                 place_name="Governorpeta, Vijayawada", 
                 category="Food", 
@@ -91,19 +85,6 @@ with app.app_context():
                 terms="Valid on all days. Dine-in only.",
                 address="Governorpeta, near Santhi Theatre road, Vijayawada 520002"
             ),
-            Deal(
-                place_name="Gandhi Nagar, Vijayawada", 
-                category="Food", 
-                title="040 Biryani Special Family Combo", 
-                description="Hyderabadi & Spicy Bezawada style Biryani with starters.", 
-                discount="15% OFF", 
-                price=299.0,
-                image_url="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80",
-                terms="Applicable on takeaway and dine-in.",
-                address="26-1-3, Opp Sailaja Theater, Gandhi Nagar, Vijayawada 520003"
-            ),
-
-            # Clothes / Malls
             Deal(
                 place_name="PVP Square Mall (MG Road)", 
                 category="Clothes", 
@@ -227,4 +208,16 @@ def get_offers():
         "id": d.id,
         "place_name": d.place_name,
         "category": d.category,
-        "title": d.
+        "title": d.title,
+        "description": d.description,
+        "discount": d.discount,
+        "price": d.price,
+        "image_url": d.image_url,
+        "terms": d.terms,
+        "address": d.address
+    } for d in deals]
+    
+    return jsonify({"status": "success", "data": result})
+
+if __name__ == '__main__':
+    app.run(debug=True)
