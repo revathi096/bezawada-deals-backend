@@ -1,3 +1,9 @@
 Flask
 gunicorn
 Flask-SQLAlchemy
+fastapi
+uvicorn
+openai
+supabase
+pandas
+python-multipart
