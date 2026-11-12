@@ -268,3 +268,125 @@ def get_offers():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from openai import OpenAI
+from supabase import create_client
+import pandas as pd
+import os
+
+app = FastAPI(title="Vijayawada AI Platform Backend")
+
+# CORS సెటప్ (ఫ్రంట్ ఎండ్ కనెక్ట్ అవ్వడానికి)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ఎన్విరాన్మెంట్ వేరియబుల్స్ నుండి కీస్ తీసుకోవడం
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
+
+client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY) if (SUPABASE_URL and SUPABASE_KEY) else None
+
+class ChatRequest(BaseModel):
+    message: str
+    language: str = "Telugu"  # Telugu, English, Hindi
+    mode: str = "local_info"  # local_info, code_assistant, data_analysis
+    session_id: str = "default-session"
+
+@app.get("/")
+def home():
+    return {"status": "Vijayawada AI Platform Backend is running successfully!"}
+
+@app.post("/chat")
+async def chat_endpoint(req: ChatRequest):
+    if not client:
+        raise HTTPException(status_code=500, OpenAI="OpenAI API key is not configured.")
+        
+    context = ""
+    
+    # 1. విజయవాడ లోకల్ సమాచారం కోసం వెక్టర్ సెర్చ్ (Supabase ఉంటే)
+    if req.mode == "local_info" and supabase:
+        try:
+            emb_response = client.embeddings.create(
+                input=req.message,
+                model="text-embedding-3-small"
+            )
+            query_vector = emb_response.data[0].embedding
+            
+            # Supabase RPC కాల్
+            matches = supabase.rpc("match_vijayawada_info", {
+                "query_embedding": query_vector,
+                "match_threshold": 0.5,
+                "match_count": 5
+            }).execute()
+            
+            if matches.data:
+                context = "\n".join([item.get('details', '') for item in matches.data])
+        except Exception as e:
+            print(f"Vector search warning: {e}")
+
+    # 2. మోడ్ ప్రకారం ప్రాంప్ట్స్ సెట్ చేయడం
+    system_prompts = {
+        "local_info": f"""నీవు విజయవాడ (Vijayawada) ఆల్-ఇన్-వన్ లోకల్ గైడ్ AI. 
+        యూజర్ అడిగే ప్రశ్నలకు (షాప్స్, ఫుడ్, బట్టలు, రోజువారీ కూలీ పనులు, సర్వీసులు మొదలైనవి) {req.language} భాషలో ఖచ్చితమైన సమాచారం ఇవ్వు.
+        స్థానిక సమాచారం (Context): {context}""",
+        
+        "code_assistant": f"You are an expert Coding Assistant. Provide clear explanations and clean code snippets in {req.language}.",
+        
+        "data_analysis": f"You are an expert Data Analyst. Explain data insights clearly and simply in {req.language}."
+    }
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": system_prompts.get(req.mode, system_prompts["local_info"])},
+                {"role": "user", "content": req.message}
+            ]
+        )
+        ai_reply = response.choices[0].message.content
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    # 3. Supabase లో చాట్ హిస్టరీ సేవ్ చేయడం (అందుబాటులో ఉంటే)
+    if supabase:
+        try:
+            supabase.table("chat_messages").insert([
+                {"session_id": req.session_id, "role": "user", "content": req.message, "mode": req.mode},
+                {"session_id": req.session_id, "role": "assistant", "content": ai_reply, "mode": req.mode}
+            ]).execute()
+        except Exception as e:
+            print(f"Chat save warning: {e}")
+
+    return {"reply": ai_reply}
+
+# Data Analysis కోసం CSV/Excel ఫైల్ అప్‌లోడ్ API
+@app.post("/analyze-data")
+async def analyze_data(file: UploadFile = File(...), question: str = "Summarize this data"):
+    try:
+        df = pd.read_csv(file.file)
+        summary = df.describe().to_string()
+        
+        if not client:
+            return {"analysis": f"Dataset Summary:\n{summary}"}
+            
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "Analyze this dataset summary and give useful business insights."},
+                {"role": "user", "content": f"Data Summary:\n{summary}\n\nUser Question: {question}"}
+            ]
+        )
+        return {"analysis": response.choices[0].message.content}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error processing file: {str(e)}")
+        
