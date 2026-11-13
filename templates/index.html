@@ -1,226 +1,125 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Vijayawada local shopping, restaurants, jobs, markets and daily needs directory.">
-<title>Vijayawada Smart Needs</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#17243a}
-header{background:#123d75;color:white;padding:22px 5%;text-align:center}
-header h1{margin:0;font-size:27px}
-header p{margin:8px 0 0}
-nav{background:white;padding:13px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
-nav a{color:#123d75;text-decoration:none;font-weight:bold}
-.hero{padding:35px 5%;text-align:center;background:#e5efff}
-.hero h2{font-size:27px}
-.search{width:min(650px,95%);padding:15px;border:1px solid #ccd5e2;border-radius:9px;font-size:16px}
-select,input,textarea{padding:12px;border:1px solid #ccd5e2;border-radius:8px;font-size:15px;max-width:100%}
-.filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:15px}
-main{max-width:1200px;margin:auto;padding:25px 15px}
-h2.section{font-size:23px}
-.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
-.cat{background:white;padding:18px 8px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid #e1e7ef;font-weight:bold}
-.cat span{display:block;font-size:27px;margin-bottom:8px}
-.cat:hover,.cat.active{background:#dceaff;border-color:#2768bd}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px}
-.card{background:white;padding:18px;border-radius:12px;box-shadow:0 2px 9px #17243a12}
-.card h3{margin:0 0 9px;color:#174c8e}
-.tag{display:inline-block;background:#e8f1ff;color:#174c8e;padding:5px 9px;border-radius:15px;font-size:12px}
-.card p{font-size:14px;line-height:1.6}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{display:inline-block;padding:10px 13px;border-radius:7px;background:#1757a5;color:white;text-decoration:none;border:0;cursor:pointer}
-.btn.secondary{background:#16834e}
-form{display:grid;gap:12px;background:white;padding:20px;border-radius:12px}
-footer{text-align:center;background:#123d75;color:white;padding:25px;margin-top:35px}
-.small{color:#65748b;font-size:13px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijayawada Smart Needs - విజయవాడ స్మార్ట్ అవసరాలు</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-600"> Vijayawada Smart Needs</h1>
+            <nav class="space-x-4 text-sm font-medium">
+                <a href="#" class="hover:text-blue-600">Home</a>
+                <a href="#categories" class="hover:text-blue-600">Categories</a>
+                <a href="#explore" class="hover:text-blue-600">Explore</a>
+            </nav>
+        </div>
+    </header>
 
-<header>
-<h1>🏙️ Vijayawada Smart Needs</h1>
-<p>Your City. Your Needs. Everything in One Place.</p>
-</header>
+    <!-- Hero Section -->
+    <section class="bg-blue-600 text-white py-12 px-4 text-center">
+        <h2 class="text-3xl font-bold mb-3">విజయవాడలో మీకు కావాల్సిన ప్రతిదీ ఒకేచోట!</h2>
+        <p class="text-blue-100 mb-6 text-sm">Shopping • Food • Jobs • Markets • Services</p>
+        
+        <!-- Search & Filters -->
+        <div class="max-w-2xl mx-auto bg-white p-3 rounded-xl shadow-lg flex flex-col md:flex-row gap-2">
+            <input type="text" id="searchInput" placeholder="Search PVP Mall, Benz Circle, Hotels..." class="flex-1 px-4 py-2 text-slate-800 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500">
+            <button onclick="handleSearch()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition">Search</button>
+        </div>
+    </section>
 
-<nav>
-<a href="#categories">Categories</a>
-<a href="#explore">Explore</a>
-<a href="#add">Add Business</a>
-<a href="#about">About</a>
-</nav>
+    <!-- Categories Section -->
+    <section id="categories" class="max-w-6xl mx-auto px-4 py-10">
+        <h3 class="text-2xl font-bold mb-6 text-slate-800">Explore All Needs</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            
+            <div onclick="selectCategory('Shopping')" class="bg-white p-5 rounded-xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 transition text-center">
+                <div class="text-3xl mb-2">🛍️</div>
+                <h4 class="font-semibold text-slate-700">Shopping</h4>
+            </div>
 
-<section class="hero">
-<h2>విజయవాడలో మీకు కావాల్సిన ప్రతిదీ ఒకేచోట!</h2>
-<p>Shopping • Food • Jobs • Markets • Services</p>
-<input class="search" id="search"
-placeholder="Search malls, hotels, jobs, vegetables..."
-oninput="render()">
-<div class="filters">
-<select id="budget" onchange="render()">
-<option value="">All Budgets</option>
-<option>Low</option>
-<option>Medium</option>
-<option>High</option>
-</select>
-<select id="area" onchange="render()">
-<option value="">All Areas</option>
-<option>Labbipet</option>
-<option>Benz Circle</option>
-<option>Governorpet</option>
-<option>Patamata</option>
-<option>Gandhinagar</option>
-<option>Satyanarayanapuram</option>
-</select>
-</div>
-</section>
+            <div onclick="selectCategory('Restaurants')" class="bg-white p-5 rounded-xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 transition text-center">
+                <div class="text-3xl mb-2">🍽️</div>
+                <h4 class="font-semibold text-slate-700">Restaurants</h4>
+            </div>
 
-<main>
-<h2 class="section" id="categories">Explore All Needs</h2>
-<div class="categories" id="categoriesGrid"></div>
+            <div onclick="selectCategory('Vegetables & Markets')" class="bg-white p-5 rounded-xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 transition text-center">
+                <div class="text-3xl mb-2">🥬</div>
+                <h4 class="font-semibold text-slate-700">Vegetables & Markets</h4>
+            </div>
 
-<h2 class="section" id="explore">Vijayawada Local Directory</h2>
-<p class="small">Listings are starting examples. Confirm details before visiting.</p>
-<div class="cards" id="results"></div>
+            <div onclick="selectCategory('Daily Wage Jobs')" class="bg-white p-5 rounded-xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 transition text-center">
+                <div class="text-3xl mb-2">💼</div>
+                <h4 class="font-semibold text-slate-700">Daily Wage Jobs</h4>
+            </div>
 
-<h2 class="section" id="add">Add Your Shop / Service / Job</h2>
-<p>Local shop owners and service providers can submit their details.</p>
-<form id="listingForm">
-<input id="name" placeholder="Business / Service Name" required>
-<select id="category" required>
-<option value="">Select Category</option>
-<option>Shopping</option><option>Restaurants</option>
-<option>Vegetables & Markets</option><option>Daily Needs</option>
-<option>Electronics</option><option>Daily Wage Jobs</option>
-<option>Home Services</option><option>Health</option>
-<option>Education</option><option>Transport</option>
-</select>
-<input id="location" placeholder="Area / Address" required>
-<input id="phone" placeholder="Phone Number">
-<select id="level">
-<option>Low</option><option>Medium</option><option>High</option>
-</select>
-<textarea id="description" placeholder="Describe your shop, service or job"></textarea>
-<button class="btn" type="submit">Submit Listing</button>
-<p class="small" id="formMessage"></p>
-</form>
+            <div onclick="selectCategory('Daily Needs')" class="bg-white p-5 rounded-xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 transition text-center">
+                <div class="text-3xl mb-2">🛒</div>
+                <h4 class="font-semibold text-slate-700">Daily Needs</h4>
+            </div>
 
-<section id="about">
-<h2 class="section">About Us</h2>
-<p>Vijayawada Smart Needs helps people discover local shops, restaurants, jobs, markets and essential services in Vijayawada.</p>
-<h3>Contact Us</h3>
-<p>Business listing and corrections: Add your contact email here.</p>
-<h3>Privacy Policy</h3>
-<p>We collect listing information submitted by users. Contact details should be shared only with permission. We do not guarantee third-party prices or availability.</p>
-</section>
-</main>
+            <div onclick="selectCategory('Electronics')" class="bg-white p-5 rounded-xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 transition text-center">
+                <div class="text-3xl mb-2">📱</div>
+                <h4 class="font-semibold text-slate-700">Electronics</h4>
+            </div>
 
-<footer>
-<p>© 2026 Vijayawada Smart Needs</p>
-<p>Made for Vijayawada ❤️</p>
-</footer>
+        </div>
+    </section>
 
-<script>
-const categories=[
-["🛍️","Shopping"],["🍽️","Restaurants"],
-["🥬","Vegetables & Markets"],["💼","Daily Wage Jobs"],
-["🛒","Daily Needs"],["📱","Electronics"],
-["🔧","Home Services"],["🏥","Health"],
-["🎓","Education"],["🚗","Transport"]
-];
+    <!-- Results Display Section -->
+    <section id="resultsSection" class="max-w-6xl mx-auto px-4 py-6 mb-12 hidden">
+        <h3 id="resultTitle" class="text-xl font-bold text-slate-800 mb-4">Results</h3>
+        <div id="resultBox" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            <!-- Dynamic Data Appears Here -->
+        </div>
+    </section>
 
-const listings=[
-{name:"PVP Square",category:"Shopping",area:"Labbipet",
-address:"39-1-57, MG Road, Labbipet",budget:"Medium",
-description:"Shopping mall, food, cinema and entertainment."},
-{name:"Trendset Mall",category:"Shopping",area:"Benz Circle",
-address:"MG Road, Benz Circle",budget:"Medium",
-description:"Shopping, dining and entertainment."},
-{name:"LEPL Centro",category:"Shopping",area:"Labbipet",
-address:"40-1-146A, MG Road",budget:"High",
-description:"Shopping and entertainment mall."},
-{name:"D Mart",category:"Daily Needs",area:"Gandhinagar",
-address:"Samba Murthy Road, Bavajipet",budget:"Low",
-description:"Groceries and household essentials."},
-{name:"Modern Super Market",category:"Daily Needs",area:"Governorpet",
-address:"Besant Road, Governorpet",budget:"Medium",
-description:"Supermarket and groceries."},
-{name:"Rythu Bazaar",category:"Vegetables & Markets",
-area:"Satyanarayanapuram",address:"Satyanarayanapuram",
-budget:"Low",description:"Fresh vegetables and fruits market."},
-{name:"Patamata Rythu Bazaar",
-category:"Vegetables & Markets",area:"Patamata",
-address:"High School Road, Patamata",budget:"Low",
-description:"Farmers market and fresh produce."},
-{name:"Croma Benz Circle",category:"Electronics",
-area:"Benz Circle",address:"MG Road, Benz Circle",
-budget:"High",description:"Electronics and home appliances."}
-];
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-slate-400 text-center py-6 text-sm">
+        <p>&copy; 2026 Vijayawada Smart Needs. All rights reserved.</p>
+    </footer>
 
-function renderCategories(){
-document.getElementById("categoriesGrid").innerHTML=
-categories.map(c=>`
-<div class="cat" onclick="selectCategory('${c[1]}')">
-<span>${c[0]}</span>${c[1]}</div>`).join("");
-}
+    <!-- Interactive JavaScript -->
+    <script>
+        const mockData = {
+            "Shopping": "PVP Mall, MG Road (Offers: Up to 50% off), Trendz, Kalamandir (Patamata), Besant Road Markets.",
+            "Restaurants": "SS Biryani (Benz Circle), Ruchi Restaurant (Governorpet), Sweet Magic (Labbipet).",
+            "Vegetables & Markets": "Rythu Bazaar (Suryaraopeta, Patamata), Gollapudi Wholesale Market - Daily fresh stock available.",
+            "Daily Wage Jobs": "Construction, Delivery Executives, Store Helpers needed in Benz Circle and Eluru Road areas. Contact local contractors.",
+            "Daily Needs": "Groceries, Milk delivery, and household essentials available across all 64 wards.",
+            "Electronics": "Murali Mobiles (Eluru Road), Reliance Digital (MG Road) - Best exchange offers."
+        };
 
-let selected="";
-function selectCategory(category){
-selected=selected===category?"":category;
-render();
-}
+        function selectCategory(categoryName) {
+            const section = document.getElementById('resultsSection');
+            const title = document.getElementById('resultTitle');
+            const box = document.getElementById('resultBox');
 
-function render(){
-const q=document.getElementById("search").value.toLowerCase();
-const b=document.getElementById("budget").value;
-const a=document.getElementById("area").value;
+            title.innerText = "Category: " + categoryName;
+            box.innerText = mockData[categoryName] || "సమాచారం అందుబాటులో ఉంది.";
+            section.classList.remove('hidden');
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
 
-const data=listings.filter(x=>
-(!selected||x.category===selected)&&
-(!b||x.budget===b)&&
-(!a||x.area===a)&&
-(x.name+" "+x.category+" "+x.area+" "+x.address+" "+x.description)
-.toLowerCase().includes(q)
-);
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if(!query) {
+                alert("దయచేసి ఏదైనా సెర్చ్ చేయండి (ఉదా: PVP Mall)");
+                return;
+            }
+            const section = document.getElementById('resultsSection');
+            const title = document.getElementById('resultTitle');
+            const box = document.getElementById('resultBox');
 
-document.getElementById("results").innerHTML=data.length?
-data.map(x=>`
-<div class="card">
-<span class="tag">${x.category}</span>
-<h3>${x.name}</h3>
-<p>📍 ${x.address}</p>
-<p>📌 ${x.area}</p>
-<p>Budget: ${x.budget}</p>
-<p>${x.description}</p>
-<div class="actions">
-<a class="btn" target="_blank" rel="noopener"
-href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.name+" "+x.address+" Vijayawada")}">Map</a>
-</div>
-</div>`).join("")
-:'<p>No listings found. Try another search.</p>';
-}
-
-document.getElementById("listingForm").addEventListener("submit",e=>{
-e.preventDefault();
-const item={
-name:document.getElementById("name").value,
-category:document.getElementById("category").value,
-area:document.getElementById("location").value,
-address:document.getElementById("location").value,
-budget:document.getElementById("level").value,
-description:document.getElementById("description").value
-};
-listings.push(item);
-render();
-e.target.reset();
-document.getElementById("formMessage").textContent=
-"Listing added in this browser preview. Connect a database for public storage.";
-});
-
-renderCategories();
-render();
-</script>
+            title.innerText = "Search Results for: " + query;
+            box.innerText = `విజయవాడలో '${query}' కి సంబంధించిన దుకాణాలు, ఆఫర్లు మరియు లొకేషన్ వివరాలు త్వరలో అప్‌డేట్ చేయబడతాయి. (Selected Area: Benz Circle)`;
+            section.classList.remove('hidden');
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
