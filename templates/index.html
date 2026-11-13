@@ -3,84 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vijayawada Smart Needs - Official City E-Commerce & Wards Directory</title>
+    <title>Vijayawada Smart Needs - Official 64 Wards Digital City Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-900 antialiased flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-900 antialiased flex flex-col min-h-screen">
 
-    <!-- Top Live Ticker Bar -->
-    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 overflow-x-auto whitespace-nowrap border-b border-slate-800">
+    <!-- Top Live Ticker & Market Price Trends Bar -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2.5 px-4 overflow-x-auto whitespace-nowrap border-b border-slate-800 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center gap-6">
             <span class="font-bold text-amber-400 flex items-center gap-1">⚡ VIJAYAWADA 64 WARDS LIVE:</span>
-            <span>Gold: <strong>Rs. 7,150/gm</strong></span>
+            <span>Gold (22K): <strong>Rs. 7,150/gm</strong></span>
             <span>Petrol: <strong>Rs. 109.45/L</strong></span>
-            <span>Tomato: <strong>Rs. 28/Kg</strong></span>
-            <span>Onion: <strong>Rs. 35/Kg</strong></span>
+            <span>Tomato: <strong class="text-emerald-400">Rs. 28/Kg 📉</strong></span>
+            <span>Onion: <strong class="text-amber-400">Rs. 35/Kg 📈</strong></span>
+            <span>Rice (25Kg): <strong>Rs. 1,350</strong></span>
             <span class="text-blue-400 font-semibold">🌤️ Weather: 31°C | AQI: 72 (Moderate)</span>
         </div>
     </div>
 
-    <!-- Official Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-200">
+    <!-- Official Header with Cart Badge & Vendor Login -->
+    <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer" onclick="resetAll()">
                 <div class="bg-blue-600 text-white w-10 h-10 rounded-xl flex items-center justify-center font-extrabold text-xl shadow-md">VSN</div>
                 <div>
                     <h1 class="text-lg md:text-xl font-extrabold text-slate-900 tracking-tight leading-none">Vijayawada <span class="text-blue-600">Smart Needs</span></h1>
-                    <p class="text-[10px] uppercase tracking-wider font-bold text-slate-400 mt-0.5">Official E-Commerce & City Portal</p>
+                    <p class="text-[10px] uppercase tracking-wider font-bold text-slate-400 mt-0.5">Official 64 Wards Portal</p>
                 </div>
             </div>
             <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
                 <a href="#" onclick="resetAll()" class="hover:text-blue-600 transition">All Wards</a>
                 <a href="#categories" class="hover:text-blue-600 transition">Departments</a>
                 <a href="#emergency" class="text-red-600 font-bold hover:text-red-700 transition">Emergency SOS</a>
-                <a href="#" onclick="openPolicyModal('about')" class="hover:text-blue-600 transition">About Us</a>
-                <a href="#" onclick="openPolicyModal('contact')" class="hover:text-blue-600 transition">Contact</a>
+                <a href="#" onclick="openVendorModal()" class="text-blue-600 font-bold hover:underline">Vendor Login</a>
+                <a href="#" onclick="openPolicyModal('about')" class="hover:text-blue-600 transition">About</a>
             </nav>
-            <div>
-                <button onclick="openAddModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs md:text-sm font-bold px-4 py-2.5 rounded-xl shadow transition">
+            <div class="flex items-center gap-3">
+                <!-- Cart & Wishlist Badge Button -->
+                <button onclick="openCartModal()" class="relative bg-slate-100 hover:bg-slate-200 text-slate-800 p-2.5 rounded-xl transition flex items-center gap-1.5 text-xs font-bold">
+                    <span>🛒 Cart</span>
+                    <span id="cartCount" class="bg-blue-600 text-white px-2 py-0.5 rounded-full text-[10px]">0</span>
+                </button>
+                <button onclick="openAddModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs md:text-sm font-bold px-3.5 py-2.5 rounded-xl shadow transition">
                     + Add Business
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Professional E-Commerce Hero Section -->
+    <!-- Advanced E-Commerce Search & Filter Section -->
     <section class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-5xl mx-auto text-center">
             <span class="bg-blue-700/60 text-blue-200 border border-blue-400/30 text-xs font-semibold px-3 py-1 rounded-full mb-3 inline-block">
-                🛍️ All 64 Wards Multi-Category Catalog & Local Directory
+                🛍️ All 64 Wards Complete Local Directory & Catalog
             </span>
-            <h2 class="text-2xl sm:text-4xl font-extrabold mb-4">విజయవాడ అన్ని వార్డుల షాపులు, మాల్స్ & బ్రాండ్స్ ఒకేచోట</h2>
+            <h2 class="text-2xl sm:text-4xl font-extrabold mb-4">విజయవాడ అన్ని వార్డుల షాపులు, బ్రాండ్లు & ధరలు ఒకేచోట</h2>
             <p class="text-slate-300 text-xs sm:text-sm mb-8 max-w-2xl mx-auto">
-                Explore stores like Amazon & Flipkart with department filters (Men, Women, Kids), exact pricing, and local ward availability across Vijayawada.
+                Filter by Department (Women, Men, Kids, Food), Size, Price Range, and Ward across Vijayawada.
             </p>
 
             <!-- Multi-Filter Bar -->
-            <div class="bg-white p-4 rounded-2xl shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-3 text-slate-800 text-left">
-                <div class="md:col-span-4">
-                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Search Products / Stores</label>
-                    <input type="text" id="searchInput" onkeyup="filterListings()" placeholder="Search Kurtis, Shoes, Biryani..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none">
-                </div>
+            <div class="bg-white p-4 rounded-3xl shadow-2xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-3 text-slate-800 text-left">
                 <div class="md:col-span-3">
-                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Department Filter</label>
-                    <select id="deptFilter" onchange="filterListings()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:outline-none">
-                        <option value="ALL">All Departments (Men, Women, Kids)</option>
-                        <option value="Women">Women's Fashion & Wear</option>
-                        <option value="Men">Men's Wear & Grooming</option>
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Search Keywords</label>
+                    <input type="text" id="searchInput" onkeyup="filterListings()" placeholder="Search Kurtis, Shoes..." class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Department</label>
+                    <select id="deptFilter" onchange="filterListings()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none">
+                        <option value="ALL">All Depts</option>
+                        <option value="Women">Women's Wear</option>
+                        <option value="Men">Men's Wear</option>
                         <option value="Kids">Kids & Toys</option>
-                        <option value="Food">Food & Restaurants</option>
-                        <option value="Grocery">Grocery & Daily Needs</option>
-                        <option value="Medical">Medical & Healthcare</option>
+                        <option value="Food">Food & Dining</option>
+                        <option value="Grocery">Grocery & D-Mart</option>
+                        <option value="Medical">Medical</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Size Filter</label>
+                    <select id="sizeFilter" onchange="filterListings()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none">
+                        <option value="ALL">All Sizes</option>
+                        <option value="S">Size: S</option>
+                        <option value="M">Size: M</option>
+                        <option value="L">Size: L</option>
+                        <option value="XL">Size: XL</option>
+                        <option value="XXL">Size: XXL</option>
                     </select>
                 </div>
                 <div class="md:col-span-3">
-                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Ward / Location</label>
-                    <select id="wardFilter" onchange="filterListings()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Ward / Location (64 Wards)</label>
+                    <select id="wardFilter" onchange="filterListings()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none">
                         <option value="ALL">All 64 Wards</option>
                     </select>
                 </div>
@@ -93,7 +110,7 @@
         </div>
     </section>
 
-    <!-- Categories Grid -->
+    <!-- Departments Quick Grid -->
     <section id="categories" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-lg font-extrabold text-slate-900">Shop by Department</h3>
@@ -118,11 +135,11 @@
             </div>
             <div onclick="selectDept('Grocery')" class="bg-white p-4 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-200 text-center transition">
                 <div class="text-2xl mb-1">🛒</div>
-                <p class="text-xs font-bold text-slate-800">Grocery & DMart</p>
+                <p class="text-xs font-bold text-slate-800">Grocery</p>
             </div>
             <div onclick="selectDept('Medical')" class="bg-white p-4 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-200 text-center transition">
                 <div class="text-2xl mb-1">🏥</div>
-                <p class="text-xs font-bold text-slate-800">Medical & Blood</p>
+                <p class="text-xs font-bold text-slate-800">Medical</p>
             </div>
             <div onclick="selectDept('Jobs')" class="bg-white p-4 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-200 text-center transition">
                 <div class="text-2xl mb-1">💼</div>
@@ -135,10 +152,10 @@
         </div>
     </section>
 
-    <!-- E-Commerce Product / Store Grid -->
+    <!-- Main Catalog / Listings Grid with Add to Cart & Size info -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 flex-1 w-full">
         <div class="flex justify-between items-center mb-4 border-b border-slate-200 pb-3">
-            <h3 id="resultsHeading" class="text-base font-extrabold text-slate-900">Featured Vijayawada Catalogs</h3>
+            <h3 id="resultsHeading" class="text-base font-extrabold text-slate-900">Vijayawada Catalog & Wards Directory</h3>
             <span id="resultCount" class="text-xs bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full">0 Items</span>
         </div>
 
@@ -160,7 +177,7 @@
         </div>
     </section>
 
-    <!-- Official Footer -->
+    <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-10 px-4 text-xs border-t border-slate-800 mt-auto">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
             <div>
@@ -172,7 +189,7 @@
                 <ul class="space-y-1">
                     <li><a href="#" onclick="resetAll()" class="hover:text-white">Home Catalog</a></li>
                     <li><a href="#categories" class="hover:text-white">Departments</a></li>
-                    <li><a href="#" onclick="openAddModal()" class="hover:text-white">+ Add Business</a></li>
+                    <li><a href="#" onclick="openVendorModal()" class="hover:text-white">Vendor Portal</a></li>
                 </ul>
             </div>
             <div>
@@ -198,24 +215,59 @@
     <div id="addModal" class="fixed inset-0 bg-slate-900/70 hidden items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="font-extrabold text-slate-900">Add Store / Catalog</h3>
+                <h3 class="font-extrabold text-slate-900">Add Business / Store</h3>
                 <button onclick="closeAddModal()" class="text-xl font-bold">&times;</button>
             </div>
             <form onsubmit="submitNewBusiness(event)" class="space-y-3 text-sm">
-                <input type="text" id="newTitle" required placeholder="Store / Brand Name" class="w-full border rounded-xl px-3 py-2">
+                <input type="text" id="newTitle" required placeholder="Store / Item Name" class="w-full border rounded-xl px-3 py-2">
                 <select id="newDept" class="w-full border rounded-xl px-3 py-2">
-                    <option value="Women">Women's Fashion</option>
+                    <option value="Women">Women's Wear</option>
                     <option value="Men">Men's Wear</option>
                     <option value="Kids">Kids & Toys</option>
                     <option value="Food">Food & Dining</option>
                     <option value="Grocery">Grocery</option>
                 </select>
+                <input type="text" id="newSize" required placeholder="Available Sizes (e.g. M, L, XL or Free Size)" class="w-full border rounded-xl px-3 py-2">
                 <input type="text" id="newArea" required placeholder="Ward / Area (e.g. Ward 7 - Benz Circle)" class="w-full border rounded-xl px-3 py-2">
-                <input type="text" id="newPrice" required placeholder="Price Range (e.g. Rs. 299 onwards)" class="w-full border rounded-xl px-3 py-2">
+                <input type="text" id="newPrice" required placeholder="Price (e.g. Rs. 499)" class="w-full border rounded-xl px-3 py-2">
                 <input type="tel" id="newPhone" required placeholder="WhatsApp Number" class="w-full border rounded-xl px-3 py-2">
-                <textarea id="newDesc" rows="2" required placeholder="Catalog details (e.g. Kurtis, Sarees, Tops)..." class="w-full border rounded-xl px-3 py-2"></textarea>
-                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl">Submit Catalog</button>
+                <textarea id="newDesc" rows="2" required placeholder="Item description..." class="w-full border rounded-xl px-3 py-2"></textarea>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl">Publish Listing</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Vendor Dashboard / Login Modal -->
+    <div id="vendorModal" class="fixed inset-0 bg-slate-900/70 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-extrabold text-slate-900">Merchant / Vendor Dashboard Login</h3>
+                <button onclick="closeVendorModal()" class="text-xl font-bold">&times;</button>
+            </div>
+            <form onsubmit="handleVendorLogin(event)" class="space-y-3 text-sm">
+                <input type="text" required placeholder="Shop Owner Name / ID" class="w-full border rounded-xl px-3 py-2">
+                <input type="password" required placeholder="Password / PIN" class="w-full border rounded-xl px-3 py-2">
+                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-2.5 rounded-xl">Login to Manage Offers</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-slate-900/70 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 class="font-extrabold text-lg">Your Shopping Cart & WhatsApp Checkout</h3>
+                <button onclick="closeCartModal()" class="text-xl font-bold">&times;</button>
+            </div>
+            <div id="cartItemsList" class="space-y-3 mb-4 text-xs text-slate-600">
+                <p>Your cart is currently empty.</p>
+            </div>
+            <div class="border-t pt-3 flex justify-between items-center font-bold text-sm">
+                <span>Total Items: <span id="cartTotalCount">0</span></span>
+                <button onclick="checkoutWhatsApp()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl shadow">
+                    💬 Checkout via WhatsApp
+                </button>
+            </div>
         </div>
     </div>
 
@@ -230,23 +282,8 @@
         </div>
     </div>
 
-    <!-- Complete 64 Wards E-Commerce Catalog Logic -->
+    <!-- 64 Wards Master Database & E-Commerce Logic -->
     <script>
         const vijayawadaWards = [
             "Ward 1 - Yanamalakuduru / Patamata Lanka", "Ward 2 - Ramalingeswara Nagar", "Ward 3 - Krishna Lanka (East)", "Ward 4 - Krishna Lanka (West)", "Ward 5 - Ranigarithota", "Ward 6 - Police Quarters / Labbipet", "Ward 7 - Benz Circle / Venkateswarapuram", "Ward 8 - Patamata (Central)", "Ward 9 - Auto Nagar (Industrial Estate)", "Ward 10 - Gurunanak Colony", "Ward 11 - Bharathi Nagar", "Ward 12 - Enikepadu / Prasadampadu", "Ward 13 - Currency Nagar / Ramavarappadu", "Ward 14 - Gunadala (South)", "Ward 15 - Gunadala (Hill / Christurajupuram)", "Ward 16 - Machavaram (East)", "Ward 17 - Machavaram (Down / Padavalarevu)", "Ward 18 - Moghalrajpuram (East)", "Ward 19 - Moghalrajpuram (West / Siddhartha Nagar)", "Ward 20 - Suryaraopeta (North)", "Ward 21 - Suryaraopeta (South / Museum Road)", "Ward 22 - Governorpet (MG Road / Besant Road)", "Ward 23 - Governorpet (Eluru Road Junction)", "Ward 24 - Hanumanpet / Buckinghampet", "Ward 25 - Durgapuram / Arundalpet", "Ward 26 - Vijayawada Railway Station Area", "Ward 27 - Satyanarayanapuram (East)", "Ward 28 - Satyanarayanapuram (West)", "Ward 29 - Madhura Nagar", "Ward 30 - Mutylampadu", "Ward 31 - Ajit Singh Nagar (Block 1-4)", "Ward 32 - Ajit Singh Nagar (Pipula Road)", "Ward 33 - Vambay Colony / Prakash Nagar", "Ward 34 - Payakapuram (East)", "Ward 35 - Payakapuram (Radha Nagar)", "Ward 36 - Kandrika / Nunna Border", "Ward 37 - Devi Nagar", "Ward 38 - Fraserpeta / Kedareswarapet", "Ward 39 - Wynchpeta", "Ward 40 - Kothapet (East)", "Ward 41 - Kothapet (West / Swathi Theatre)", "Ward 42 - One Town (Kaleswara Rao Market)", "Ward 43 - Tarapet / Panja Centre", "Ward 44 - Islampet / Brahmin Street", "Ward 45 - Indrakeeladri / Kanaka Durga Temple Area", "Ward 46 - Bhavanipuram (East)", "Ward 47 - Bhavanipuram (HB Colony)", "Ward 48 - Vidyadharapuram (East)", "Ward 49 - Vidyadharapuram (West / Kummaripalem)", "Ward 50 - Chittinagar", "Ward 51 - Milk Project / Kabela", "Ward 52 - Gollapudi Border / Sitara Centre", "Ward 53 - Joji Nagar", "Ward 54 - Rajarajeswaripeta", "Ward 55 - New Rajarajeswaripeta", "Ward 56 - Urmila Nagar", "Ward 57 - Crombay Road / Pezzonipet", "Ward 58 - Sanath Nagar", "Ward 59 - Kanuru Border / Tadigadapa", "Ward 60 - Poranki Border / Penamaluru", "Ward 61 - Jakkampudi Colony", "Ward 62 - Gollapudi Rural Extension", "Ward 63 - Nunna Rural Extension", "Ward 64 - Ambapuram / Pathapadu"
         ];
-
-        const wardDropdown = document.getElementById('wardFilter');
-        vijayawadaWards.forEach(w => {
-            const opt = document.createElement('option');
-            opt.value = w;
-            opt.innerText = w;
-            wardDropdown.appendChild(opt);
-        });
-
-        // E-Commerce Catalog Database with Sub-categories (Women, Men, Kids, Food, Grocery)
-        const masterCatalog = [
-            { id: 1, title: "Style Union Fashion Store (Benz Circle)", dept: "Women", sub: "Women's Kurtis, Tops & Western Wear", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 199 - Rs. 1,299", phone: "917304053032", desc: "Top trending women's fashion, printed kurtas, structured tops, and dresses at budget prices.", rating: "4.9", reviews: 1849, keywords: "style union women kurtis tops western dress shopping" },
-            { id: 2, title: "Style Union Men's Casual & Formal Wear", dept: "Men", sub: "Men's Shirts, T-Shirts & Trousers", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 299 - Rs. 1,499", phone: "917304053032", desc: "Stylish men's casual shirts, polo t-shirts, denim jeans and trousers.", rating: "4.7", reviews: 920, keywords: "style union men shirts tshirts jeans trousers" },
-            { id: 3, title: "PVP Square Shopping Mall (Lifestyle & Max)", dept: "Women", sub: "Women Ethnic & Branded Apparel", ward: "Ward 22 - Governorpet (MG Road / Besant Road)", price: "Rs. 499 onwards", phone: "919848022222", desc: "Branded lifestyle stores, sarees, ethnic wear sets, cosmetics, and footwear.", rating: "4.7", reviews: 310, keywords: "pvp square lifestyle max women ethnic sarees" },
-            { id: 4, title: "PVP Square Kids & Toys World", dept: "Kids", sub: "Kids Clothing & Toys", ward: "Ward 22 - Governorpet (MG Road / Besant Road)", price: "Rs. 299 onwards", phone: "91
