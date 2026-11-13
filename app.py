@@ -4,23 +4,17 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 import google.generativeai as genai
-from supabase import create_client, Client
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-# Supabase Setup
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-supabase: Client = None
-if SUPABASE_URL and SUPABASE_KEY:
-    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-# Google Gemini API Setup
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-if GEMINI_API_KEY:
+# Safe Google Gemini API Setup (Doesn't crash if key is missing)
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "dummy-key")
+if GEMINI_API_KEY and GEMINI_API_KEY != "dummy-key":
     genai.configure(api_key=GEMINI_API_KEY)
     model = genai.GenerativeModel("gemini-1.5-flash")
+else:
+    model = None
 
 class ChatRequest(BaseModel):
     message: str
@@ -35,8 +29,8 @@ async def home(request: Request):
 @app.post("/chat")
 async def chat_endpoint(req: ChatRequest):
     try:
-        if not GEMINI_API_KEY:
-            raise HTTPException(status_code=500, detail="Gemini API Key is missing.")
+        if not model:
+            return {"reply": "జెమిని ఏఐ కీ (Gemini API Key) సెట్ చేయబడలేదు. దయచేసి రెండర్‌లో కీ జోడించండి."}
         
         system_prompt = f"""
         You are an AI assistant for the Vijayawada Smart Needs Platform.
@@ -48,7 +42,7 @@ async def chat_endpoint(req: ChatRequest):
         reply_text = response.text if response and response.text else "సమాచారం అందలేదు."
         return {"reply": reply_text}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"reply": f"సమస్య ఏర్పడింది: {str(e)}"}
 
 if __name__ == "__main__":
     import uvicorn
