@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vijayawada Smart Needs - Official Digital City Directory & Local Guide</title>
+    <title>Vijayawada Smart Needs - All 64 Wards Digital City Directory</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -32,7 +32,7 @@
                 <div class="bg-blue-600 text-white w-10 h-10 rounded-xl flex items-center justify-center font-extrabold text-xl shadow-md shadow-blue-500/20">VSN</div>
                 <div>
                     <h1 class="text-lg md:text-xl font-extrabold text-slate-900 tracking-tight leading-none">Vijayawada <span class="text-blue-600">Smart Needs</span></h1>
-                    <p class="text-[10px] uppercase tracking-wider font-semibold text-slate-400 mt-0.5">Official City Directory & Local Guide</p>
+                    <p class="text-[10px] uppercase tracking-wider font-semibold text-slate-400 mt-0.5">Official 64 Wards City Directory</p>
                 </div>
             </div>
             <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
@@ -55,20 +55,20 @@
         
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <span class="inline-block bg-blue-700/60 text-blue-200 border border-blue-400/30 text-xs font-semibold px-3 py-1 rounded-full mb-4">
-                ✨ Vijayawada's #1 Digital Utility Platform
+                ✨ Vijayawada's #1 Digital Utility Platform (64 Wards)
             </span>
             <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-                విజయవాడ నగరంలోని ప్రతి అవసరం, ప్రతి వ్యాపారం ఒకేచోట!
+                విజయవాడ నగరంలోని అన్ని వార్డుల పూర్తి సమాచారం ఒకేచోట!
             </h2>
             <p class="text-slate-300 text-sm md:text-base max-w-2xl mx-auto mb-8 font-medium">
-                Explore verified shops, wholesale markets, daily rates, hospitals, jobs, rentals, and expert local services across all 67 wards.
+                Explore verified shops, Cream Stone in PVP, wholesale markets, daily rates, hospitals, jobs, rentals, and local services.
             </p>
 
             <!-- Advanced Glassmorphism Search Filter Box -->
             <div class="bg-white p-3 sm:p-4 rounded-3xl shadow-2xl backdrop-blur-xl border border-white/20 grid grid-cols-1 md:grid-cols-12 gap-3 text-slate-800 text-left">
                 <div class="md:col-span-4">
                     <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 px-1">Keyword Search</label>
-                    <input type="text" id="searchInput" onkeyup="filterListings()" placeholder="Search Biryani, Sarees, Plumber..." class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition">
+                    <input type="text" id="searchInput" onkeyup="filterListings()" placeholder="Search Cream Stone, Biryani, Clothes..." class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition">
                 </div>
                 <div class="md:col-span-3">
                     <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 px-1">Category</label>
@@ -87,7 +87,7 @@
                 <div class="md:col-span-3">
                     <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 px-1">Ward / Location</label>
                     <select id="wardFilter" onchange="filterListings()" class="w-full px-3 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition">
-                        <option value="ALL">All Wards (1 - 67)</option>
+                        <option value="ALL">All 64 Wards</option>
                     </select>
                 </div>
                 <div class="md:col-span-2 flex items-end">
@@ -100,11 +100,11 @@
             <!-- Quick Access Chips -->
             <div class="mt-5 flex flex-wrap justify-center items-center gap-2 text-xs">
                 <span class="text-slate-300 font-semibold mr-1">Trending:</span>
+                <button onclick="quickSearch('Cream Stone')" class="bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 rounded-full border border-white/10 transition font-medium">🍨 Cream Stone (PVP)</button>
                 <button onclick="quickSearch('Biryani')" class="bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 rounded-full border border-white/10 transition font-medium">🔥 Best Biryani</button>
                 <button onclick="quickSearch('Clothes')" class="bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 rounded-full border border-white/10 transition font-medium">🛍️ Cheap Clothes</button>
-                <button onclick="quickSearch('Jobs')" class="bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 rounded-full border border-white/10 transition font-medium">💼 Daily Wage Jobs</button>
-                <button onclick="quickSearch('Hospital')" class="bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 rounded-full border border-white/10 transition font-medium">🏥 Hospitals & Blood Bank</button>
-                <button onclick="quickSearch('Plumber')" class="bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 rounded-full border border-white/10 transition font-medium">🔧 Electrician / Plumber</button>
+                <button onclick="quickSearch('Jobs')" class="bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 rounded-full border border-white/10 transition font-medium">💼 Daily Wages</button>
+                <button onclick="quickSearch('Hospital')" class="bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 rounded-full border border-white/10 transition font-medium">🏥 Blood Bank</button>
             </div>
         </div>
     </section>
@@ -175,7 +175,7 @@
                     <h5 class="text-white font-extrabold text-base">Vijayawada Smart Needs</h5>
                 </div>
                 <p class="text-xs text-slate-400 leading-relaxed">
-                    The ultimate digital directory connecting citizens across all 67 municipal wards with verified local businesses, daily market rates, jobs, and essential services.
+                    The ultimate digital directory connecting citizens across all 64 municipal wards with verified local businesses, daily market rates, jobs, and essential services.
                 </p>
             </div>
             <div>
@@ -212,7 +212,7 @@
 
     <!-- Add New Business Modal -->
     <div id="addModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
             <div class="flex justify-between items-center mb-4">
                 <div>
                     <h3 class="text-lg font-extrabold text-slate-900">Add Business / Service</h3>
@@ -284,13 +284,224 @@
         </div>
     </div>
 
-    <!-- Complete 67 Wards & Application Logic -->
+    <!-- Complete 64 Wards Master Database & Logic -->
     <script>
         const vijayawadaWards = [
-            "Ward 1 - Yanamalakuduru / Patamata Lanka", "Ward 2 - Ramalingeswara Nagar", "Ward 3 - Krishna Lanka (East)", "Ward 4 - Krishna Lanka (West)", "Ward 5 - Ranigarithota", "Ward 6 - Police Quarters / Labbipet", "Ward 7 - Benz Circle / Venkateswarapuram", "Ward 8 - Patamata (Central)", "Ward 9 - Auto Nagar (Industrial Estate)", "Ward 10 - Gurunanak Colony", "Ward 11 - Bharathi Nagar", "Ward 12 - Enikepadu / Prasadampadu Border", "Ward 13 - Currency Nagar / Ramavarappadu", "Ward 14 - Gunadala (South)", "Ward 15 - Gunadala (Hill / Christurajupuram)", "Ward 16 - Machavaram (East)", "Ward 17 - Machavaram (Down / Padavalarevu)", "Ward 18 - Moghalrajpuram (East)", "Ward 19 - Moghalrajpuram (West / Siddhartha Nagar)", "Ward 20 - Suryaraopeta (North)", "Ward 21 - Suryaraopeta (South / Museum Road)", "Ward 22 - Governorpet (MG Road / Besant Road)", "Ward 23 - Governorpet (Eluru Road Junction)", "Ward 24 - Hanumanpet / Buckinghampet", "Ward 25 - Durgapuram / Arundalpet", "Ward 26 - Vijayawada Railway Station Area", "Ward 27 - Satyanarayanapuram (East)", "Ward 28 - Satyanarayanapuram (West)", "Ward 29 - Madhura Nagar", "Ward 30 - Mutylampadu", "Ward 31 - Ajit Singh Nagar (Block 1-4)", "Ward 32 - Ajit Singh Nagar (Pipula Road)", "Ward 33 - Vambay Colony / Prakash Nagar", "Ward 34 - Payakapuram (East)", "Ward 35 - Payakapuram (Radha Nagar)", "Ward 36 - Kandrika / Nunna Border", "Ward 37 - Devi Nagar", "Ward 38 - Fraserpeta / Kedareswarapet", "Ward 39 - Wynchpeta", "Ward 40 - Kothapet (East)", "Ward 41 - Kothapet (West / Swathi Theatre)", "Ward 42 - One Town (Kaleswara Rao Market)", "Ward 43 - Tarapet / Panja Centre", "Ward 44 - Islampet / Brahmin Street", "Ward 45 - Indrakeeladri / Kanaka Durga Temple Area", "Ward 46 - Bhavanipuram (East)", "Ward 47 - Bhavanipuram (HB Colony)", "Ward 48 - Vidyadharapuram (East)", "Ward 49 - Vidyadharapuram (West / Kummaripalem)", "Ward 50 - Chittinagar", "Ward 51 - Milk Project / Kabela", "Ward 52 - Gollapudi Border / Sitara Centre", "Ward 53 - Joji Nagar", "Ward 54 - Rajarajeswaripeta", "Ward 55 - New Rajarajeswaripeta", "Ward 56 - Urmila Nagar", "Ward 57 - Crombay Road / Pezzonipet", "Ward 58 - Sanath Nagar", "Ward 59 - Kanuru Border / Tadigadapa", "Ward 60 - Poranki Border / Penamaluru", "Ward 61 - Jakkampudi Colony", "Ward 62 - Gollapudi Rural Extension", "Ward 63 - Nunna Rural Extension", "Ward 64 - Ambapuram / Pathapadu", "Ward 65 - Nidamanuru Extension", "Ward 66 - Gannavaram Airport Corridor", "Ward 67 - Tadepalli / Prakasam Barrage South"
+            "Ward 1 - Yanamalakuduru / Patamata Lanka", "Ward 2 - Ramalingeswara Nagar", "Ward 3 - Krishna Lanka (East)", "Ward 4 - Krishna Lanka (West)", "Ward 5 - Ranigarithota", "Ward 6 - Police Quarters / Labbipet", "Ward 7 - Benz Circle / Venkateswarapuram", "Ward 8 - Patamata (Central)", "Ward 9 - Auto Nagar (Industrial Estate)", "Ward 10 - Gurunanak Colony", "Ward 11 - Bharathi Nagar", "Ward 12 - Enikepadu / Prasadampadu", "Ward 13 - Currency Nagar / Ramavarappadu", "Ward 14 - Gunadala (South)", "Ward 15 - Gunadala (Hill / Christurajupuram)", "Ward 16 - Machavaram (East)", "Ward 17 - Machavaram (Down / Padavalarevu)", "Ward 18 - Moghalrajpuram (East)", "Ward 19 - Moghalrajpuram (West / Siddhartha Nagar)", "Ward 20 - Suryaraopeta (North)", "Ward 21 - Suryaraopeta (South / Museum Road)", "Ward 22 - Governorpet (MG Road / Besant Road)", "Ward 23 - Governorpet (Eluru Road Junction)", "Ward 24 - Hanumanpet / Buckinghampet", "Ward 25 - Durgapuram / Arundalpet", "Ward 26 - Vijayawada Railway Station Area", "Ward 27 - Satyanarayanapuram (East)", "Ward 28 - Satyanarayanapuram (West)", "Ward 29 - Madhura Nagar", "Ward 30 - Mutylampadu", "Ward 31 - Ajit Singh Nagar (Block 1-4)", "Ward 32 - Ajit Singh Nagar (Pipula Road)", "Ward 33 - Vambay Colony / Prakash Nagar", "Ward 34 - Payakapuram (East)", "Ward 35 - Payakapuram (Radha Nagar)", "Ward 36 - Kandrika / Nunna Border", "Ward 37 - Devi Nagar", "Ward 38 - Fraserpeta / Kedareswarapet", "Ward 39 - Wynchpeta", "Ward 40 - Kothapet (East)", "Ward 41 - Kothapet (West / Swathi Theatre)", "Ward 42 - One Town (Kaleswara Rao Market)", "Ward 43 - Tarapet / Panja Centre", "Ward 44 - Islampet / Brahmin Street", "Ward 45 - Indrakeeladri / Kanaka Durga Temple Area", "Ward 46 - Bhavanipuram (East)", "Ward 47 - Bhavanipuram (HB Colony)", "Ward 48 - Vidyadharapuram (East)", "Ward 49 - Vidyadharapuram (West / Kummaripalem)", "Ward 50 - Chittinagar", "Ward 51 - Milk Project / Kabela", "Ward 52 - Gollapudi Border / Sitara Centre", "Ward 53 - Joji Nagar", "Ward 54 - Rajarajeswaripeta", "Ward 55 - New Rajarajeswaripeta", "Ward 56 - Urmila Nagar", "Ward 57 - Crombay Road / Pezzonipet", "Ward 58 - Sanath Nagar", "Ward 59 - Kanuru Border / Tadigadapa", "Ward 60 - Poranki Border / Penamaluru", "Ward 61 - Jakkampudi Colony", "Ward 62 - Gollapudi Rural Extension", "Ward 63 - Nunna Rural Extension", "Ward 64 - Ambapuram / Pathapadu"
         ];
 
         const wardDropdown = document.getElementById('wardFilter');
         vijayawadaWards.forEach(w => {
             const opt = document.createElement('option');
-            
+            opt.value = w;
+            opt.innerText = w;
+            wardDropdown.appendChild(opt);
+        });
+
+        const masterDirectory = [
+            { title: "Cream Stone Ice Creams (PVP Square)", category: "Restaurants", ward: "Ward 22 - Governorpet (MG Road / Besant Road)", budget: "Medium", price: "Rs. 99 - Rs. 245", phone: "919848011223", desc: "Famous stone-mixed ice creams, sundaes, and milkshakes at PVP Mall.", keywords: "cream stone ice cream pvp mall sweet dessert" },
+            { title: "Besant Road Wholesale & Retail Clothes", category: "Shopping", ward: "Ward 22 - Governorpet (MG Road / Besant Road)", budget: "Low", price: "Rs. 199 - Rs. 799", phone: "919848011111", desc: "Best place in Vijayawada for low budget clothes, kids wear, kurtis and daily sarees.", keywords: "clothes battalu low price cheap shopping dress" },
+            { title: "PVP Square Shopping Mall (Brands & Lifestyle)", category: "Shopping", ward: "Ward 22 - Governorpet (MG Road / Besant Road)", budget: "High", price: "Rs. 999 onwards", phone: "919848022222", desc: "Top premium shopping mall with Lifestyle, Max, Pantaloons, branded clothing & multiplex.", keywords: "shopping malls pvp multiplex brands high premium clothes" },
+            { title: "Trendset Mall Branded Showrooms", category: "Shopping", ward: "Ward 7 - Benz Circle / Venkateswarapuram", budget: "High", price: "Rs. 1,299 onwards", phone: "919848033333", desc: "Premium apparel, branded showrooms, and high-end fashion stores at Benz Circle.", keywords: "shopping trendset benz circle high premium clothes" },
+            { title: "Kalamandir & KLM Fashion Mall", category: "Shopping", ward: "Ward 8 - Patamata (Central)", budget: "Medium", price: "Rs. 599 - Rs. 15,000", phone: "919848044444", desc: "Wedding pattu sarees, mens ethnic wear and festive discount collections.", keywords: "sarees clothes shopping kalamandir klm" },
+            { title: "SS Hyderabadi Dum Biryani", category: "Restaurants", ward: "Ward 7 - Benz Circle / Venkateswarapuram", budget: "Medium", price: "Rs. 260 (Full)", phone: "919848055555", desc: "Famous for authentic spicy chicken & mutton dum biryani with family pack combos.", keywords: "biryani hotel restaurant food lunch dinner" },
+            { title: "Ruchi Andhra Mess & Meals", category: "Restaurants", ward: "Ward 22 - Governorpet (MG Road / Besant Road)", budget: "Low", price: "Rs. 120 / Full Meals", phone: "919848066666", desc: "Homely unlimited Andhra vegetarian meals, curries, pappu and fresh tiffins.", keywords: "meals food hotel tiffins low budget" },
+            { title: "Suryaraopeta Rythu Bazaar", category: "Vegetables", ward: "Ward 20 - Suryaraopeta (North)", budget: "Low", price: "Tomato Rs.28/Kg | Onion Rs.35/Kg", phone: "919848099999", desc: "Direct farmers market with government fixed low rates for fresh vegetables & leafy greens.", keywords: "vegetables kooragayalu tomato onion low price rythu bazaar" },
+            { title: "D-Mart Supermarket Offers", category: "Grocery", ward: "Ward 8 - Patamata (Central)", budget: "Low", price: "Min 10% to 50% Off on MRP", phone: "919848013131", desc: "Lowest prices on Sona Masoori rice (Rs.1350/25kg), cooking oils, pulses & household items.", keywords: "supermarket offers grocery dmart rice oil" },
+            { title: "Auto Nagar Daily Wage Labour Adda", category: "Jobs", ward: "Ward 9 - Auto Nagar (Industrial Estate)", budget: "Low", price: "Rs. 650 - Rs. 850 / Day", phone: "919848015151", desc: "Daily construction helpers, loading/unloading workers, mechanics & painters.", keywords: "daily wages coolie pani jobs construction" },
+            { title: "24/7 Vijayawada Electrician & Plumber Service", category: "Services", ward: "Ward 7 - Benz Circle / Venkateswarapuram", budget: "Low", price: "Rs. 200 Visiting Charge", phone: "919848018181", desc: "Fast home repair for wiring, fan/motor repair, tap leakage, pipe fitting & water tank cleaning.", keywords: "electrician plumber repair service home" },
+            { title: "Government General Hospital (GGH) & Blood Bank", category: "Medical", ward: "Ward 23 - Governorpet (Eluru Road Junction)", budget: "Low", price: "Free Treatment / 24x7 Blood Bank", phone: "918662578000", desc: "24/7 emergency trauma care, free medicines, diagnostics and government blood bank.", keywords: "hospital blood bank emergency free medical" },
+            { title: "Aayush Multi-Specialty Hospital & Blood Centre", category: "Medical", ward: "Ward 18 - Moghalrajpuram (East)", budget: "High", price: "OP Consultation: Rs. 600", phone: "918662435555", desc: "Advanced corporate healthcare, 24/7 emergency ICU and blood bank services.", keywords: "hospital blood bank emergency medical high premium" },
+            { title: "1BHK & 2BHK Family Portions for Rent", category: "Rentals", ward: "Ward 8 - Patamata (Central)", budget: "Medium", price: "Rs. 6,500 - Rs. 11,000 / Month", phone: "919848023232", desc: "24 hours water supply, bike parking, walkable distance to bus stop and schools.", keywords: "house rent 1bhk 2bhk portion" }
+        ];
+
+        function getDynamicDirectory(selectedCategory, selectedWard) {
+            let pool = masterDirectory;
+
+            if (selectedWard !== 'ALL') {
+                const wardMatches = masterDirectory.filter(item => item.ward === selectedWard);
+                const shortName = selectedWard.split('-')[1]?.trim() || selectedWard;
+
+                const wardGenerated = [
+                    { title: `${shortName} Local Shopping & Apparel Hub`, category: "Shopping", ward: selectedWard, budget: "Medium", price: "Rs. 499 onwards", phone: "919848011122", desc: `Popular retail clothing stores and footwear shops in ${shortName}.`, keywords: "shopping clothes shoes retail" },
+                    { title: `${shortName} Family Restaurant & Tiffin Centre`, category: "Restaurants", ward: selectedWard, budget: "Medium", price: "Rs. 150 - Rs. 350", phone: "919848055511", desc: `Delicious tiffins, meals, and snacks available locally in ${shortName}.`, keywords: "restaurant food biryani tiffins hotel" },
+                    { title: `${shortName} Fresh Vegetables & Fruits Vendor`, category: "Vegetables", ward: selectedWard, budget: "Low", price: "Tomato Rs. 28/Kg", phone: "919848099911", desc: `Fresh farm vegetables and seasonal fruits delivered daily in ${shortName}.`, keywords: "vegetables fruits market kooragayalu" },
+                    { title: `${shortName} Kirana & Supermarket Grocery`, category: "Grocery", ward: selectedWard, budget: "Low", price: "Rice Rs. 1350/bag", phone: "919848013112", desc: `Quality pulses, cooking oils, and household grocery items in ${shortName}.`, keywords: "grocery supermarket rice oil" },
+                    { title: `${shortName} Daily Wage Labour & Delivery Jobs`, category: "Jobs", ward: selectedWard, budget: "Low", price: "Rs. 700 / Day", phone: "919848015111", desc: `Daily wage work, helper roles, and delivery partner openings in ${shortName}.`, keywords: "jobs daily wages coolie work" },
+                    { title: `${shortName} Electrician, Plumber & Repairs`, category: "Services", ward: selectedWard, budget: "Low", price: "Rs. 250 onwards", phone: "919848018111", desc: `Expert electricians, plumbers, and home appliance repairs in ${shortName}.`, keywords: "electrician plumber repair service" },
+                    { title: `${shortName} 24/7 Medical Pharmacy & Clinic`, category: "Medical", ward: selectedWard, budget: "Low", price: "24/7 Available", phone: "919848021211", desc: `Emergency medicines, doctor consultation, and pharmacy services in ${shortName}.`, keywords: "medical hospital pharmacy clinic" },
+                    { title: `${shortName} House Rentals & Single Rooms`, category: "Rentals", ward: selectedWard, budget: "Medium", price: "Rs. 5,500 / Month", phone: "919848023211", desc: `1BHK/2BHK rental portions and bachelor rooms available in ${shortName}.`, keywords: "house rent 1bhk room portion" }
+                ];
+
+                pool = [...wardMatches, ...wardGenerated];
+            }
+
+            return pool;
+        }
+
+        function renderListings(list) {
+            const grid = document.getElementById('directoryGrid');
+            const countBadge = document.getElementById('resultCount');
+            countBadge.innerText = `${list.length} Results Found`;
+
+            if (list.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full bg-white p-12 rounded-3xl text-center border border-slate-200 shadow-sm">
+                        <p class="text-slate-800 font-bold text-base mb-2">No listings found matching your criteria.</p>
+                        <p class="text-xs text-slate-500 mb-4">Try clearing filters or search with another keyword.</p>
+                        <button onclick="resetAll()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition shadow-md shadow-blue-600/20">Reset All Filters</button>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = list.map(item => {
+                const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.ward + ' Vijayawada')}`;
+                const waText = encodeURIComponent(`Hello, I found "${item.title}" (${item.ward}) on Vijayawada Smart Needs. Please share more details.`);
+                const waUrl = `https://wa.me/${item.phone}?text=${waText}`;
+
+                let budgetColor = "bg-emerald-50 text-emerald-700 border border-emerald-200/60";
+                if(item.budget === "Medium") budgetColor = "bg-amber-50 text-amber-700 border border-amber-200/60";
+                if(item.budget === "High") budgetColor = "bg-purple-50 text-purple-700 border border-purple-200/60";
+
+                return `
+                <div class="bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl border border-slate-200/80 flex flex-col justify-between transition duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-3">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-lg">${item.category}</span>
+                            <span class="text-[10px] font-bold px-2.5 py-1 rounded-lg ${budgetColor}">${item.budget} Budget</span>
+                        </div>
+                        <h4 class="text-base font-extrabold text-slate-900 mb-1.5 leading-snug">${item.title}</h4>
+                        <p class="text-xs font-semibold text-slate-500 mb-3 flex items-center gap-1">📍 ${item.ward}</p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-5">${item.desc}</p>
+                    </div>
+                    <div>
+                        <div class="bg-slate-50 px-3.5 py-2.5 rounded-2xl border border-slate-100 mb-4 flex justify-between items-center">
+                            <span class="text-xs font-medium text-slate-500">Rate / Price:</span>
+                            <span class="text-sm font-extrabold text-emerald-600">${item.price}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <a href="${mapsUrl}" target="_blank" class="text-center bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-1">
+                                <span>🗺️</span> Maps
+                            </a>
+                            <a href="${waUrl}" target="_blank" class="text-center bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 rounded-xl transition shadow-md shadow-emerald-600/20 flex items-center justify-center gap-1">
+                                <span>💬</span> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function filterListings() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const selectedWard = document.getElementById('wardFilter').value;
+
+            const activePool = getDynamicDirectory(selectedCategory, selectedWard);
+
+            const filtered = activePool.filter(item => {
+                const matchCat = (selectedCategory === 'ALL') || (item.category === selectedCategory);
+                const matchWard = (selectedWard === 'ALL') || (item.ward === selectedWard);
+                const matchQuery = !query || 
+                    item.title.toLowerCase().includes(query) || 
+                    item.desc.toLowerCase().includes(query) || 
+                    item.ward.toLowerCase().includes(query) ||
+                    item.category.toLowerCase().includes(query) ||
+                    (item.keywords && item.keywords.toLowerCase().includes(query));
+
+                return matchCat && matchWard && matchQuery;
+            });
+
+            document.getElementById('resultsHeading').innerText = 
+                selectedCategory === 'ALL' ? 'Vijayawada City Directory Listings' : `Listings for ${selectedCategory}`;
+            renderListings(filtered);
+        }
+
+        function selectCategoryCard(cat) {
+            document.getElementById('categoryFilter').value = cat;
+            filterListings();
+            document.getElementById('directoryGrid').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function quickSearch(term) {
+            document.getElementById('categoryFilter').value = 'ALL';
+            document.getElementById('wardFilter').value = 'ALL';
+            document.getElementById('searchInput').value = term;
+            filterListings();
+        }
+
+        function resetAll() {
+            document.getElementById('categoryFilter').value = 'ALL';
+            document.getElementById('wardFilter').value = 'ALL';
+            document.getElementById('searchInput').value = '';
+            filterListings();
+        }
+
+        function openAddModal() {
+            document.getElementById('addModal').classList.remove('hidden');
+            document.getElementById('addModal').classList.add('flex');
+        }
+        function closeAddModal() {
+            document.getElementById('addModal').classList.add('hidden');
+            document.getElementById('addModal').classList.remove('flex');
+        }
+
+        function submitNewBusiness(e) {
+            e.preventDefault();
+            const newEntry = {
+                title: document.getElementById('newTitle').value,
+                category: document.getElementById('newCategory').value,
+                budget: document.getElementById('newBudget').value,
+                ward: document.getElementById('newArea').value,
+                price: document.getElementById('newPrice').value,
+                phone: document.getElementById('newPhone').value.replace(/\D/g, ''),
+                desc: document.getElementById('newDesc').value,
+                keywords: document.getElementById('newTitle').value.toLowerCase()
+            };
+            masterDirectory.unshift(newEntry);
+            closeAddModal();
+            e.target.reset();
+            resetAll();
+            alert("మీ Business / Service విజయవంతంగా Vijayawada Smart Needs డైరెక్టరీలో యాడ్ చేయబడింది!");
+        }
+
+        const policies = {
+            privacy: {
+                title: "Privacy Policy",
+                content: `<p>At <strong>Vijayawada Smart Needs</strong>, accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Vijayawada Smart Needs and how we use it.</p><p>We use third-party advertising companies, including Google AdSense, to serve ads when you visit our website.</p>`
+            },
+            terms: {
+                title: "Terms & Conditions",
+                content: `<p>Welcome to <strong>Vijayawada Smart Needs</strong>! By accessing this website we assume you accept these terms and conditions.</p>`
+            },
+            disclaimer: {
+                title: "Disclaimer",
+                content: `<p>The information provided on <strong>Vijayawada Smart Needs</strong> is for general informational and local directory purposes only.</p>`
+            },
+            about: {
+                title: "About Us",
+                content: `<p><strong>Vijayawada Smart Needs</strong> is the premier digital city directory built for all 64 municipal wards of Vijayawada, offering instantaneous access to local businesses, prices, and services.</p>`
+            },
+            contact: {
+                title: "Contact Us",
+                content: `<p><strong>Address:</strong> MG Road, Labbipet, Vijayawada, Andhra Pradesh - 520010</p><p><strong>Helpline:</strong> +91 866 2255888</p>`
+            }
+        };
+
+        function openPolicyModal(type) {
+            const p = policies[type];
+            if(!p) return;
+            document.getElementById('policyTitle').innerText = p.title;
+            document.getElementById('policyContent').innerHTML = p.content;
+            document.getElementById('policyModal').classList.remove('hidden');
+            document.getElementById('policyModal').classList.add('flex');
+        }
+        function closePolicyModal() {
+            document.getElementById('policyModal').classList.add('hidden');
+            document.getElementById('policyModal').classList.remove('flex');
+        }
+
+        window.onload = () => filterListings();
+    </script>
+</body>
+</html>
