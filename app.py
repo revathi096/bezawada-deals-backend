@@ -8,9 +8,9 @@ import google.generativeai as genai
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-# Safe Google Gemini API Setup (Doesn't crash if key is missing)
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "dummy-key")
-if GEMINI_API_KEY and GEMINI_API_KEY != "dummy-key":
+# Google Gemini API Setup
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
     model = genai.GenerativeModel("gemini-1.5-flash")
 else:
@@ -30,7 +30,7 @@ async def home(request: Request):
 async def chat_endpoint(req: ChatRequest):
     try:
         if not model:
-            return {"reply": "జెమిని ఏఐ కీ (Gemini API Key) సెట్ చేయబడలేదు. దయచేసి రెండర్‌లో కీ జోడించండి."}
+            return {"reply": "జెమిని ఏఐ కీ (Gemini API Key) సెట్ చేయబడలేదు."}
         
         system_prompt = f"""
         You are an AI assistant for the Vijayawada Smart Needs Platform.
