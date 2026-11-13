@@ -1,97 +1,226 @@
+
 <!DOCTYPE html>
-<html lang="te">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vijayawada All-in-One Local AI Platform</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vijayawada local shopping, restaurants, jobs, markets and daily needs directory.">
+<title>Vijayawada Smart Needs</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#17243a}
+header{background:#123d75;color:white;padding:22px 5%;text-align:center}
+header h1{margin:0;font-size:27px}
+header p{margin:8px 0 0}
+nav{background:white;padding:13px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+nav a{color:#123d75;text-decoration:none;font-weight:bold}
+.hero{padding:35px 5%;text-align:center;background:#e5efff}
+.hero h2{font-size:27px}
+.search{width:min(650px,95%);padding:15px;border:1px solid #ccd5e2;border-radius:9px;font-size:16px}
+select,input,textarea{padding:12px;border:1px solid #ccd5e2;border-radius:8px;font-size:15px;max-width:100%}
+.filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:15px}
+main{max-width:1200px;margin:auto;padding:25px 15px}
+h2.section{font-size:23px}
+.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.cat{background:white;padding:18px 8px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid #e1e7ef;font-weight:bold}
+.cat span{display:block;font-size:27px;margin-bottom:8px}
+.cat:hover,.cat.active{background:#dceaff;border-color:#2768bd}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px}
+.card{background:white;padding:18px;border-radius:12px;box-shadow:0 2px 9px #17243a12}
+.card h3{margin:0 0 9px;color:#174c8e}
+.tag{display:inline-block;background:#e8f1ff;color:#174c8e;padding:5px 9px;border-radius:15px;font-size:12px}
+.card p{font-size:14px;line-height:1.6}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-block;padding:10px 13px;border-radius:7px;background:#1757a5;color:white;text-decoration:none;border:0;cursor:pointer}
+.btn.secondary{background:#16834e}
+form{display:grid;gap:12px;background:white;padding:20px;border-radius:12px}
+footer{text-align:center;background:#123d75;color:white;padding:25px;margin-top:35px}
+.small{color:#65748b;font-size:13px}
+</style>
 </head>
-<body class="bg-slate-100 text-slate-900 font-sans flex flex-col h-screen">
+<body>
 
-    <!-- Header -->
-    <header class="bg-slate-900 text-white p-4 shadow-md flex justify-between items-center">
-        <h1 class="text-lg font-bold">🏙️ Vijayawada Local AI Platform</h1>
-        <a href="/admin" class="bg-rose-600 text-white px-3 py-1.5 rounded text-sm hover:bg-rose-700">Admin</a>
-    </header>
+<header>
+<h1>🏙️ Vijayawada Smart Needs</h1>
+<p>Your City. Your Needs. Everything in One Place.</p>
+</header>
 
-    <!-- Controls Bar (Language & Mode) -->
-    <div class="bg-white p-3 border-b border-gray-200 flex flex-wrap justify-center gap-4 shadow-sm">
-        <div class="flex items-center gap-2">
-            <label for="language" class="text-sm font-semibold">भाषा / Language:</label>
-            <select id="language" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
-                <option value="Telugu">తెలుగు</option>
-                <option value="English">English</option>
-                <option value="Hindi">हिन्दी</option>
-            </select>
-        </div>
-        <div class="flex items-center gap-2">
-            <label for="mode" class="text-sm font-semibold">Mode:</label>
-            <select id="mode" class="border border-gray-300 rounded px-2 py-1 text-sm bg-white">
-                <option value="local_info">🏙️ Vijayawada Guide</option>
-                <option value="code_assistant">💻 Code Assistant</option>
-                <option value="data_analysis">📊 Data Analysis</option>
-            </select>
-        </div>
-    </div>
+<nav>
+<a href="#categories">Categories</a>
+<a href="#explore">Explore</a>
+<a href="#add">Add Business</a>
+<a href="#about">About</a>
+</nav>
 
-    <!-- Chat Container -->
-    <div id="chatContainer" class="flex-1 p-4 overflow-y-auto flex flex-col gap-3 max-w-3xl mx-auto w-full">
-        <div class="message assistant bg-white border border-gray-200 p-3 rounded-lg shadow-sm max-w-[80%] self-start">
-            నమస్కారం! విజయవాడ లోకల్ సమాచారం, షాపులు, ఫుడ్, లేదా కోడింగ్ సహాయం కోసం నన్ను అడగండి. How can I help you today?
-        </div>
-    </div>
+<section class="hero">
+<h2>విజయవాడలో మీకు కావాల్సిన ప్రతిదీ ఒకేచోట!</h2>
+<p>Shopping • Food • Jobs • Markets • Services</p>
+<input class="search" id="search"
+placeholder="Search malls, hotels, jobs, vegetables..."
+oninput="render()">
+<div class="filters">
+<select id="budget" onchange="render()">
+<option value="">All Budgets</option>
+<option>Low</option>
+<option>Medium</option>
+<option>High</option>
+</select>
+<select id="area" onchange="render()">
+<option value="">All Areas</option>
+<option>Labbipet</option>
+<option>Benz Circle</option>
+<option>Governorpet</option>
+<option>Patamata</option>
+<option>Gandhinagar</option>
+<option>Satyanarayanapuram</option>
+</select>
+</div>
+</section>
 
-    <!-- Input Area -->
-    <div class="bg-white p-4 border-t border-gray-200 flex justify-center gap-2 shadow-lg">
-        <input type="text" id="userInput" placeholder="ఇక్కడ మీ ప్రశ్న టైప్ చేయండి (Type your question)..." 
-            class="flex-1 max-w-2xl border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500"
-            onkeypress="handleKeyPress(event)">
-        <button onclick="sendMessage()" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-semibold transition">
-            Send
-        </button>
-    </div>
+<main>
+<h2 class="section" id="categories">Explore All Needs</h2>
+<div class="categories" id="categoriesGrid"></div>
 
-    <script>
-        async function sendMessage() {
-            const inputField = document.getElementById("userInput");
-            const chatContainer = document.getElementById("chatContainer");
-            const language = document.getElementById("language").value;
-            const mode = document.getElementById("mode").value;
-            
-            const text = inputField.value.trim();
-            if (!text) return;
+<h2 class="section" id="explore">Vijayawada Local Directory</h2>
+<p class="small">Listings are starting examples. Confirm details before visiting.</p>
+<div class="cards" id="results"></div>
 
-            // User Message
-            chatContainer.innerHTML += `<div class="message user bg-blue-600 text-white p-3 rounded-lg max-w-[80%] self-end shadow-sm">${text}</div>`;
-            inputField.value = "";
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+<h2 class="section" id="add">Add Your Shop / Service / Job</h2>
+<p>Local shop owners and service providers can submit their details.</p>
+<form id="listingForm">
+<input id="name" placeholder="Business / Service Name" required>
+<select id="category" required>
+<option value="">Select Category</option>
+<option>Shopping</option><option>Restaurants</option>
+<option>Vegetables & Markets</option><option>Daily Needs</option>
+<option>Electronics</option><option>Daily Wage Jobs</option>
+<option>Home Services</option><option>Health</option>
+<option>Education</option><option>Transport</option>
+</select>
+<input id="location" placeholder="Area / Address" required>
+<input id="phone" placeholder="Phone Number">
+<select id="level">
+<option>Low</option><option>Medium</option><option>High</option>
+</select>
+<textarea id="description" placeholder="Describe your shop, service or job"></textarea>
+<button class="btn" type="submit">Submit Listing</button>
+<p class="small" id="formMessage"></p>
+</form>
 
-            // Loading Indicator
-            const loadingId = "loading-" + Date.now();
-            chatContainer.innerHTML += `<div id="${loadingId}" class="message assistant bg-white border border-gray-200 p-3 rounded-lg shadow-sm max-w-[80%] self-start text-gray-500">Typing...</div>`;
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+<section id="about">
+<h2 class="section">About Us</h2>
+<p>Vijayawada Smart Needs helps people discover local shops, restaurants, jobs, markets and essential services in Vijayawada.</p>
+<h3>Contact Us</h3>
+<p>Business listing and corrections: Add your contact email here.</p>
+<h3>Privacy Policy</h3>
+<p>We collect listing information submitted by users. Contact details should be shared only with permission. We do not guarantee third-party prices or availability.</p>
+</section>
+</main>
 
-            try {
-                const response = await fetch("/chat", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: text, language: language, mode: mode, session_id: "user-session-1" })
-                });
+<footer>
+<p>© 2026 Vijayawada Smart Needs</p>
+<p>Made for Vijayawada ❤️</p>
+</footer>
 
-                const data = await response.json();
-                document.getElementById(loadingId).innerText = data.reply || data.detail || "సమాచారం అందడంలో లోపం ఏర్పడింది.";
-                document.getElementById(loadingId).classList.remove("text-gray-500");
-            } catch (error) {
-                document.getElementById(loadingId).innerText = "సర్వర్ కనెక్షన్ లోపం (Server connection error)!";
-            }
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
+<script>
+const categories=[
+["🛍️","Shopping"],["🍽️","Restaurants"],
+["🥬","Vegetables & Markets"],["💼","Daily Wage Jobs"],
+["🛒","Daily Needs"],["📱","Electronics"],
+["🔧","Home Services"],["🏥","Health"],
+["🎓","Education"],["🚗","Transport"]
+];
 
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
-        }
-    </script>
+const listings=[
+{name:"PVP Square",category:"Shopping",area:"Labbipet",
+address:"39-1-57, MG Road, Labbipet",budget:"Medium",
+description:"Shopping mall, food, cinema and entertainment."},
+{name:"Trendset Mall",category:"Shopping",area:"Benz Circle",
+address:"MG Road, Benz Circle",budget:"Medium",
+description:"Shopping, dining and entertainment."},
+{name:"LEPL Centro",category:"Shopping",area:"Labbipet",
+address:"40-1-146A, MG Road",budget:"High",
+description:"Shopping and entertainment mall."},
+{name:"D Mart",category:"Daily Needs",area:"Gandhinagar",
+address:"Samba Murthy Road, Bavajipet",budget:"Low",
+description:"Groceries and household essentials."},
+{name:"Modern Super Market",category:"Daily Needs",area:"Governorpet",
+address:"Besant Road, Governorpet",budget:"Medium",
+description:"Supermarket and groceries."},
+{name:"Rythu Bazaar",category:"Vegetables & Markets",
+area:"Satyanarayanapuram",address:"Satyanarayanapuram",
+budget:"Low",description:"Fresh vegetables and fruits market."},
+{name:"Patamata Rythu Bazaar",
+category:"Vegetables & Markets",area:"Patamata",
+address:"High School Road, Patamata",budget:"Low",
+description:"Farmers market and fresh produce."},
+{name:"Croma Benz Circle",category:"Electronics",
+area:"Benz Circle",address:"MG Road, Benz Circle",
+budget:"High",description:"Electronics and home appliances."}
+];
+
+function renderCategories(){
+document.getElementById("categoriesGrid").innerHTML=
+categories.map(c=>`
+<div class="cat" onclick="selectCategory('${c[1]}')">
+<span>${c[0]}</span>${c[1]}</div>`).join("");
+}
+
+let selected="";
+function selectCategory(category){
+selected=selected===category?"":category;
+render();
+}
+
+function render(){
+const q=document.getElementById("search").value.toLowerCase();
+const b=document.getElementById("budget").value;
+const a=document.getElementById("area").value;
+
+const data=listings.filter(x=>
+(!selected||x.category===selected)&&
+(!b||x.budget===b)&&
+(!a||x.area===a)&&
+(x.name+" "+x.category+" "+x.area+" "+x.address+" "+x.description)
+.toLowerCase().includes(q)
+);
+
+document.getElementById("results").innerHTML=data.length?
+data.map(x=>`
+<div class="card">
+<span class="tag">${x.category}</span>
+<h3>${x.name}</h3>
+<p>📍 ${x.address}</p>
+<p>📌 ${x.area}</p>
+<p>Budget: ${x.budget}</p>
+<p>${x.description}</p>
+<div class="actions">
+<a class="btn" target="_blank" rel="noopener"
+href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(x.name+" "+x.address+" Vijayawada")}">Map</a>
+</div>
+</div>`).join("")
+:'<p>No listings found. Try another search.</p>';
+}
+
+document.getElementById("listingForm").addEventListener("submit",e=>{
+e.preventDefault();
+const item={
+name:document.getElementById("name").value,
+category:document.getElementById("category").value,
+area:document.getElementById("location").value,
+address:document.getElementById("location").value,
+budget:document.getElementById("level").value,
+description:document.getElementById("description").value
+};
+listings.push(item);
+render();
+e.target.reset();
+document.getElementById("formMessage").textContent=
+"Listing added in this browser preview. Connect a database for public storage.";
+});
+
+renderCategories();
+render();
+</script>
 </body>
 </html>
