@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
@@ -8,7 +8,7 @@ import google.generativeai as genai
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-# Google Gemini API Setup
+# Gemini Setup
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
@@ -20,29 +20,21 @@ class ChatRequest(BaseModel):
     message: str
     language: str = "Telugu"
     mode: str = "local_info"
-    session_id: str = "default-user"
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    # Safe template rendering
+    return templates.TemplateResponse(request, "index.html", context={"request": request})
 
 @app.post("/chat")
 async def chat_endpoint(req: ChatRequest):
     try:
         if not model:
-            return {"reply": "జెమిని ఏఐ కీ (Gemini API Key) సెట్ చేయబడలేదు."}
-        
-        system_prompt = f"""
-        You are an AI assistant for the Vijayawada Smart Needs Platform.
-        Mode: {req.mode}
-        Language: Please reply strictly in {req.language}.
-        User Question: {req.message}
-        """
-        response = model.generate_content(system_prompt)
-        reply_text = response.text if response and response.text else "సమాచారం అందలేదు."
-        return {"reply": reply_text}
+            return {"reply": "API Key missing"}
+        response = model.generate_content(f"Mode: {req.mode}. Reply in {req.language}: {req.message}")
+        return {"reply": response.text if response and response.text else "No response"}
     except Exception as e:
-        return {"reply": f"సమస్య ఏర్పడింది: {str(e)}"}
+        return {"reply": f"Error: {str(e)}"}
 
 if __name__ == "__main__":
     import uvicorn
