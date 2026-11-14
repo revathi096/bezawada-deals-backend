@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vijayawada Smart Needs - Official 64 Wards Portal & Malls Live Tracker</title>
+    <title>Vijayawada Smart Needs - Official Portal & Seller Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -21,22 +21,18 @@
             white-space: nowrap;
             animation: marquee 40s linear infinite;
         }
-        .animate-marquee:hover {
-            animation-play-state: paused;
-        }
+        .animate-marquee:hover { animation-play-state: paused; }
     </style>
 </head>
 <body class="text-slate-900 antialiased flex flex-col min-h-screen">
 
-    <!-- Top Live Ticker (Vegetables, Fruits, Malls & 64 Wards Live Updates) -->
+    <!-- Top Live Ticker -->
     <div class="bg-navy text-slate-200 text-xs py-2.5 overflow-hidden border-b border-slate-800 z-50 relative flex items-center">
         <div class="bg-red-600 text-white font-extrabold px-3 py-1 text-[10px] uppercase tracking-wider z-10 ml-2 rounded shadow-md shrink-0 flex items-center gap-1.5">
             <span class="w-2 h-2 bg-white rounded-full animate-ping"></span> LIVE DEALS
         </div>
         <div class="overflow-hidden flex-1 ml-2">
-            <div id="liveTickerContent" class="animate-marquee gap-8 items-center">
-                <!-- Populated dynamically via JS -->
-            </div>
+            <div id="liveTickerContent" class="animate-marquee gap-8 items-center"></div>
         </div>
     </div>
 
@@ -47,21 +43,20 @@
                 <div class="bg-navy text-white w-10 h-10 rounded-2xl flex items-center justify-center font-extrabold text-lg shadow-md">VSN</div>
                 <div>
                     <h1 class="text-base font-extrabold text-slate-900 tracking-tight leading-none">Vijayawada <span class="text-electric">Smart Needs</span></h1>
-                    <p class="text-[10px] uppercase tracking-wider font-bold text-slate-400 mt-0.5">64 Wards & Malls Official Portal</p>
+                    <p class="text-[10px] uppercase tracking-wider font-bold text-slate-400 mt-0.5">64 Wards & Malls Portal</p>
                 </div>
             </div>
-            <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-600">
+            <nav class="hidden lg:flex items-center gap-5 text-sm font-semibold text-slate-600">
                 <a href="#" onclick="switchTab('home')" class="hover:text-electric transition">Home</a>
                 <a href="#" onclick="switchTab('directory')" class="hover:text-electric transition">64 Wards Directory</a>
-                <a href="#" onclick="switchTab('live-tracker')" class="text-emerald-600 font-bold hover:underline transition">📡 Post Live Rate / Mall Deal</a>
-                <a href="#" onclick="switchTab('stores')" class="hover:text-electric transition">Local Shops & Malls</a>
-                <a href="#" onclick="switchTab('support')" class="hover:text-electric transition">Support</a>
+                <a href="#" onclick="checkSellerAccess()" class="text-emerald-600 font-bold hover:underline transition">📡 Seller Post Rate & Dashboard</a>
+                <a href="#" onclick="switchTab('stores')" class="hover:text-electric transition">Malls & Shops</a>
             </nav>
             <div class="flex items-center gap-2">
-                <button onclick="switchTab('live-tracker')" class="lg:hidden bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-2 rounded-xl text-[11px] font-bold">
-                    + Post Deal
+                <button onclick="checkSellerAccess()" class="bg-emerald-600 text-white px-3 py-2 rounded-xl text-xs font-bold shadow-sm">
+                    🔐 Seller Login / Pay
                 </button>
-                <button onclick="switchTab('cart')" class="relative bg-slate-100 hover:bg-slate-200 text-slate-800 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                <button onclick="switchTab('cart')" class="relative bg-slate-100 hover:bg-slate-200 text-slate-800 px-3 py-2 rounded-xl text-xs font-bold transition">
                     🛒 Saved (<span id="cartCount">0</span>)
                 </button>
             </div>
@@ -75,16 +70,16 @@
         <div id="tab-home" class="space-y-8">
             <section class="bg-gradient-to-r from-navy via-blue-950 to-indigo-950 text-white py-10 px-6 rounded-3xl shadow-xl text-center">
                 <span class="bg-blue-800/60 text-blue-200 border border-blue-400/30 text-xs font-semibold px-3 py-1 rounded-full mb-3 inline-block">
-                    📍 Vijayawada 64 Wards & Shopping Malls Live Price Comparison Portal
+                    📍 Vijayawada 64 Wards & Shopping Malls Portal
                 </span>
                 <h2 class="text-xl sm:text-3xl font-extrabold mb-3">విజయవాడ కూరగాయలు, పండ్లు & షాపింగ్ మాల్స్ లైవ్ ధరల పోలిక</h2>
                 <p class="text-slate-300 text-xs sm:text-sm mb-6 max-w-xl mx-auto">
-                    Compare daily vegetable rates and shopping mall brand discounts instantly before you step out.
+                    Compare daily rates and mall discounts instantly. Sellers can login & post rates.
                 </p>
                 <div class="bg-white p-3 rounded-2xl shadow-lg grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-slate-800 text-left">
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Search Item / Mall Brand</label>
-                        <input type="text" id="homeSearch" placeholder="Search tomato, PVP mall, shirt..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Search Item / Mall</label>
+                        <input type="text" id="homeSearch" placeholder="Search tomato, PVP mall..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Category</label>
@@ -96,9 +91,6 @@
                             <option value="Restaurants">Restaurants</option>
                             <option value="Grocery">Grocery</option>
                             <option value="Medical">Medical</option>
-                            <option value="Jobs">Jobs</option>
-                            <option value="Rentals">Rentals</option>
-                            <option value="Services">Services</option>
                         </select>
                     </div>
                     <div class="flex items-end">
@@ -109,99 +101,37 @@
                 </div>
             </section>
 
-            <!-- Today's Daily Market & Mall Deals Board -->
+            <!-- Daily Rates Board -->
             <section class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
-                <div class="flex flex-wrap justify-between items-center gap-2 mb-4 border-b border-slate-100 pb-3">
-                    <div>
-                        <h3 class="text-base font-extrabold text-slate-900">📊 Today's Vijayawada Market & Malls Live Board</h3>
-                        <p class="text-[11px] text-slate-500">Compare vegetable rates and top mall discounts (PVP, Trendset, Chennai Mall)</p>
-                    </div>
-                    <button onclick="switchTab('live-tracker')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm transition">
-                        + Post Live Deal / Rate
+                <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                    <h3 class="text-base font-extrabold text-slate-900">📊 Vijayawada Market & Malls Live Board</h3>
+                    <button onclick="checkSellerAccess()" class="bg-emerald-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm">
+                        + Post Live Deal
                     </button>
                 </div>
-                <div id="dailyRatesBoard" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
-                    <!-- Populated dynamically via JS -->
-                </div>
+                <div id="dailyRatesBoard" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3"></div>
             </section>
 
-            <!-- Categories Grid -->
             <section>
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-base font-extrabold text-slate-900">Explore by Category</h3>
-                    <button onclick="switchTab('directory')" class="text-xs font-bold text-electric hover:underline">View All Wards →</button>
-                </div>
-                <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-2">
-                    <div onclick="quickCategoryFilter('Vegetables')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">🥬</div>
-                        <p class="text-[10px] font-bold text-slate-800">Vegetables</p>
-                    </div>
-                    <div onclick="quickCategoryFilter('Fruits')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">🍎</div>
-                        <p class="text-[10px] font-bold text-slate-800">Fruits</p>
-                    </div>
-                    <div onclick="quickCategoryFilter('Shopping Malls')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">🏬</div>
-                        <p class="text-[10px] font-bold text-slate-800">Malls & Brands</p>
-                    </div>
-                    <div onclick="quickCategoryFilter('Restaurants')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">🍽️</div>
-                        <p class="text-[10px] font-bold text-slate-800">Restaurants</p>
-                    </div>
-                    <div onclick="quickCategoryFilter('Shopping')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">🛍️</div>
-                        <p class="text-[10px] font-bold text-slate-800">Shopping</p>
-                    </div>
-                    <div onclick="quickCategoryFilter('Grocery')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">🛒</div>
-                        <p class="text-[10px] font-bold text-slate-800">Grocery</p>
-                    </div>
-                    <div onclick="quickCategoryFilter('Medical')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">🏥</div>
-                        <p class="text-[10px] font-bold text-slate-800">Medical</p>
-                    </div>
-                    <div onclick="quickCategoryFilter('Jobs')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">💼</div>
-                        <p class="text-[10px] font-bold text-slate-800">Jobs</p>
-                    </div>
-                    <div onclick="quickCategoryFilter('Rentals')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">🏠</div>
-                        <p class="text-[10px] font-bold text-slate-800">Rentals</p>
-                    </div>
-                    <div onclick="quickCategoryFilter('Services')" class="bg-white p-3 rounded-2xl shadow-sm hover:shadow-md cursor-pointer border border-slate-100 text-center transition">
-                        <div class="text-xl mb-1">🔧</div>
-                        <p class="text-[10px] font-bold text-slate-800">Services</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Featured Live Feed -->
-            <section>
-                <div class="flex justify-between items-center mb-4 border-b border-slate-200 pb-2">
-                    <h3 class="text-base font-extrabold text-slate-900">🔴 Live Mall Deals & Ward Sellers Feed</h3>
-                    <button onclick="switchTab('directory')" class="text-xs text-electric font-bold hover:underline">Filter by Ward →</button>
-                </div>
                 <div id="homeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
             </section>
         </div>
 
         <!-- TAB 2: DIRECTORY -->
         <div id="tab-directory" class="hidden space-y-6">
+            <button onclick="switchTab('home')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold px-4 py-2 rounded-xl transition">
+                ← Back to Home
+            </button>
             <h2 class="text-2xl font-extrabold text-slate-900">All 64 Municipal Wards Directory & Malls</h2>
             <div class="bg-white p-4 rounded-2xl shadow-sm border grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <input type="text" id="dirSearch" onkeyup="applyDirectoryFilters()" placeholder="Search keywords (e.g. PVP Mall, tomato)..." class="px-3 py-2 border rounded-xl text-sm">
+                <input type="text" id="dirSearch" onkeyup="applyDirectoryFilters()" placeholder="Search keywords..." class="px-3 py-2 border rounded-xl text-sm">
                 <select id="dirCategory" onchange="applyDirectoryFilters()" class="px-3 py-2 border rounded-xl text-sm bg-white">
                     <option value="ALL">All Categories</option>
                     <option value="Vegetables">Vegetables</option>
                     <option value="Fruits">Fruits</option>
                     <option value="Shopping Malls">Shopping Malls & Brands</option>
                     <option value="Restaurants">Restaurants</option>
-                    <option value="Shopping">Shopping</option>
                     <option value="Grocery">Grocery</option>
-                    <option value="Medical">Medical</option>
-                    <option value="Jobs">Jobs</option>
-                    <option value="Rentals">Rentals</option>
-                    <option value="Services">Services</option>
                 </select>
                 <select id="dirWard" onchange="applyDirectoryFilters()" class="px-3 py-2 border rounded-xl text-sm bg-white">
                     <option value="ALL">All 64 Wards</option>
@@ -210,80 +140,103 @@
             <div id="directoryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
         </div>
 
-        <!-- TAB 3: LIVE TRACKER (Real-time Seller & Mall Deal Updater) -->
-        <div id="tab-live-tracker" class="hidden space-y-6 max-w-3xl mx-auto">
-            <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-md">
-                <div class="flex items-center gap-2 mb-2">
-                    <span class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
-                    <h2 class="text-xl font-extrabold text-slate-900">Post Live Rate / Mall Discount Deal</h2>
-                </div>
-                <p class="text-xs text-slate-500 mb-6">
-                    కూరగాయల ధరలు లేదా షాపింగ్ మాల్స్ (PVP, Trendset, Chennai Mall మొదలైనవి) లోని బ్రాండ్ ఆఫర్లను ఇక్కడ పోస్ట్ చేయండి. వెంటనే పైన ఉన్న <strong>Live Ticker</strong> మరియు వెబ్‌సైట్‌లో లైవ్ అప్‌డేట్ అవుతుంది!
-                </p>
+        <!-- TAB 3: PAYMENT GATEWAY MODAL / SCREEN (Required before posting) -->
+        <div id="tab-payment" class="hidden space-y-6 max-w-md mx-auto bg-white p-8 rounded-3xl border shadow-lg text-center">
+            <button onclick="switchTab('home')" class="text-xs text-slate-500 font-bold float-left">← Back</button>
+            <div class="clear-both"></div>
+            <div class="text-4xl mb-2">🔒</div>
+            <h2 class="text-xl font-extrabold text-slate-900">Seller Portal Access & Dashboard</h2>
+            <p class="text-xs text-slate-500 mb-6">
+                వ్యాపారులు / సెల్లర్స్ తమ లైవ్ రేట్లు, ఆఫర్లు పోస్ట్ చేయడానికి మరియు డ్యాష్‌బోర్డ్ యాక్సెస్ పొందడానికి చిన్న సబ్‌స్క్రిప్షన్ ఫీజు చెల్లించాలి.
+            </p>
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl text-left mb-6 text-xs space-y-1">
+                <p class="font-bold text-blue-900">✨ Seller Plan Benefits:</p>
+                <p>• Post unlimited live rates in 64 Wards</p>
+                <p>• Featured listing on Top Ticker & Homepage</p>
+                <p>• Direct customer WhatsApp inquiries</p>
+                <p class="font-extrabold text-emerald-600 mt-2">Fee: Rs. 99 / Month (Instant Activation)</p>
+            </div>
+            <button onclick="simulateSuccessfulPayment()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-2xl text-xs shadow-md transition">
+                💳 Pay Rs. 99 via UPI / Card & Unlock Access
+            </button>
+        </div>
 
+        <!-- TAB 4: SELLER DASHBOARD & POST RATE (Unlocked after payment) -->
+        <div id="tab-dashboard" class="hidden space-y-6 max-w-3xl mx-auto">
+            <div class="flex justify-between items-center bg-white p-4 rounded-2xl border shadow-sm">
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-900">🛠️ Seller Dashboard & Live Rate Manager</h2>
+                    <p class="text-[11px] text-emerald-600 font-bold">● Subscription Active (Verified Seller)</p>
+                </div>
+                <button onclick="switchTab('home')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-3 py-2 rounded-xl">
+                    ← Back to Home
+                </button>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-md">
+                <h3 class="text-sm font-extrabold text-slate-900 mb-4">Post New Live Rate / Mall Deal</h3>
                 <form onsubmit="submitLiveDeal(event)" class="space-y-4 text-xs">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block font-bold text-slate-700 mb-1">Select Ward / Mall Location *</label>
-                            <select id="liveWardSelect" required class="w-full border border-slate-300 p-3 rounded-xl bg-white font-semibold">
-                                <!-- Populated via JS -->
-                            </select>
+                            <label class="block font-bold text-slate-700 mb-1">Select Ward / Mall *</label>
+                            <select id="liveWardSelect" required class="w-full border border-slate-300 p-3 rounded-xl bg-white font-semibold"></select>
                         </div>
                         <div>
                             <label class="block font-bold text-slate-700 mb-1">Category *</label>
                             <select id="liveCatSelect" required class="w-full border border-slate-300 p-3 rounded-xl bg-white font-semibold">
-                                <option value="Shopping Malls">Shopping Malls & Brands (మాల్స్ & బ్రాండ్స్)</option>
-                                <option value="Vegetables">Vegetables (కూరగాయలు)</option>
-                                <option value="Fruits">Fruits (పండ్లు)</option>
-                                <option value="Grocery">Grocery (కిరాణా)</option>
+                                <option value="Shopping Malls">Shopping Malls & Brands</option>
+                                <option value="Vegetables">Vegetables</option>
+                                <option value="Fruits">Fruits</option>
+                                <option value="Grocery">Grocery</option>
                             </select>
                         </div>
                     </div>
-
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block font-bold text-slate-700 mb-1">Deal / Item / Mall Name *</label>
-                            <input type="text" id="liveItemTitle" required placeholder="e.g. PVP Mall - Style Union Flat 40% Off" class="w-full border border-slate-300 p-3 rounded-xl">
+                            <label class="block font-bold text-slate-700 mb-1">Item / Deal Title *</label>
+                            <input type="text" id="liveItemTitle" required placeholder="e.g. Tomato Fresh Van / PVP Mall Offer" class="w-full border border-slate-300 p-3 rounded-xl">
                         </div>
                         <div>
-                            <label class="block font-bold text-slate-700 mb-1">Live Price / Offer Details *</label>
-                            <input type="text" id="liveItemPrice" required placeholder="e.g. Shirts @ Rs. 499 only" class="w-full border border-slate-300 p-3 rounded-xl">
+                            <label class="block font-bold text-slate-700 mb-1">Live Price / Offer *</label>
+                            <input type="text" id="liveItemPrice" required placeholder="e.g. Rs. 35/Kg or Flat 40% OFF" class="w-full border border-slate-300 p-3 rounded-xl">
                         </div>
                     </div>
-
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block font-bold text-slate-700 mb-1">Contact / WhatsApp Number *</label>
+                            <label class="block font-bold text-slate-700 mb-1">WhatsApp Phone *</label>
                             <input type="tel" id="liveSellerPhone" required placeholder="e.g. 9848012345" class="w-full border border-slate-300 p-3 rounded-xl">
                         </div>
                         <div>
-                            <label class="block font-bold text-slate-700 mb-1">Exact Landmark / Floor in Mall *</label>
-                            <input type="text" id="liveLandmark" required placeholder="e.g. Ground Floor, MG Road, Labbipet" class="w-full border border-slate-300 p-3 rounded-xl">
+                            <label class="block font-bold text-slate-700 mb-1">Landmark / Location *</label>
+                            <input type="text" id="liveLandmark" required placeholder="e.g. Near Ramalayam, Benz Circle" class="w-full border border-slate-300 p-3 rounded-xl">
                         </div>
                     </div>
-
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-2xl text-sm shadow-lg transition">
-                        📡 Publish Deal Live to Top Ticker & Portal
+                    <button type="submit" class="w-full bg-navy text-white font-extrabold py-3.5 rounded-2xl text-xs shadow-lg">
+                        📡 Publish Live to Ticker & Dashboard
                     </button>
                 </form>
+
+                <div class="mt-8 pt-6 border-t border-slate-100">
+                    <h4 class="font-extrabold text-xs text-slate-800 mb-3">Your Posted Live Listings:</h4>
+                    <div id="myPostedListings" class="space-y-2"></div>
+                </div>
             </div>
         </div>
 
-        <!-- TAB 4: LOCAL SHOPS & MALLS -->
+        <!-- TAB 5: STORES & MALLS -->
         <div id="tab-stores" class="hidden space-y-6">
+            <button onclick="switchTab('home')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold px-4 py-2 rounded-xl transition">
+                ← Back to Home
+            </button>
             <h2 class="text-2xl font-extrabold text-slate-900 mb-2">Vijayawada Shopping Malls & Local Merchants</h2>
             <div id="storesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-5"></div>
         </div>
 
-        <!-- TAB 5: SUPPORT -->
-        <div id="tab-support" class="hidden space-y-6 max-w-3xl mx-auto bg-white p-8 rounded-3xl border shadow-sm">
-            <h2 class="text-2xl font-extrabold text-slate-900 mb-2">Customer Support</h2>
-            <p class="text-xs text-slate-500 mb-6">Official Vijayawada Smart Needs Helpdesk.</p>
-            <p class="text-sm font-bold">Helpline: <span class="text-electric">+91 866 2255888</span></p>
-        </div>
-
         <!-- TAB 6: CART -->
         <div id="tab-cart" class="hidden space-y-6 max-w-3xl mx-auto">
+            <button onclick="switchTab('home')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold px-4 py-2 rounded-xl transition">
+                ← Back to Home
+            </button>
             <h2 class="text-2xl font-extrabold text-slate-900 mb-4">Saved Listings</h2>
             <div id="cartList" class="space-y-3 mb-6"></div>
             <div class="bg-white p-6 rounded-3xl border shadow-sm flex justify-between items-center">
@@ -293,83 +246,47 @@
         </div>
     </main>
 
-    <!-- Emergency SOS -->
-    <section id="emergency" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
-        <div class="bg-red-50 border border-red-100 rounded-3xl p-5 shadow-sm">
-            <h3 class="text-xs font-extrabold text-red-900 mb-2">🚨 Vijayawada Official Emergency Helplines (24/7)</h3>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-                <a href="tel:108" class="bg-white p-2.5 rounded-2xl border border-red-200 font-bold text-red-600 shadow-sm">Ambulance: 108</a>
-                <a href="tel:100" class="bg-white p-2.5 rounded-2xl border border-red-200 font-bold text-red-600 shadow-sm">Police: 100</a>
-                <a href="tel:101" class="bg-white p-2.5 rounded-2xl border border-red-200 font-bold text-red-600 shadow-sm">Fire: 101</a>
-                <a href="tel:08662420444" class="bg-white p-2.5 rounded-2xl border border-red-200 font-bold text-red-600 shadow-sm">VMC: 0866-2420444</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-navy text-slate-400 py-8 px-4 text-xs border-t border-slate-800 mt-auto">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mb-4">
-            <div>
-                <h5 class="text-white font-bold mb-2">Vijayawada Smart Needs</h5>
-                <p>The official digital city directory covering all 64 municipal wards and shopping malls of Vijayawada.</p>
-            </div>
-            <div>
-                <h5 class="text-white font-bold mb-2">Quick Links</h5>
-                <ul class="space-y-1">
-                    <li><a href="#" onclick="switchTab('home')" class="hover:text-white">Home</a></li>
-                    <li><a href="#" onclick="switchTab('directory')" class="hover:text-white">64 Wards Directory</a></li>
-                    <li><a href="#" onclick="switchTab('live-tracker')" class="hover:text-white">Live Deal Tracker</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="text-white font-bold mb-2">Legal & Policy</h5>
-                <ul class="space-y-1">
-                    <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white">Terms & Conditions</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="text-white font-bold mb-2">Support</h5>
-                <p>Helpline: +91 866 2255888</p>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto border-t border-slate-800 pt-4 text-center text-slate-500">
-            <p>&copy; 2026 Vijayawada Smart Needs. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Master JavaScript Logic with Malls & Ticker Integration -->
+    <!-- Master JavaScript Logic with Payment & Dashboard -->
     <script>
         const vijayawadaWards = [
-            "Ward 1 - Yanamalakuduru / Patamata Lanka", "Ward 2 - Ramalingeswara Nagar", "Ward 3 - Krishna Lanka (East)", "Ward 4 - Krishna Lanka (West)", "Ward 5 - Ranigarithota", "Ward 6 - Police Quarters / Labbipet", "Ward 7 - Benz Circle / Venkateswarapuram (PVP & Trendset Malls)", "Ward 8 - Patamata (Central)", "Ward 9 - Auto Nagar (Industrial Estate)", "Ward 10 - Gurunanak Colony", "Ward 11 - Bharathi Nagar", "Ward 12 - Enikepadu / Prasadampadu", "Ward 13 - Currency Nagar / Ramavarappadu", "Ward 14 - Gunadala (South)", "Ward 15 - Gunadala (Hill / Christurajupuram)", "Ward 16 - Machavaram (East)", "Ward 17 - Machavaram (Down / Padavalarevu)", "Ward 18 - Moghalrajpuram (East)", "Ward 19 - Moghalrajpuram (West / Siddhartha Nagar)", "Ward 20 - Suryaraopeta (North)", "Ward 21 - Suryaraopeta (South / Museum Road)", "Ward 22 - Governorpet (MG Road / Besant Road)", "Ward 23 - Governorpet (Eluru Road Junction)", "Ward 24 - Hanumanpet / Buckinghampet", "Ward 25 - Durgapuram / Arundalpet", "Ward 26 - Vijayawada Railway Station Area", "Ward 27 - Satyanarayanapuram (East)", "Ward 28 - Satyanarayanapuram (West)", "Ward 29 - Madhura Nagar", "Ward 30 - Mutylampadu", "Ward 31 - Ajit Singh Nagar (Block 1-4)", "Ward 32 - Ajit Singh Nagar (Pipula Road)", "Ward 33 - Vambay Colony / Prakash Nagar", "Ward 34 - Payakapuram (East)", "Ward 35 - Payakapuram (Radha Nagar)", "Ward 36 - Kandrika / Nunna Border", "Ward 37 - Devi Nagar", "Ward 38 - Fraserpeta / Kedareswarapet", "Ward 39 - Wynchpeta", "Ward 40 - Kothapet (East)", "Ward 41 - Kothapet (West / Swathi Theatre)", "Ward 42 - One Town (Kaleswara Rao Market)", "Ward 43 - Tarapet / Panja Centre", "Ward 44 - Islampet / Brahmin Street", "Ward 45 - Indrakeeladri / Kanaka Durga Temple Area", "Ward 46 - Bhavanipuram (East)", "Ward 47 - Bhavanipuram (HB Colony)", "Ward 48 - Vidyadharapuram (East)", "Ward 49 - Vidyadharapuram (West / Kummaripalem)", "Ward 50 - Chittinagar", "Ward 51 - Milk Project / Kabela", "Ward 52 - Gollapudi Border / Sitara Centre", "Ward 53 - Joji Nagar", "Ward 54 - Rajarajeswaripeta", "Ward 55 - New Rajarajeswaripeta", "Ward 56 - Urmila Nagar", "Ward 57 - Crombay Road / Pezzonipet", "Ward 58 - Sanath Nagar", "Ward 59 - Kanuru Border / Tadigadapa", "Ward 60 - Poranki Border / Penamaluru", "Ward 61 - Jakkampudi Colony", "Ward 62 - Gollapudi Gollapudi Rural Extension", "Ward 63 - Nunna Rural Extension", "Ward 64 - Ambapuram / Pathapadu"
+            "Ward 1 - Yanamalakuduru / Patamata Lanka", "Ward 2 - Ramalingeswara Nagar", "Ward 3 - Krishna Lanka (East)", "Ward 4 - Krishna Lanka (West)", "Ward 5 - Ranigarithota", "Ward 6 - Police Quarters / Labbipet", "Ward 7 - Benz Circle / Venkateswarapuram (PVP & Trendset Malls)", "Ward 8 - Patamata (Central)", "Ward 9 - Auto Nagar (Industrial Estate)", "Ward 10 - Gurunanak Colony", "Ward 11 - Bharathi Nagar", "Ward 12 - Enikepadu / Prasadampadu", "Ward 13 - Currency Nagar / Ramavarappadu", "Ward 14 - Gunadala (South)", "Ward 15 - Gunadala (Hill / Christurajupuram)", "Ward 16 - Machavaram (East)", "Ward 17 - Machavaram (Down / Padavalarevu)", "Ward 18 - Moghalrajpuram (East)", "Ward 19 - Moghalrajpuram (West / Siddhartha Nagar)", "Ward 20 - Suryaraopeta (North)", "Ward 21 - Suryaraopeta (South / Museum Road)", "Ward 22 - Governorpet (MG Road / Besant Road)", "Ward 23 - Governorpet (Eluru Road Junction)", "Ward 24 - Hanumanpet / Buckinghampet", "Ward 25 - Durgapuram / Arundalpet", "Ward 26 - Vijayawada Railway Station Area", "Ward 27 - Satyanarayanapuram (East)", "Ward 28 - Satyanarayanapuram (West)", "Ward 29 - Madhura Nagar", "Ward 30 - Mutylampadu", "Ward 31 - Ajit Singh Nagar (Block 1-4)", "Ward 32 - Ajit Singh Nagar (Pipula Road)", "Ward 33 - Vambay Colony / Prakash Nagar", "Ward 34 - Payakapuram (East)", "Ward 35 - Payakapuram (Radha Nagar)", "Ward 36 - Kandrika / Nunna Border", "Ward 37 - Devi Nagar", "Ward 38 - Fraserpeta / Kedareswarapet", "Ward 39 - Wynchpeta", "Ward 40 - Kothapet (East)", "Ward 41 - Kothapet (West / Swathi Theatre)", "Ward 42 - One Town (Kaleswara Rao Market)", "Ward 43 - Tarapet / Panja Centre", "Ward 44 - Islampet / Brahmin Street", "Ward 45 - Indrakeeladri / Kanaka Durga Temple Area", "Ward 46 - Bhavanipuram (East)", "Ward 47 - Bhavanipuram (HB Colony)", "Ward 48 - Vidyadharapuram (East)", "Ward 49 - Vidyadharapuram (West / Kummaripalem)", "Ward 50 - Chittinagar", "Ward 51 - Milk Project / Kabela", "Ward 52 - Gollapudi Border / Sitara Centre", "Ward 53 - Joji Nagar", "Ward 54 - Rajarajeswaripeta", "Ward 55 - New Rajarajeswaripeta", "Ward 56 - Urmila Nagar", "Ward 57 - Crombay Road / Pezzonipet", "Ward 58 - Sanath Nagar", "Ward 59 - Kanuru Border / Tadigadapa", "Ward 60 - Poranki Border / Penamaluru", "Ward 61 - Jakkampudi Colony", "Ward 62 - Gollapudi Rural Extension", "Ward 63 - Nunna Rural Extension", "Ward 64 - Ambapuram / Pathapadu"
         ];
 
-        // Daily Market & Malls Live Rates Array
         let dailyMarketRates = [
             { name: "PVP Square Mall Deals", price: "Flat 40% OFF", trend: "🔥", icon: "🏬", ward: "Labbipet" },
             { name: "Trendset Mall Fashion", price: "Shirts @ Rs. 499", trend: "🔥", icon: "🛍️", ward: "Benz Circle" },
-            { name: "The Chennai Shopping Mall", price: "Pattu Sarees Special", trend: "✨", icon: "👗", ward: "Labbipet" },
             { name: "Tomato (టమాటా)", price: "Rs. 36 / Kg", trend: "📉", icon: "🍅", ward: "Rythu Bazaar" },
             { name: "Onion (ఉల్లిపాయలు)", price: "Rs. 52 / Kg", trend: "📈", icon: "🧅", ward: "K.R. Market" },
-            { name: "Potato (బంగాళదుంప)", price: "Rs. 40 / Kg", trend: "➖", icon: "🥔", ward: "Rythu Bazaar" },
-            { name: "Green Chilli (పచ్చిమిర్చి)", price: "Rs. 55 / Kg", trend: "📈", icon: "🌶️", ward: "All Wards" },
-            { name: "Banana (అరటిపండ్లు)", price: "Rs. 45 / Dozen", trend: "➖", icon: "🍌", ward: "One Town" },
-            { name: "Apple (ఆపిల్)", price: "Rs. 160 / Kg", trend: "📈", icon: "🍎", ward: "Governorpet" }
+            { name: "Potato (బంగాళదుంప)", price: "Rs. 40 / Kg", trend: "➖", icon: "🥔", ward: "Rythu Bazaar" }
         ];
 
         let savedLiveDeals = JSON.parse(localStorage.getItem('vsn_live_deals')) || [];
 
         let masterCatalog = [
             ...savedLiveDeals,
-            { id: 1, title: "PVP Square Mall - Style Union Branded Apparel", category: "Shopping Malls", ward: "Ward 7 - Benz Circle / Venkateswarapuram (PVP & Trendset Malls)", price: "Flat 40% OFF | Kurtas Rs. 399", phone: "918662498111", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80", desc: "Top branded western and ethnic wear deals at PVP Square Mall, MG Road.", rating: "4.8", reviews: "1,240 Reviews", isLive: true },
-            { id: 2, title: "Trendset Mall - Multiplex & Lifestyle Outlet", category: "Shopping Malls", ward: "Ward 7 - Benz Circle / Venkateswarapuram (PVP & Trendset Malls)", price: "Combo Tickets @ Rs. 300", phone: "918662558888", img: "https://images.unsplash.com/photo-1555529771-835f59fc5efe?auto=format&fit=crop&w=400&q=80", desc: "Special weekend discounts on fashion, food court, and 4D multiplex movies at Trendset Mall.", rating: "4.7", reviews: "980 Reviews", isLive: true },
-            { id: 3, title: "The Chennai Shopping Mall - Pattu Sarees", category: "Shopping Malls", ward: "Ward 6 - Police Quarters / Labbipet", price: "Wedding Pattu Starting Rs. 2,499", phone: "918662545555", img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80", desc: "Exclusive silk and designer sarees collection near Labbipet, MG Road.", rating: "4.9", reviews: "2,150 Reviews", isLive: true },
-            { id: 4, title: "Suryaraopeta Rythu Bazaar Fresh Tomatoes", category: "Vegetables", ward: "Ward 20 - Suryaraopeta (North)", price: "Rs. 36 / Kg", phone: "919848099999", img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80", desc: "Direct farm fresh red juicy tomatoes available daily.", rating: "4.6", reviews: "142 Reviews" },
-            { id: 5, title: "K.R. Market Wholesale Onions", category: "Vegetables", ward: "Ward 42 - One Town (Kaleswara Rao Market)", price: "Rs. 52 / Kg", phone: "919848099998", img: "https://images.unsplash.com/photo-1618512495648-f9048f6d367a?auto=format&fit=crop&w=400&q=80", desc: "Wholesale and retail fresh crisp onions.", rating: "4.7", reviews: "98 Reviews" },
-            { id: 6, title: "D-Mart Supermarket Grocery", category: "Grocery", ward: "Ward 8 - Patamata (Central)", price: "Rice Rs. 1,350 / 25kg", phone: "919848013131", img: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=400&q=80", desc: "Wholesale discounted grocery, pulses, and cooking oils.", rating: "4.8", reviews: "650 Reviews" }
+            { id: 1, title: "PVP Square Mall - Style Union Branded Apparel", category: "Shopping Malls", ward: "Ward 7 - Benz Circle / Venkateswarapuram (PVP & Trendset Malls)", price: "Flat 40% OFF", phone: "918662498111", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80", desc: "Top branded western and ethnic wear deals at PVP Square Mall.", rating: "4.8", reviews: "1,240 Reviews", isLive: true },
+            { id: 2, title: "Suryaraopeta Rythu Bazaar Fresh Tomatoes", category: "Vegetables", ward: "Ward 20 - Suryaraopeta (North)", price: "Rs. 36 / Kg", phone: "919848099999", img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80", desc: "Direct farm fresh red juicy tomatoes available daily.", rating: "4.6", reviews: "142 Reviews" }
         ];
 
         let cart = [];
+
+        // Check if Seller Paid/Logged in
+        function checkSellerAccess() {
+            const isPaid = localStorage.getItem('vsn_seller_paid');
+            if (isPaid === 'true') {
+                switchTab('dashboard');
+                renderMyPostedListings();
+            } else {
+                switchTab('payment');
+            }
+        }
+
+        function simulateSuccessfulPayment() {
+            localStorage.setItem('vsn_seller_paid', 'true');
+            alert("🎉 Payment Successful! Welcome to Seller Dashboard.");
+            switchTab('dashboard');
+            renderMyPostedListings();
+        }
 
         function renderLiveTickerAndBoard() {
             const tickerEl = document.getElementById('liveTickerContent');
@@ -390,7 +307,7 @@
 
             if (boardEl) {
                 boardEl.innerHTML = dailyMarketRates.map(r => `
-                    <div class="bg-slate-50 border border-slate-100 p-3 rounded-2xl flex flex-col justify-between hover:border-blue-200 transition">
+                    <div class="bg-slate-50 border border-slate-100 p-3 rounded-2xl flex flex-col justify-between">
                         <div class="flex justify-between items-start mb-1">
                             <span class="text-xl">${r.icon}</span>
                             <span class="text-[10px] font-bold bg-white px-2 py-0.5 rounded-full border text-slate-600">${r.ward}</span>
@@ -410,31 +327,18 @@
             const price = document.getElementById('liveItemPrice').value;
             const phone = document.getElementById('liveSellerPhone').value.replace(/\D/g, '');
             const landmark = document.getElementById('liveLandmark').value;
-
             const shortWard = ward.split('-')[0].trim();
 
             dailyMarketRates.unshift({
-                name: title,
-                price: price,
-                trend: "🔥 LIVE",
-                icon: cat === 'Shopping Malls' ? '🏬' : '🥬',
-                ward: shortWard
+                name: title, price: price, trend: "🔥 LIVE",
+                icon: cat === 'Shopping Malls' ? '🏬' : '🥬', ward: shortWard
             });
 
             const newDeal = {
-                id: Date.now(),
-                title: title,
-                category: cat,
-                ward: ward,
-                price: price,
-                phone: phone.startsWith('91') ? phone : '91' + phone,
-                img: cat === 'Shopping Malls' 
-                    ? "https://images.unsplash.com/photo-1555529771-835f59fc5efe?auto=format&fit=crop&w=400&q=80"
-                    : "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80",
-                desc: `Live deal / offer available at ${landmark} (${ward}).`,
-                rating: "5.0",
-                reviews: "Verified Deal",
-                isLive: true
+                id: Date.now(), title: title, category: cat, ward: ward,
+                price: price, phone: phone.startsWith('91') ? phone : '91' + phone,
+                img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80",
+                desc: `Live deal at ${landmark} (${ward}).`, rating: "5.0", reviews: "Verified", isLive: true
             };
 
             savedLiveDeals.unshift(newDeal);
@@ -442,27 +346,43 @@
             masterCatalog.unshift(newDeal);
 
             renderLiveTickerAndBoard();
-            alert(`✅ Deal Published! "${title}" is now live on the Top Ticker and Portal.`);
+            renderMyPostedListings();
+            alert("✅ Published successfully to live portal!");
             e.target.reset();
-            switchTab('home');
+        }
+
+        function renderMyPostedListings() {
+            const container = document.getElementById('myPostedListings');
+            if (!container) return;
+            if (savedLiveDeals.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400">No active listings posted yet.</p>`;
+                return;
+            }
+            container.innerHTML = savedLiveDeals.map((item, idx) => `
+                <div class="bg-slate-50 p-3 rounded-xl border flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-slate-900">${item.title}</p>
+                        <p class="text-[10px] text-slate-500">${item.ward} | Rate: <strong class="text-emerald-600">${item.price}</strong></p>
+                    </div>
+                    <button onclick="deleteLiveDeal(${idx})" class="text-red-500 font-bold px-2 py-1 bg-white border rounded-lg">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteLiveDeal(idx) {
+            savedLiveDeals.splice(idx, 1);
+            localStorage.setItem('vsn_live_deals', JSON.stringify(savedLiveDeals));
+            masterCatalog = masterCatalog.filter(i => !i.isLive || savedLiveDeals.some(d => d.id === i.id));
+            renderMyPostedListings();
+            alert("Listing removed successfully.");
         }
 
         function getListings(category, ward) {
             let pool = [...masterCatalog];
-
             if (ward && ward !== 'ALL') {
                 const shortName = ward.split('-')[1]?.trim() || ward;
-                const wardSpecificItems = [
-                    { id: Math.random(), title: `PVP Square Mall - Brand Outlets`, category: "Shopping Malls", ward: ward, price: "Flat 30% - 50% OFF", phone: "918662498111", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80", desc: `Explore top fashion and lifestyle brands at PVP Square Mall near ${shortName}.`, rating: "4.8", reviews: "1,240 Reviews" },
-                    { id: Math.random(), title: `Trendset Mall - Shopping & 4D Cinema`, category: "Shopping Malls", ward: ward, price: "Weekend Special Offers", phone: "918662558888", img: "https://images.unsplash.com/photo-1555529771-835f59fc5efe?auto=format&fit=crop&w=400&q=80", desc: `Multi-brand shopping and multiplex cinema near ${shortName}.`, rating: "4.7", reviews: "980 Reviews" },
-                    { id: Math.random(), title: `${shortName} Fresh Red Tomatoes`, category: "Vegetables", ward: ward, price: "Rs. 36 / Kg", phone: "919848011101", img: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80", desc: `Direct farm fresh tomatoes available daily in ${shortName}.`, rating: "4.6", reviews: "45 Reviews" },
-                    { id: Math.random(), title: `${shortName} Fresh Farm Onions & Potatoes`, category: "Vegetables", ward: ward, price: "Onion Rs. 52/Kg", phone: "919848011102", img: "https://images.unsplash.com/photo-1618512495648-f9048f6d367a?auto=format&fit=crop&w=400&q=80", desc: `Good quality crisp onions in ${shortName}.`, rating: "4.5", reviews: "60 Reviews" },
-                    { id: Math.random(), title: `${shortName} Fresh Apples & Bananas`, category: "Fruits", ward: ward, price: "Banana Rs. 45/Doz", phone: "919848011109", img: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=400&q=80", desc: `Fresh seasonal fruits in ${shortName}.`, rating: "4.7", reviews: "52 Reviews" },
-                    { id: Math.random(), title: `${shortName} Grand Family Restaurant`, category: "Restaurants", ward: ward, price: "Meals Rs. 120", phone: "919848055511", img: "https://images.unsplash.com/photo-1552539618-7eec9e44e332?auto=format&fit=crop&w=400&q=80", desc: `Authentic South Indian tiffins and meals in ${shortName}.`, rating: "4.6", reviews: "85 Reviews" }
-                ];
-                pool = [...wardSpecificItems];
+                pool = pool.filter(i => i.ward === ward || i.ward.includes(shortName));
             }
-
             if (category && category !== 'ALL') {
                 pool = pool.filter(item => item.category === category);
             }
@@ -470,7 +390,7 @@
         }
 
         function switchTab(tabId) {
-            const tabs = ['home', 'directory', 'live-tracker', 'stores', 'support', 'cart'];
+            const tabs = ['home', 'directory', 'payment', 'dashboard', 'stores', 'cart'];
             tabs.forEach(t => {
                 const el = document.getElementById('tab-' + t);
                 if (el) {
@@ -486,8 +406,9 @@
             } else if (tabId === 'directory') {
                 populateWards("dirWard");
                 applyDirectoryFilters();
-            } else if (tabId === 'live-tracker') {
+            } else if (tabId === 'dashboard') {
                 populateWards("liveWardSelect", false);
+                renderMyPostedListings();
             } else if (tabId === 'stores') {
                 renderStoresGrid();
             } else if (tabId === 'cart') {
@@ -519,7 +440,6 @@
                 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.ward + ' Vijayawada')}`;
                 const waUrl = `https://wa.me/${item.phone}?text=${encodeURIComponent(`Hello, I saw "${item.title}" (${item.ward}) on Vijayawada Smart Needs.`)}`;
                 const itemImg = item.img || "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80";
-                const liveBadge = item.isLive ? `<span class="absolute bottom-3 left-3 bg-red-600 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full shadow flex items-center gap-1"><span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span> LIVE DEAL</span>` : '';
                 return `
                 <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-100 flex flex-col justify-between transition group">
                     <div>
@@ -527,7 +447,6 @@
                             <img src="${itemImg}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                             <span class="absolute top-3 left-3 text-[10px] font-extrabold uppercase bg-white/90 backdrop-blur-sm text-electric px-2.5 py-1 rounded-lg shadow-sm">${item.category}</span>
                             <span class="absolute top-3 right-3 text-[10px] font-bold bg-amber-500 text-white px-2 py-0.5 rounded-lg shadow-sm">⭐ ${item.rating}</span>
-                            ${liveBadge}
                         </div>
                         <div class="p-4">
                             <h4 class="text-sm font-extrabold text-slate-900 mb-1 line-clamp-1">${item.title}</h4>
@@ -537,7 +456,7 @@
                     </div>
                     <div class="p-4 pt-0">
                         <div class="bg-slate-50 px-3 py-2 rounded-xl border border-slate-100 mb-3 flex justify-between items-center">
-                            <span class="text-[11px] text-slate-500">Live Price / Offer:</span>
+                            <span class="text-[11px] text-slate-500">Price / Offer:</span>
                             <span class="text-xs font-extrabold text-emerald-600">${item.price}</span>
                         </div>
                         <div class="grid grid-cols-3 gap-1.5 text-xs font-bold">
@@ -553,30 +472,14 @@
         function renderStoresGrid() {
             const grid = document.getElementById('storesGrid');
             if (!grid) return;
-            const mallsAndStores = [
-                { title: "PVP Square Mall (MG Road)", category: "Shopping Malls", ward: "Ward 7 - Labbipet", price: "Flat 40% OFF Deals", phone: "918662498111", img: "https://images.unsplash.com/photo-1555529771-835f59fc5efe?auto=format&fit=crop&w=400&q=80", desc: "Vijayawada's landmark luxury shopping and entertainment mall." },
-                { title: "Trendset Mall (Benz Circle)", category: "Shopping Malls", ward: "Ward 7 - Benz Circle", price: "Fashion & 4D Cinema", phone: "918662558888", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80", desc: "Popular fashion destination with multi-screen multiplex." },
-                { title: "The Chennai Shopping Mall", category: "Shopping Malls", ward: "Ward 6 - Labbipet", price: "Pattu & Designer Sarees", phone: "918662545555", img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=400&q=80", desc: "Largest collection of traditional wear and family apparel." }
-            ];
-            grid.innerHTML = mallsAndStores.map(s => `
-                <div class="bg-white rounded-3xl overflow-hidden border shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div class="h-36 overflow-hidden bg-slate-100">
-                            <img src="${s.img}" class="w-full h-full object-cover">
-                        </div>
-                        <div class="p-4">
-                            <span class="text-[10px] font-bold bg-blue-50 text-electric px-2.5 py-0.5 rounded-md uppercase">${s.category}</span>
-                            <h4 class="text-sm font-extrabold text-slate-900 mt-1">${s.title}</h4>
-                            <p class="text-[11px] text-slate-500 mb-2">📍 ${s.ward}</p>
-                            <p class="text-[11px] text-slate-600 mb-3">${s.desc}</p>
-                        </div>
-                    </div>
-                    <div class="p-4 pt-0 flex justify-between items-center bg-slate-50 p-3 border-t">
-                        <span class="text-xs font-bold text-emerald-600">${s.price}</span>
-                        <a href="https://wa.me/${s.phone}" target="_blank" class="bg-emerald-600 text-white text-xs px-3 py-1.5 rounded-lg font-bold">WhatsApp</a>
-                    </div>
+            grid.innerHTML = `
+                <div class="bg-white rounded-3xl overflow-hidden border shadow-sm p-4">
+                    <h4 class="font-extrabold text-sm mb-1">PVP Square Mall (MG Road)</h4>
+                    <p class="text-xs text-slate-500 mb-2">Ward 7 - Labbipet</p>
+                    <p class="text-xs font-bold text-emerald-600 mb-3">Flat 40% OFF Deals Active</p>
+                    <a href="https://wa.me/918662498111" class="block text-center bg-emerald-600 text-white text-xs py-2 rounded-xl font-bold">WhatsApp Inquiry</a>
                 </div>
-            `).join('');
+            `;
         }
 
         function executeHomeSearch() {
@@ -588,15 +491,6 @@
                 const searchEl = document.getElementById('dirSearch');
                 if (catEl) catEl.value = cat;
                 if (searchEl) searchEl.value = query;
-                applyDirectoryFilters();
-            }, 50);
-        }
-
-        function quickCategoryFilter(cat) {
-            switchTab('directory');
-            setTimeout(() => {
-                const catEl = document.getElementById('dirCategory');
-                if (catEl) catEl.value = cat;
                 applyDirectoryFilters();
             }, 50);
         }
@@ -623,8 +517,7 @@
 
         function saveToList(item) {
             cart.push(item);
-            const countEl = document.getElementById('cartCount');
-            if (countEl) countEl.innerText = cart.length;
+            document.getElementById('cartCount').innerText = cart.length;
             alert(`"${item.title}" saved successfully!`);
         }
 
@@ -632,7 +525,7 @@
             const list = document.getElementById('cartList');
             const totalEl = document.getElementById('cartTotal');
             if (!list) return;
-            if (totalEl) totalEl.innerText = `${cart.length} Items`;
+            totalEl.innerText = `${cart.length} Items`;
             if (cart.length === 0) {
                 list.innerHTML = `<p class="text-xs text-slate-500 bg-white p-6 rounded-2xl border text-center">No saved items.</p>`;
                 return;
@@ -650,8 +543,7 @@
 
         function removeFromCart(i) {
             cart.splice(i, 1);
-            const countEl = document.getElementById('cartCount');
-            if (countEl) countEl.innerText = cart.length;
+            document.getElementById('cartCount').innerText = cart.length;
             renderCartItems();
         }
 
@@ -662,9 +554,7 @@
             window.open(`https://wa.me/919848011223?text=${msg}`, '_blank');
         }
 
-        window.onload = () => {
-            switchTab('home');
-        };
+        window.onload = () => { switchTab('home'); };
     </script>
 </body>
 </html>
