@@ -1,0 +1,169 @@
+
+import os
+from pathlib import Path
+
+from fastapi import FastAPI, Query
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
+
+app = FastAPI(
+    title="BezawadaDeals",
+    description="Vijayawada Local Deals Marketplace",
+    version="1.0.0"
+)
+
+BASE_DIR = Path(__file__).resolve().parent
+PUBLIC_DIR = BASE_DIR / "public"
+TEMPLATES_DIR = BASE_DIR / "templates"
+
+# Static files
+if PUBLIC_DIR.exists():
+    app.mount(
+        "/static",
+        StaticFiles(directory=str(PUBLIC_DIR)),
+        name="static"
+    )
+
+templates = (
+    Jinja2Templates(directory=str(TEMPLATES_DIR))
+    if TEMPLATES_DIR.exists()
+    else None
+)
+
+# Optional Supabase connection
+supabase = None
+
+try:
+    from supabase import create_client
+
+    supabase_url = os.getenv("SUPABASE_URL")
+    supabase_key = os.getenv("SUPABASE_KEY")
+
+    if supabase_url and supabase_key:
+        supabase = create_client(supabase_url, supabase_key)
+
+except Exception as error:
+    print("Supabase connection not configured:", error)
+
+
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+
+    if templates and (TEMPLATES_DIR / "index.html").exists():
+        return templates.TemplateResponse(
+            "index.html",
+            {"request": request}
+        )
+
+    index_file = PUBLIC_DIR / "index.html"
+
+    if index_file.exists():
+        return HTMLResponse(
+            index_file.read_text(encoding="utf-8")
+        )
+
+    return HTMLResponse(
+        "<h1>Welcome to BezawadaDeals</h1>"
+        "<p>Website is running.</p>"
+    )
+
+
+@app.get("/api/health")
+async def health():
+    return {
+        "status": "OK",
+        "website": "BezawadaDeals",
+        "database": "Connected" if supabase else "Not configured"
+    }
+
+
+@app.get("/api/categories")
+async def get_categories():
+
+    if not supabase:
+        return []
+
+    try:
+        result = (
+            supabase.table("categories")
+            .select("*")
+            .eq("active", True)
+            .execute()
+        )
+        return result.data
+
+    except Exception as error:
+        return {"error": str(error)}
+
+
+@app.get("/api/deals")
+async def get_deals(
+    area: str = Query(default=None),
+    ward: int = Query(default=None, ge=1, le=86),
+    category: int = Query(default=None),
+    search: str = Query(default=None)
+):
+
+    if not supabase:
+        return []
+
+    try:
+        query = (
+            supabase.table("deals")
+            .select("*")
+            .eq("status", "approved")
+        )
+
+        if area:
+            query = query.eq("area", area)
+
+        if ward:
+            query = query.eq("ward_number", ward)
+
+        if category:
+            query = query.eq("category_id", category)
+
+        if search:
+            query = query.ilike("title", f"%{search}%")
+
+        result = query.order(
+            "created_at",
+            desc=True
+        ).execute()
+
+        return result.data
+
+    except Exception as error:
+        return {"error": str(error)}
+
+
+@app.get("/api/prices")
+async def get_market_prices(
+    area: str = Query(default=None),
+    ward: int = Query(default=None, ge=1, le=86)
+):
+
+    if not supabase:
+        return []
+
+    try:
+        query = supabase.table("market_prices").select("*")
+
+        if area:
+            query = query.eq("area", area)
+
+        if ward:
+            query = query.eq("ward_number", ward)
+
+        result = query.order(
+            "updated_at",
+            desc=True
+        ).execute()
+
+        return result.data
+
+    except Exception as error:
+        return {"error": str(error)}
+,
