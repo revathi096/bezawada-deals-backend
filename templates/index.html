@@ -114,14 +114,14 @@
         </div>
     </div>
 
-    <!-- JavaScript Master Logic with Strict Category Filtering -->
+    <!-- JavaScript Master Logic with Flexible Keyword Search -->
     <script>
         const vijayawadaWards = [
             "Ward 1 - Yanamalakuduru / Patamata Lanka", "Ward 2 - Ramalingeswara Nagar", "Ward 3 - Krishna Lanka (East)", "Ward 4 - Krishna Lanka (West)", "Ward 5 - Ranigarithota", "Ward 6 - Police Quarters / Labbipet", "Ward 7 - Benz Circle / Venkateswarapuram", "Ward 8 - Patamata (Central)", "Ward 9 - Auto Nagar (Industrial Estate)", "Ward 10 - Gurunanak Colony", "Ward 11 - Bharathi Nagar", "Ward 12 - Enikepadu / Prasadampadu", "Ward 13 - Currency Nagar / Ramavarappadu", "Ward 14 - Gunadala (South)", "Ward 15 - Gunadala (Hill / Christurajupuram)", "Ward 16 - Machavaram (East)", "Ward 17 - Machavaram (Down / Padavalarevu)", "Ward 18 - Moghalrajpuram (East)", "Ward 19 - Moghalrajpuram (West / Siddhartha Nagar)", "Ward 20 - Suryaraopeta (North)", "Ward 21 - Suryaraopeta (South / Museum Road)", "Ward 22 - Governorpet (MG Road / Besant Road)", "Ward 23 - Governorpet (Eluru Road Junction)", "Ward 24 - Hanumanpet / Buckinghampet", "Ward 25 - Durgapuram / Arundalpet", "Ward 26 - Vijayawada Railway Station Area", "Ward 27 - Satyanarayanapuram (East)", "Ward 28 - Satyanarayanapuram (West)", "Ward 29 - Madhura Nagar", "Ward 30 - Mutylampadu", "Ward 31 - Ajit Singh Nagar (Block 1-4)", "Ward 32 - Ajit Singh Nagar (Pipula Road)", "Ward 33 - Vambay Colony / Prakash Nagar", "Ward 34 - Payakapuram (East)", "Ward 35 - Payakapuram (Radha Nagar)", "Ward 36 - Kandrika / Nunna Border", "Ward 37 - Devi Nagar", "Ward 38 - Fraserpeta / Kedareswarapet", "Ward 39 - Wynchpeta", "Ward 40 - Kothapet (East)", "Ward 41 - Kothapet (West / Swathi Theatre)", "Ward 42 - One Town (Kaleswara Rao Market)", "Ward 43 - Tarapet / Panja Centre", "Ward 44 - Islampet / Brahmin Street", "Ward 45 - Indrakeeladri / Kanaka Durga Temple Area", "Ward 46 - Bhavanipuram (East)", "Ward 47 - Bhavanipuram (HB Colony)", "Ward 48 - Vidyadharapuram (East)", "Ward 49 - Vidyadharapuram (West / Kummaripalem)", "Ward 50 - Chittinagar", "Ward 51 - Milk Project / Kabela", "Ward 52 - Gollapudi Border / Sitara Centre", "Ward 53 - Joji Nagar", "Ward 54 - Rajarajeswaripeta", "Ward 55 - New Rajarajeswaripeta", "Ward 56 - Urmila Nagar", "Ward 57 - Crombay Road / Pezzonipet", "Ward 58 - Sanath Nagar", "Ward 59 - Kanuru Border / Tadigadapa", "Ward 60 - Poranki Border / Penamaluru", "Ward 61 - Jakkampudi Colony", "Ward 62 - Gollapudi Rural Extension", "Ward 63 - Nunna Rural Extension", "Ward 64 - Ambapuram / Pathapadu"
         ];
 
         let masterCatalog = [
-            { id: 1, title: "Suryaraopeta Rythu Bazaar Fresh Vegetables", category: "Vegetables", ward: "Ward 20 - Suryaraopeta (North)", price: "Tomato Rs. 28/Kg | Onion Rs. 35/Kg", phone: "919848099999", desc: "Government regulated direct farmers market with fresh daily vegetables.", rating: "4.6", reviews: "142 Reviews" },
+            { id: 1, title: "Suryaraopeta Rythu Bazaar Fresh Vegetables & Onions", category: "Vegetables", ward: "Ward 20 - Suryaraopeta (North)", price: "Tomato Rs. 28/Kg | Onion Rs. 35/Kg", phone: "919848099999", desc: "Government regulated direct farmers market with fresh daily vegetables, onions, and potatoes.", rating: "4.6", reviews: "142 Reviews" },
             { id: 2, title: "SS Hyderabadi Dum Biryani", category: "Restaurants", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 260 (Full Pack)", phone: "919848055555", desc: "Authentic spicy chicken and mutton dum biryani near Benz Circle.", rating: "4.7", reviews: "320 Reviews" },
             { id: 3, title: "Style Union Fashion Store", category: "Shopping", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 199 - Rs. 1,299", phone: "917304053032", desc: "Trendy kurtas, western dresses, and casual wear for ladies and gents.", rating: "4.8", reviews: "980 Reviews" },
             { id: 4, title: "D-Mart Supermarket Grocery", category: "Grocery", ward: "Ward 8 - Patamata (Central)", price: "Sona Masoori Rice Rs. 1,350 / 25kg", phone: "919848013131", desc: "Wholesale discounted grocery, pulses, cooking oils, and household goods.", rating: "4.8", reviews: "650 Reviews" },
@@ -133,39 +133,25 @@
 
         let cart = [];
 
-        // Generates explicit category-wise items for any selected ward
         function getListings(category, ward) {
-            let pool = [];
+            let pool = [...masterCatalog];
 
-            // Base items from master catalog matching the ward or all
-            let basePool = [...masterCatalog];
             if (ward && ward !== 'ALL') {
-                basePool = basePool.filter(item => item.ward === ward);
                 const shortName = ward.split('-')[1]?.trim() || ward;
-
-                // Always generate accurate category items for the selected ward
-                const generatedForWard = [
-                    { id: Math.random(), title: `${shortName} Rythu Bazaar Fresh Veggies`, category: "Vegetables", ward: ward, price: "Tomato Rs. 28/Kg", phone: "919848011111", desc: `Fresh farm vegetables and leafy greens available daily in ${shortName}.`, rating: "4.5", reviews: "48 Reviews" },
-                    { id: Math.random(), title: `${shortName} Organic Green Market`, category: "Vegetables", ward: ward, price: "Carrot Rs. 50/Kg", phone: "919848011112", desc: `Wholesale fresh vegetables with doorstep delivery in ${shortName}.`, rating: "4.3", reviews: "25 Reviews" },
-                    { id: Math.random(), title: `${shortName} Grand Family Restaurant & Tiffins`, category: "Restaurants", ward: ward, price: "Meals Rs. 120 | Biryani Rs. 220", phone: "919848055511", desc: `Authentic South Indian tiffins, meals, and biryanis in ${shortName}.`, rating: "4.6", reviews: "85 Reviews" },
-                    { id: Math.random(), title: `${shortName} Spicy Bawarchi & Fast Food`, category: "Restaurants", ward: ward, price: "Fried Rice Rs. 140", phone: "919848055512", desc: `Evening fast food and Chinese starters in ${shortName}.`, rating: "4.4", reviews: "60 Reviews" },
+                const wardGeneratedItems = [
+                    { id: Math.random(), title: `${shortName} Rythu Bazaar Fresh Vegetables & Onions`, category: "Vegetables", ward: ward, price: "Tomato Rs. 28/Kg | Onion Rs. 35/Kg", phone: "919848011111", desc: `Direct farm fresh vegetables, onions, potatoes, green chillies, and leafy greens available daily in ${shortName}.`, rating: "4.5", reviews: "48 Reviews" },
+                    { id: Math.random(), title: `${shortName} Organic Green Veggies & Carrot Mart`, category: "Vegetables", ward: ward, price: "Carrot Rs. 50/Kg | Beans Rs. 40/Kg", phone: "919848011112", desc: `Wholesale and retail fresh vegetables, carrots, and daily produce in ${shortName}.`, rating: "4.3", reviews: "25 Reviews" },
+                    { id: Math.random(), title: `${shortName} Grand Family Restaurant & Tiffins`, category: "Restaurants", ward: ward, price: "Meals Rs. 120 | Biryani Rs. 220", phone: "919848055511", desc: `Authentic South Indian tiffins, meals, and spicy non-veg dishes in ${shortName}.`, rating: "4.6", reviews: "85 Reviews" },
                     { id: Math.random(), title: `${shortName} Trendz Clothing & Apparel Store`, category: "Shopping", ward: ward, price: "Kurtis Rs. 499 | Shirts Rs. 699", phone: "919848011122", desc: `Branded men's wear, women's designer kurtis, and kids wear in ${shortName}.`, rating: "4.7", reviews: "110 Reviews" },
-                    { id: Math.random(), title: `${shortName} Footwear & Fancy Bazaar`, category: "Shopping", ward: ward, price: "Shoes Rs. 599 onwards", phone: "919848011123", desc: `Latest footwear, cosmetics, and accessories in ${shortName}.`, rating: "4.2", reviews: "34 Reviews" },
-                    { id: Math.random(), title: `${shortName} Supermarket & Kirana`, category: "Grocery", ward: ward, price: "Rice Bag Rs. 1,350", phone: "919848013112", desc: `Complete household grocery, pulses, and provisions in ${shortName}.`, rating: "4.8", reviews: "95 Reviews" },
-                    { id: Math.random(), title: `${shortName} 24/7 Pharmacy & Hospital`, category: "Medical", ward: ward, price: "Emergency Care Available", phone: "919848021211", desc: `Round-the-clock medical pharmacy and doctor clinic in ${shortName}.`, rating: "4.9", reviews: "130 Reviews" },
-                    { id: Math.random(), title: `${shortName} Daily Wage Labour Hub`, category: "Jobs", ward: ward, price: "Rs. 700 / Day", phone: "919848015111", desc: `Construction helpers and workers available in ${shortName}.`, rating: "4.2", reviews: "18 Reviews" },
-                    { id: Math.random(), title: `${shortName} House Rental Portions`, category: "Rentals", ward: ward, price: "Rs. 6,000 / Month", phone: "919848023211", desc: `1BHK/2BHK rental portions in ${shortName}.`, rating: "4.4", reviews: "52 Reviews" },
-                    { id: Math.random(), title: `${shortName} Electrician & Plumber Services`, category: "Services", ward: ward, price: "Visiting Rs. 200", phone: "919848018111", desc: `Professional wiring and plumbing repair in ${shortName}.`, rating: "4.7", reviews: "88 Reviews" }
+                    { id: Math.random(), title: `${shortName} Supermarket & Kirana Store`, category: "Grocery", ward: ward, price: "Rice Bag Rs. 1,350 | Oil Rs. 140/L", phone: "919848013112", desc: `Complete household grocery, pulses, and provisions at wholesale rates in ${shortName}.`, rating: "4.8", reviews: "95 Reviews" },
+                    { id: Math.random(), title: `${shortName} 24/7 Multi-Speciality Pharmacy`, category: "Medical", ward: ward, price: "Emergency Medicines Available", phone: "919848021211", desc: `Round-the-clock medical pharmacy, surgical items, and doctor consultations in ${shortName}.`, rating: "4.9", reviews: "130 Reviews" },
+                    { id: Math.random(), title: `${shortName} Daily Wage & Labour Hub`, category: "Jobs", ward: ward, price: "Rs. 700 - Rs. 900 / Day", phone: "919848015111", desc: `Skilled construction workers, helpers, painters, and delivery personnel in ${shortName}.`, rating: "4.2", reviews: "18 Reviews" },
+                    { id: Math.random(), title: `${shortName} 1BHK & 2BHK House Rentals`, category: "Rentals", ward: ward, price: "Rs. 6,000 / Month", phone: "919848023211", desc: `Family portions with 24 hours water supply and bike parking in ${shortName}.`, rating: "4.4", reviews: "52 Reviews" },
+                    { id: Math.random(), title: `${shortName} Expert Electrician & Plumber`, category: "Services", ward: ward, price: "Visiting Charge Rs. 200", phone: "919848018111", desc: `Professional wiring, motor repair, plumbing, and home appliance service in ${shortName}.`, rating: "4.7", reviews: "88 Reviews" }
                 ];
-                pool = [...basePool, ...generatedForWard];
-            } else {
-                pool = [...masterCatalog, 
-                    { id: 101, title: "Machavaram Fancy & Clothing Store", category: "Shopping", ward: "Ward 16 - Machavaram (East)", price: "Kurtis Rs. 450", phone: "919848011199", desc: "Ladies clothing and readymade store in Machavaram.", rating: "4.5", reviews: "40 Reviews" },
-                    { id: 102, title: "Governorpet Designer Kurtis & Sarees", category: "Shopping", ward: "Ward 22 - Governorpet (MG Road / Besant Road)", price: "Sarees Rs. 899 onwards", phone: "919848011299", desc: "Exclusive silk sarees and designer kurtis on MG Road.", rating: "4.8", reviews: "210 Reviews" }
-                ];
+                pool = [...basePool, ...wardGeneratedItems];
             }
 
-            // Strictly filter by category if a specific category is selected
             if (category && category !== 'ALL') {
                 pool = pool.filter(item => item.category === category);
             }
@@ -272,7 +258,7 @@
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                         <h2 class="text-2xl font-extrabold text-slate-900 mb-4">All 64 Municipal Wards Directory</h2>
                         <div class="bg-white p-4 rounded-2xl shadow-sm border mb-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <input type="text" id="dirSearch" onkeyup="applyDirectoryFilters()" placeholder="Search keywords..." class="px-3 py-2 border rounded-xl text-sm">
+                            <input type="text" id="dirSearch" onkeyup="applyDirectoryFilters()" placeholder="Search keywords (e.g. onions)..." class="px-3 py-2 border rounded-xl text-sm">
                             <select id="dirCategory" onchange="applyDirectoryFilters()" class="px-3 py-2 border rounded-xl text-sm bg-white">
                                 <option value="ALL">All Categories</option>
                                 <option value="Vegetables">Vegetables</option>
@@ -403,7 +389,7 @@
             const grid = document.getElementById(containerId);
             if (!grid) return;
             if (list.length === 0) {
-                grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full text-center py-8">No listings found for this selection.</p>`;
+                grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full text-center py-8">No listings found matching your search. Try another keyword!</p>`;
                 return;
             }
             grid.innerHTML = list.map(item => {
@@ -455,12 +441,19 @@
         }
 
         function applyDirectoryFilters() {
-            const query = document.getElementById('dirSearch').value.toLowerCase();
+            const query = document.getElementById('dirSearch').value.toLowerCase().trim();
             const cat = document.getElementById('dirCategory').value;
             const ward = document.getElementById('dirWard').value;
             
             const pool = getListings(cat, ward);
-            const filtered = pool.filter(i => (!query || i.title.toLowerCase().includes(query) || i.desc.toLowerCase().includes(query) || i.ward.toLowerCase().includes(query)));
+            const filtered = pool.filter(i => {
+                const matchQuery = !query || 
+                    i.title.toLowerCase().includes(query) || 
+                    i.desc.toLowerCase().includes(query) || 
+                    i.ward.toLowerCase().includes(query) ||
+                    i.price.toLowerCase().includes(query);
+                return matchQuery;
+            });
             renderListingsToGrid("directoryGrid", filtered);
         }
 
