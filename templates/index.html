@@ -147,7 +147,7 @@
         <div id="tab-directory" class="hidden space-y-6">
             <h2 class="text-2xl font-extrabold text-slate-900">All 64 Municipal Wards Directory</h2>
             <div class="bg-white p-4 rounded-2xl shadow-sm border grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <input type="text" id="dirSearch" onkeyup="applyDirectoryFilters()" placeholder="Search keywords (e.g. onions)..." class="px-3 py-2 border rounded-xl text-sm">
+                <input type="text" id="dirSearch" onkeyup="applyDirectoryFilters()" placeholder="Search keywords (e.g. tomato, onion)..." class="px-3 py-2 border rounded-xl text-sm">
                 <select id="dirCategory" onchange="applyDirectoryFilters()" class="px-3 py-2 border rounded-xl text-sm bg-white">
                     <option value="ALL">All Categories</option>
                     <option value="Vegetables">Vegetables</option>
@@ -288,50 +288,70 @@
         </div>
     </div>
 
-    <!-- JavaScript Strict Filtering Logic -->
+    <!-- JavaScript Full Comprehensive Multi-Item Generator -->
     <script>
         const vijayawadaWards = [
             "Ward 1 - Yanamalakuduru / Patamata Lanka", "Ward 2 - Ramalingeswara Nagar", "Ward 3 - Krishna Lanka (East)", "Ward 4 - Krishna Lanka (West)", "Ward 5 - Ranigarithota", "Ward 6 - Police Quarters / Labbipet", "Ward 7 - Benz Circle / Venkateswarapuram", "Ward 8 - Patamata (Central)", "Ward 9 - Auto Nagar (Industrial Estate)", "Ward 10 - Gurunanak Colony", "Ward 11 - Bharathi Nagar", "Ward 12 - Enikepadu / Prasadampadu", "Ward 13 - Currency Nagar / Ramavarappadu", "Ward 14 - Gunadala (South)", "Ward 15 - Gunadala (Hill / Christurajupuram)", "Ward 16 - Machavaram (East)", "Ward 17 - Machavaram (Down / Padavalarevu)", "Ward 18 - Moghalrajpuram (East)", "Ward 19 - Moghalrajpuram (West / Siddhartha Nagar)", "Ward 20 - Suryaraopeta (North)", "Ward 21 - Suryaraopeta (South / Museum Road)", "Ward 22 - Governorpet (MG Road / Besant Road)", "Ward 23 - Governorpet (Eluru Road Junction)", "Ward 24 - Hanumanpet / Buckinghampet", "Ward 25 - Durgapuram / Arundalpet", "Ward 26 - Vijayawada Railway Station Area", "Ward 27 - Satyanarayanapuram (East)", "Ward 28 - Satyanarayanapuram (West)", "Ward 29 - Madhura Nagar", "Ward 30 - Mutylampadu", "Ward 31 - Ajit Singh Nagar (Block 1-4)", "Ward 32 - Ajit Singh Nagar (Pipula Road)", "Ward 33 - Vambay Colony / Prakash Nagar", "Ward 34 - Payakapuram (East)", "Ward 35 - Payakapuram (Radha Nagar)", "Ward 36 - Kandrika / Nunna Border", "Ward 37 - Devi Nagar", "Ward 38 - Fraserpeta / Kedareswarapet", "Ward 39 - Wynchpeta", "Ward 40 - Kothapet (East)", "Ward 41 - Kothapet (West / Swathi Theatre)", "Ward 42 - One Town (Kaleswara Rao Market)", "Ward 43 - Tarapet / Panja Centre", "Ward 44 - Islampet / Brahmin Street", "Ward 45 - Indrakeeladri / Kanaka Durga Temple Area", "Ward 46 - Bhavanipuram (East)", "Ward 47 - Bhavanipuram (HB Colony)", "Ward 48 - Vidyadharapuram (East)", "Ward 49 - Vidyadharapuram (West / Kummaripalem)", "Ward 50 - Chittinagar", "Ward 51 - Milk Project / Kabela", "Ward 52 - Gollapudi Border / Sitara Centre", "Ward 53 - Joji Nagar", "Ward 54 - Rajarajeswaripeta", "Ward 55 - New Rajarajeswaripeta", "Ward 56 - Urmila Nagar", "Ward 57 - Crombay Road / Pezzonipet", "Ward 58 - Sanath Nagar", "Ward 59 - Kanuru Border / Tadigadapa", "Ward 60 - Poranki Border / Penamaluru", "Ward 61 - Jakkampudi Colony", "Ward 62 - Gollapudi Rural Extension", "Ward 63 - Nunna Rural Extension", "Ward 64 - Ambapuram / Pathapadu"
         ];
 
         let masterCatalog = [
-            { id: 1, title: "Suryaraopeta Rythu Bazaar Fresh Vegetables & Onions", category: "Vegetables", ward: "Ward 20 - Suryaraopeta (North)", price: "Tomato Rs. 28/Kg | Onion Rs. 35/Kg", phone: "919848099999", desc: "Government regulated direct farmers market with fresh daily vegetables, onions, potatoes, and greens.", rating: "4.6", reviews: "142 Reviews" },
-            { id: 2, title: "SS Hyderabadi Dum Biryani", category: "Restaurants", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 260 (Full Pack)", phone: "919848055555", desc: "Authentic spicy chicken and mutton dum biryani near Benz Circle.", rating: "4.7", reviews: "320 Reviews" },
-            { id: 3, title: "Style Union Fashion Store", category: "Shopping", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 199 - Rs. 1,299", phone: "917304053032", desc: "Trendy kurtas, western dresses, and casual wear for ladies and gents.", rating: "4.8", reviews: "980 Reviews" },
-            { id: 4, title: "D-Mart Supermarket Grocery", category: "Grocery", ward: "Ward 8 - Patamata (Central)", price: "Sona Masoori Rice Rs. 1,350 / 25kg", phone: "919848013131", desc: "Wholesale discounted grocery, pulses, cooking oils, and household goods.", rating: "4.8", reviews: "650 Reviews" },
-            { id: 5, title: "Government General Hospital (GGH) & Blood Bank", category: "Medical", ward: "Ward 23 - Governorpet (Eluru Road Junction)", price: "24/7 Free Emergency Care", phone: "918662578000", desc: "Government general hospital with trauma care, emergency ward, and 24x7 blood bank.", rating: "4.5", reviews: "410 Reviews" },
-            { id: 6, title: "Andhra Hospitals & 24/7 Trauma Care", category: "Medical", ward: "Ward 6 - Police Quarters / Labbipet", price: "Consultation Rs. 500", phone: "918662545555", desc: "Multi-speciality children & adult hospital with 24/7 emergency and pharmacy.", rating: "4.8", reviews: "520 Reviews" },
-            { id: 7, title: "Ramesh Hospitals MG Road", category: "Medical", ward: "Ward 22 - Governorpet (MG Road / Besant Road)", price: "Cardiology & Emergency Care", phone: "918662558888", desc: "Top-tier multi-speciality hospital with advanced cardiac care and 24/7 ambulance service.", rating: "4.9", reviews: "890 Reviews" },
-            { id: 8, title: "Auto Nagar Daily Wage Labour Adda", category: "Jobs", ward: "Ward 9 - Auto Nagar (Industrial Estate)", price: "Rs. 650 - Rs. 850 / Day", phone: "919848015151", desc: "Daily construction helpers, loading/unloading workers, and technicians.", rating: "4.3", reviews: "85 Reviews" },
-            { id: 9, title: "1BHK & 2BHK House Rentals", category: "Rentals", ward: "Ward 8 - Patamata (Central)", price: "Rs. 6,500 / Month", phone: "919848023232", desc: "Family portion with 24 hours water supply and bike parking facility.", rating: "4.4", reviews: "95 Reviews" },
-            { id: 10, title: "Vijayawada 24/7 Electrician & Plumber", category: "Services", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 200 Visiting Charge", phone: "919848018181", desc: "Fast home repair for wiring, motor repair, tap leakage and plumbing.", rating: "4.6", reviews: "115 Reviews" }
+            { id: 1, title: "Suryaraopeta Rythu Bazaar Fresh Tomatoes", category: "Vegetables", ward: "Ward 20 - Suryaraopeta (North)", price: "Rs. 28 / Kg", phone: "919848099999", desc: "Direct farm fresh red juicy tomatoes available daily.", rating: "4.6", reviews: "142 Reviews" },
+            { id: 2, title: "Suryaraopeta Fresh Onions & Potatoes", category: "Vegetables", ward: "Ward 20 - Suryaraopeta (North)", price: "Onion Rs. 35/Kg | Potato Rs. 30/Kg", phone: "919848099998", desc: "Wholesale and retail fresh onions and new crop potatoes.", rating: "4.7", reviews: "98 Reviews" },
+            { id: 3, title: "SS Hyderabadi Dum Biryani", category: "Restaurants", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 260 (Full Pack)", phone: "919848055555", desc: "Authentic spicy chicken and mutton dum biryani near Benz Circle.", rating: "4.7", reviews: "320 Reviews" },
+            { id: 4, title: "Style Union Fashion Store", category: "Shopping", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 199 - Rs. 1,299", phone: "917304053032", desc: "Trendy kurtas, western dresses, and casual wear for ladies and gents.", rating: "4.8", reviews: "980 Reviews" },
+            { id: 5, title: "D-Mart Supermarket Grocery", category: "Grocery", ward: "Ward 8 - Patamata (Central)", price: "Sona Masoori Rice Rs. 1,350 / 25kg", phone: "919848013131", desc: "Wholesale discounted grocery, pulses, cooking oils, and household goods.", rating: "4.8", reviews: "650 Reviews" },
+            { id: 6, title: "Government General Hospital (GGH) & Blood Bank", category: "Medical", ward: "Ward 23 - Governorpet (Eluru Road Junction)", price: "24/7 Free Emergency Care", phone: "918662578000", desc: "Government general hospital with trauma care, emergency ward, and 24x7 blood bank.", rating: "4.5", reviews: "410 Reviews" },
+            { id: 7, title: "Andhra Hospitals & 24/7 Trauma Care", category: "Medical", ward: "Ward 6 - Police Quarters / Labbipet", price: "Consultation Rs. 500", phone: "918662545555", desc: "Multi-speciality children & adult hospital with 24/7 emergency and pharmacy.", rating: "4.8", reviews: "520 Reviews" },
+            { id: 8, title: "Ramesh Hospitals MG Road", category: "Medical", ward: "Ward 22 - Governorpet (MG Road / Besant Road)", price: "Cardiology & Emergency Care", phone: "918662558888", desc: "Top-tier multi-speciality hospital with advanced cardiac care and 24/7 ambulance service.", rating: "4.9", reviews: "890 Reviews" },
+            { id: 9, title: "Auto Nagar Daily Wage Labour Adda", category: "Jobs", ward: "Ward 9 - Auto Nagar (Industrial Estate)", price: "Rs. 650 - Rs. 850 / Day", phone: "919848015151", desc: "Daily construction helpers, loading/unloading workers, and technicians.", rating: "4.3", reviews: "85 Reviews" },
+            { id: 10, title: "1BHK & 2BHK House Rentals", category: "Rentals", ward: "Ward 8 - Patamata (Central)", price: "Rs. 6,500 / Month", phone: "919848023232", desc: "Family portion with 24 hours water supply and bike parking facility.", rating: "4.4", reviews: "95 Reviews" },
+            { id: 11, title: "Vijayawada 24/7 Electrician & Plumber", category: "Services", ward: "Ward 7 - Benz Circle / Venkateswarapuram", price: "Rs. 200 Visiting Charge", phone: "919848018181", desc: "Fast home repair for wiring, motor repair, tap leakage and plumbing.", rating: "4.6", reviews: "115 Reviews" }
         ];
 
         let cart = [];
 
-        // STRICT DYNAMIC GENERATOR: Strictly matches the selected ward
+        // DYNAMIC FULL COMPREHENSIVE LIST GENERATOR FOR ANY WARD
         function getListings(category, ward) {
             let pool = [];
 
             if (ward && ward !== 'ALL') {
                 const shortName = ward.split('-')[1]?.trim() || ward;
-                // Generate items dedicated exclusively to the selected ward
+                // Generate a robust full list of individual items across all categories specifically for this ward
                 pool = [
-                    { id: Math.random(), title: `${shortName} Main Rythu Bazaar & Fresh Veggies`, category: "Vegetables", ward: ward, price: "Tomato Rs. 28/Kg | Onion Rs. 35/Kg", phone: "919848011111", desc: `Direct farm fresh tomatoes, onions, potatoes, green chillies, and leafy greens in ${shortName}.`, rating: "4.6", reviews: "54 Reviews" },
-                    { id: Math.random(), title: `${shortName} Organic Green Veggies & Carrot Mart`, category: "Vegetables", ward: ward, price: "Carrot Rs. 50/Kg | Beans Rs. 40/Kg", phone: "919848011112", desc: `Wholesale and retail fresh vegetables, carrots, and daily produce in ${shortName}.`, rating: "4.4", reviews: "32 Reviews" },
+                    // Vegetables (Full separate individual vegetable cards)
+                    { id: Math.random(), title: `${shortName} Fresh Red Tomatoes (Rythu Bazaar)`, category: "Vegetables", ward: ward, price: "Rs. 28 / Kg", phone: "919848011101", desc: `Direct farm fresh red juicy tomatoes available daily in ${shortName}.`, rating: "4.6", reviews: "45 Reviews" },
+                    { id: Math.random(), title: `${shortName} Fresh Farm Onions (Palli Bazaar)`, category: "Vegetables", ward: ward, price: "Rs. 35 / Kg", phone: "919848011102", desc: `Good quality crisp onions sourced directly from wholesale markets in ${shortName}.`, rating: "4.5", reviews: "60 Reviews" },
+                    { id: Math.random(), title: `${shortName} Green Chillies & Coriander Leaves`, category: "Vegetables", ward: ward, price: "Rs. 20 / Bunch", phone: "919848011103", desc: `Spicy green chillies, curry leaves, and fresh coriander greens in ${shortName}.`, rating: "4.4", reviews: "28 Reviews" },
+                    { id: Math.random(), title: `${shortName} Fresh Carrots & Potatoes`, category: "Vegetables", ward: ward, price: "Carrot Rs. 50/Kg | Potato Rs. 30/Kg", phone: "919848011104", desc: `Cleaned sweet carrots and fresh starchy potatoes available in ${shortName}.`, rating: "4.7", reviews: "38 Reviews" },
+                    { id: Math.random(), title: `${shortName} Brinjal, Bhendi & Beans Stall`, category: "Vegetables", ward: ward, price: "Rs. 40 / Kg onwards", phone: "919848011105", desc: `Fresh brinjals (vankaya), lady's finger (bhendi), and cluster beans in ${shortName}.`, rating: "4.3", reviews: "22 Reviews" },
+
+                    // Restaurants & Food
                     { id: Math.random(), title: `${shortName} Grand Family Restaurant & Tiffins`, category: "Restaurants", ward: ward, price: "Meals Rs. 120 | Biryani Rs. 220", phone: "919848055511", desc: `Authentic South Indian tiffins, afternoon meals, and spicy non-veg biryanis in ${shortName}.`, rating: "4.6", reviews: "85 Reviews" },
                     { id: Math.random(), title: `${shortName} Spicy Bawarchi & Fast Food Corner`, category: "Restaurants", ward: ward, price: "Fried Rice Rs. 140 | Noodles Rs. 100", phone: "919848055512", desc: `Evening fast food, Chinese starters, fried rice, and evening tiffins in ${shortName}.`, rating: "4.4", reviews: "60 Reviews" },
+                    { id: Math.random(), title: `${shortName} Royal Sweets & Bakery`, category: "Restaurants", ward: ward, price: "Sweets Rs. 400/Kg onwards", phone: "919848055513", desc: `Fresh milk sweets, birthday cakes, puffs, and evening snacks in ${shortName}.`, rating: "4.7", reviews: "92 Reviews" },
+
+                    // Shopping & Clothes
                     { id: Math.random(), title: `${shortName} Trendz Clothing & Apparel Store`, category: "Shopping", ward: ward, price: "Kurtis Rs. 499 | Shirts Rs. 699", phone: "919848011122", desc: `Branded men's wear, women's designer kurtis, sarees, and kids wear in ${shortName}.`, rating: "4.7", reviews: "110 Reviews" },
                     { id: Math.random(), title: `${shortName} Footwear & Fancy Bazaar`, category: "Shopping", ward: ward, price: "Shoes Rs. 599 onwards", phone: "919848011123", desc: `Latest footwear, sandals, cosmetics, bangles, and gift articles in ${shortName}.`, rating: "4.2", reviews: "34 Reviews" },
+
+                    // Grocery & Supermarket
                     { id: Math.random(), title: `${shortName} Supermarket & Kirana Store`, category: "Grocery", ward: ward, price: "Rice Bag Rs. 1,350 | Oil Rs. 140/L", phone: "919848013112", desc: `Complete household grocery, Sona masoori rice, pulses, cooking oils, and provisions in ${shortName}.`, rating: "4.8", reviews: "95 Reviews" },
+                    { id: Math.random(), title: `${shortName} Organic Daily Needs Mart`, category: "Grocery", ward: ward, price: "Millets & Spices Combo Rs. 450", phone: "919848013113", desc: `Pure organic spices, millets, cold-pressed oils, and daily household essentials in ${shortName}.`, rating: "4.5", reviews: "40 Reviews" },
+
+                    // Medical & Hospitals
                     { id: Math.random(), title: `${shortName} 24/7 Multi-Speciality Pharmacy & Clinic`, category: "Medical", ward: ward, price: "Emergency Medicines Available", phone: "919848021211", desc: `Round-the-clock medical pharmacy, surgical items, emergency injections, and doctor consultations in ${shortName}.`, rating: "4.9", reviews: "130 Reviews" },
                     { id: Math.random(), title: `${shortName} City Diagnostic Lab & General Hospital`, category: "Medical", ward: ward, price: "Blood Test Packages @ Rs. 999", phone: "919848021212", desc: `Pathology lab, X-Ray, ECG, ambulance service, and general physician medical care in ${shortName}.`, rating: "4.7", reviews: "75 Reviews" },
+
+                    // Jobs
                     { id: Math.random(), title: `${shortName} Daily Wage & Labour Employment Hub`, category: "Jobs", ward: ward, price: "Rs. 700 - Rs. 900 / Day", phone: "919848015111", desc: `Skilled construction workers, helpers, painters, loading staff, and delivery personnel in ${shortName}.`, rating: "4.2", reviews: "18 Reviews" },
+
+                    // Rentals
                     { id: Math.random(), title: `${shortName} 1BHK & 2BHK House Rental Portions`, category: "Rentals", ward: ward, price: "Rs. 6,000 / Month", phone: "919848023211", desc: `Family portions with 24 hours water supply, 2-wheeler parking, and near main road in ${shortName}.`, rating: "4.4", reviews: "52 Reviews" },
+
+                    // Services
                     { id: Math.random(), title: `${shortName} Expert Electrician, Plumber & AC Repair`, category: "Services", ward: ward, price: "Visiting Charge Rs. 200", phone: "919848018111", desc: `Professional house wiring, motor repair, tap leakage, plumbing, and AC servicing in ${shortName}.`, rating: "4.7", reviews: "88 Reviews" }
                 ];
             } else {
-                // If "All 64 Wards" is selected, show master catalog items
                 pool = [...masterCatalog];
             }
 
