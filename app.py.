@@ -1,37 +1,22 @@
 import os
-from pathlib import Path
-from fastapi import FastAPI, Query, Request
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import uvicorn
 
-# FastAPI ఇన్‌స్టాన్షియేషన్ (దీని ముందు ఎట్టి పరిస్థితుల్లోనూ '#' ఉండకూడదు)
-app = FastAPI(
-    title="BezawadaDeals",
-    description="Vijayawada Local Deals & 64 Wards Portal",
-    version="1.0.0"
-)
+app = FastAPI()
 
-BASE_DIR = Path(__file__).resolve().parent
-PUBLIC_DIR = BASE_DIR / "public"
-TEMPLATES_DIR = BASE_DIR / "templates"
+# ఒకవేళ public, templates ఫోల్డర్లు ఉంటే వాటిని మౌంట్ చేస్తుంది
+if os.path.exists("public"):
+    app.mount("/static", StaticFiles(directory="public"), name="static")
 
-# Static files mount
-if PUBLIC_DIR.exists():
-    app.mount(
-        "/static",
-        StaticFiles(directory=str(PUBLIC_DIR)),
-        name="static"
-    )
-
-templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
+templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
-async def read_index(request: Request):
+async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-# రెండర్ (Render) కోసం సర్వర్ రన్ అయ్యే కోడ్
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     uvicorn.run("app:app", host="0.0.0.0", port=port)
