@@ -1,269 +1,73 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BezawadaDeals | Vijayawada Smart Needs</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f3f6ff;color:#102b60}
-header{background:#082967;color:white;padding:15px 4%;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.logo{font-size:27px;font-weight:900}.logo span{color:#ff791c}
-button,select,input{font:inherit}
-button{cursor:pointer;border:0}
-.btn{background:#ff791c;color:white;padding:12px 19px;border-radius:9px;font-weight:bold}
-.container{max-width:1300px;margin:auto;padding:20px}
-.hero{background:linear-gradient(110deg,#062968,#1478db);color:white;padding:32px;border-radius:20px;margin-bottom:22px}
-.hero h1{font-size:32px;margin-bottom:12px}
-.hero p{line-height:1.7}
-.search{display:flex;gap:8px;margin-top:20px}
-.search input{flex:1;min-width:0;padding:14px;border-radius:10px;border:0}
-.search button{background:#ff791c;color:white;padding:0 22px;border-radius:10px}
-.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:28px 0 16px}
-.muted{color:#71809a;font-size:13px}
-.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:13px}
-.category{background:white;border-radius:16px;overflow:hidden;text-align:center;box-shadow:0 4px 15px #102b6015;cursor:pointer;border:2px solid transparent}
-.category:hover,.category.selected{border-color:#1478db;transform:translateY(-3px)}
-.category img{width:100%;height:110px;object-fit:cover}
-.category h3{font-size:14px;padding:12px 5px}
-.category small{display:block;color:#64748b;padding-bottom:12px}
-.livebar{background:#062967;color:white;padding:16px;border-radius:13px;display:flex;align-items:center;gap:12px;margin:25px 0;flex-wrap:wrap}
-.live{background:#e90036;border-radius:30px;padding:7px 14px;font-weight:bold}
-.dot{display:inline-block;width:8px;height:8px;background:#23e58a;border-radius:50%;margin-right:5px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px #102b6012}
-.card img{width:100%;height:155px;object-fit:cover}
-.cardbody{padding:15px}
-.cardbody h3{margin-bottom:9px}
-.price{font-size:22px;color:#087c43;font-weight:bold;margin:9px 0}
-.tag{display:inline-block;background:#e5f7ed;color:#087c43;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:bold}
-.market-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
-.market{background:white;padding:17px;border-radius:14px;border-left:4px solid #159d62}
-.market h3{font-size:16px}
-.market .price{font-size:21px}
-.change{font-size:12px;color:#087c43}
-.up{color:#d53d3d}
-.offer{background:white;border-radius:15px;padding:17px;display:flex;gap:15px;align-items:center}
-.offer img{width:100px;height:90px;object-fit:cover;border-radius:10px}
-.offer-list{display:grid;gap:12px}
-.filters{display:flex;gap:10px;flex-wrap:wrap}
-.filters select{padding:11px;border:1px solid #d7e1f5;border-radius:9px;background:white}
-footer{background:#082967;color:white;text-align:center;padding:28px;margin-top:35px}
-.empty{padding:25px;background:white;border-radius:12px;text-align:center;grid-column:1/-1}
-@media(max-width:900px){
- .categories{grid-template-columns:repeat(3,1fr)}
- .market-grid{grid-template-columns:repeat(2,1fr)}
- .cards{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:550px){
- header{justify-content:center}
- .container{padding:12px}
- .hero{padding:23px}
- .hero h1{font-size:24px}
- .categories{grid-template-columns:repeat(2,1fr)}
- .cards{grid-template-columns:1fr}
- .market-grid{grid-template-columns:repeat(2,1fr)}
- .search{flex-wrap:wrap}
- .search input{width:100%;flex:auto;padding:13px}
- .search button{padding:12px;width:100%}
- .offer img{width:85px}
-}
-</style>
-</head>
-<body>
+<!-- BEZAWADADEALS WARD MARKETPLACE -->
+<section id="ward-marketplace" class="bd-marketplace">
 
-<header>
- <div class="logo">🛍️ Bezawada<span>Deals</span></div>
- <div>📍 Vijayawada | 64 Wards & Malls Portal</div>
- <button class="btn" onclick="alert('Seller login will connect to your account system')">Seller Login</button>
-</header>
+  <div class="bd-topbar">
+    <button id="bdBack" class="bd-back">← Back</button>
+    <button id="bdDashboard" class="bd-dashboard">My Dashboard</button>
+  </div>
 
-<main class="container">
+  <h2>Vijayawada Local Deals</h2>
+  <p>మీ ప్రాంతంలోని తాజా Offers & Market Prices</p>
 
-<section class="hero">
- <h1>Vijayawada Smart Needs</h1>
- <h2>Shop Smart. Save More. ❤️</h2>
- <p>Discover local shops, fresh markets, restaurants and exclusive mall deals.</p>
- <div class="search">
-  <input id="search" placeholder="Search vegetables, malls, shops, restaurants...">
-  <button onclick="renderDeals()">Search Deals</button>
- </div>
+  <div class="bd-filter-box">
+    <label>Select Area</label>
+    <select id="bdArea">
+      <option value="">All Areas</option>
+      <option>Patamata</option>
+      <option>Benz Circle</option>
+      <option>Labbipet</option>
+      <option>Rythu Bazaar</option>
+      <option>K.R. Market</option>
+      <option>Governorpet</option>
+      <option>Poranki</option>
+      <option>Kanuru</option>
+      <option>Ramavarappadu</option>
+      <option>Gunadala</option>
+      <option>Bhavanipuram</option>
+      <option>Ajit Singh Nagar</option>
+      <option>Payakapuram</option>
+      <option>Satyanarayanapuram</option>
+      <option>Krishna Lanka</option>
+      <option>One Town</option>
+    </select>
+
+    <label>Select Ward</label>
+    <select id="bdWard">
+      <option value="">All Wards</option>
+    </select>
+
+    <input id="bdSearch" type="search"
+      placeholder="Search products, shops, offers...">
+  </div>
+
+  <h3>Explore Categories</h3>
+  <div id="bdCategories" class="bd-categories">
+    <button data-category="">All Categories</button>
+  </div>
+
+  <div class="bd-result-heading">
+    <h3 id="bdResultTitle">Latest Live Deals</h3>
+    <span id="bdResultCount">Loading...</span>
+  </div>
+
+  <div id="bdDeals" class="bd-deals">
+    Loading deals...
+  </div>
+
+  <div id="bdDashboardPanel" class="bd-dashboard-panel" hidden>
+    <h3>My Dashboard</h3>
+    <p id="bdUserInfo">Login to view your account details.</p>
+    <div class="bd-dashboard-links">
+      <button onclick="bdShowDeals()">View Deals</button>
+      <button onclick="bdShowSaved()">Saved Deals</button>
+      <button onclick="bdShowMyPosts()">My Posts</button>
+    </div>
+  </div>
+
 </section>
 
-<div class="section-title">
- <h2>Explore Categories</h2>
- <span class="muted">Discover Vijayawada</span>
-</div>
-
-<div class="categories" id="categories"></div>
-
-<div class="livebar">
- <span class="live">● LIVE</span>
- <strong>Vijayawada Market & Malls Live Board</strong>
- <span style="margin-left:auto" id="lastUpdate">Updating...</span>
-</div>
-
-<div class="section-title">
- <h2>📊 Live Market Price Tracker</h2>
- <span class="muted">Sample demo prices</span>
-</div>
-
-<div class="market-grid" id="market"></div>
-
-<div class="section-title">
- <h2>🔥 Latest Live Deals</h2>
- <div class="filters">
-  <select id="location" onchange="renderDeals()">
-   <option value="all">All Areas</option>
-   <option>Labbipet</option>
-   <option>Benz Circle</option>
-   <option>Governorpet</option>
-   <option>Patamata</option>
-   <option>Bhavanipuram</option>
-  </select>
-  <select id="dealFilter" onchange="renderDeals()">
-   <option value="all">All Categories</option>
-   <option>Vegetables</option>
-   <option>Fruits</option>
-   <option>Shopping Malls & Brands</option>
-   <option>Restaurants</option>
-   <option>Grocery</option>
-   <option>Medical</option>
-  </select>
- </div>
-</div>
-
-<div class="cards" id="deals"></div>
-
-<div class="section-title">
- <h2>🏬 Shopping Mall Offers</h2>
- <span class="muted">Exclusive Deals</span>
-</div>
-
-<div class="offer-list" id="mallOffers"></div>
-
-</main>
-
-<footer>
- <h2>BezawadaDeals</h2>
- <p>Vijayawada Smart Needs | 64 Wards & Malls Portal</p>
- <p>Shop Smart • Save More • Support Local</p>
- <p style="margin-top:12px">© 2026 BezawadaDeals</p>
-</footer>
-
-<script>
-const categories=[
- {name:"Vegetables",sub:"Fresh & Healthy",icon:"🥬",img:"https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500"},
- {name:"Fruits",sub:"Natural Goodness",icon:"🍎",img:"https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=500"},
- {name:"Shopping Malls & Brands",sub:"Premium Deals",icon:"🛍️",img:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500"},
- {name:"Restaurants",sub:"Tasty Offers",icon:"🍽️",img:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500"},
- {name:"Grocery",sub:"Daily Needs",icon:"🛒",img:"https://images.unsplash.com/photo-1542838132-92c53300491e?w=500"},
- {name:"Medical",sub:"Health First",icon:"💊",img:"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500"}
-];
-
-const products=[
- {name:"Tomato",tel:"టమాటా",price:36,unit:"Kg",type:"Vegetables",icon:"🍅"},
- {name:"Onion",tel:"ఉల్లిపాయలు",price:52,unit:"Kg",type:"Vegetables",icon:"🧅"},
- {name:"Potato",tel:"బంగాళదుంప",price:40,unit:"Kg",type:"Vegetables",icon:"🥔"},
- {name:"Green Chilli",tel:"పచ్చిమిర్చి",price:60,unit:"Kg",type:"Vegetables",icon:"🌶️"},
- {name:"Apple",tel:"ఆపిల్",price:140,unit:"Kg",type:"Fruits",icon:"🍎"},
- {name:"Banana",tel:"అరటిపండు",price:50,unit:"Dozen",type:"Fruits",icon:"🍌"}
-];
-
-let deals=[
- {name:"Fresh Tomatoes",type:"Vegetables",price:"₹36/Kg",area:"Labbipet",offer:"Fresh Market",img:categories[0].img},
- {name:"Fruit Combo",type:"Fruits",price:"₹99/Pack",area:"Patamata",offer:"Special Price",img:categories[1].img},
- {name:"Fashion Shirts",type:"Shopping Malls & Brands",price:"₹499",area:"Benz Circle",offer:"Flat 40% OFF",img:"https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500"},
- {name:"Restaurant Combo",type:"Restaurants",price:"₹199",area:"Labbipet",offer:"Special Combo",img:categories[3].img},
- {name:"Grocery Basket",type:"Grocery",price:"₹299",area:"Patamata",offer:"Daily Needs",img:categories[4].img},
- {name:"Medical Essentials",type:"Medical",price:"Check Store",area:"Governorpet",offer:"Store Offers",img:categories[5].img}
-];
-
-const malls=[
- {name:"PVP Square Mall",area:"Labbipet",offer:"Special Mall Deals",discount:"Flat 40% OFF",img:"https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?w=400"},
- {name:"Trendset Mall",area:"Benz Circle",offer:"Fashion Collection",discount:"Shirts @ ₹499",img:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400"}
-];
-
-function renderCategories(){
- document.getElementById("categories").innerHTML=categories.map(c=>`
- <div class="category" onclick="selectCategory('${c.name}')">
- <img src="${c.img}" alt="${c.name}">
- <h3>${c.icon} ${c.name}</h3>
- <small>${c.sub} →</small></div>`).join("");
-}
-
-function selectCategory(name){
- document.getElementById("dealFilter").value=name;
- renderDeals();
- document.getElementById("deals").scrollIntoView({behavior:"smooth"});
-}
-
-function renderMarket(){
- document.getElementById("market").innerHTML=products.map(p=>`
- <div class="market">
- <h3>${p.icon} ${p.name}</h3>
- <small>${p.tel}</small>
- <div class="price">₹${p.price}/${p.unit}</div>
- <span class="change">● Demo tracker</span>
- </div>`).join("");
- document.getElementById("lastUpdate").textContent=
- "Last refreshed: "+new Date().toLocaleTimeString();
-}
-
-function renderDeals(){
- const q=document.getElementById("search").value.toLowerCase();
- const loc=document.getElementById("location").value;
- const cat=document.getElementById("dealFilter").value;
-
- const filtered=deals.filter(d=>
-  (cat==="all"||d.type===cat)&&
-  (loc==="all"||d.area===loc)&&
-  (d.name+" "+d.type+" "+d.area).toLowerCase().includes(q)
- );
-
- document.getElementById("deals").innerHTML=filtered.length?
- filtered.map(d=>`
- <div class="card">
- <img src="${d.img}" alt="${d.name}">
- <div class="cardbody">
- <span class="tag">${d.offer}</span>
- <h3>${d.name}</h3>
- <p>📍 ${d.area}, Vijayawada</p>
- <div class="price">${d.price}</div>
- <small>${d.type}</small>
- </div></div>`).join("") :
- '<div class="empty">No deals found. Try another category or area.</div>';
-}
-
-function renderMalls(){
- document.getElementById("mallOffers").innerHTML=malls.map(m=>`
- <div class="offer">
- <img src="${m.img}" alt="${m.name}">
- <div><h3>${m.name}</h3>
- <p>📍 ${m.area}</p>
- <p>${m.offer}</p>
- <strong style="color:#e75c16">${m.discount}</strong>
- </div></div>`).join("");
-}
-
-function demoRefresh(){
- // Demo only: small random price movement.
- // Replace with your actual market API.
- products.forEach(p=>{
-  p.price=Math.max(1,p.price+(Math.random()>.5?1:-1));
- });
- renderMarket();
-}
-
-renderCategories();
-renderMarket();
-renderDeals();
-renderMalls();
-document.getElementById("search").addEventListener("input",renderDeals);
-
-// Demo refresh every 30 seconds
-setInterval(demoRefresh,30000);
-</script>
+<link rel="stylesheet" href="/marketplace.css">
+<script src="/marketplace.js"></script>
 </body>
 </html>
