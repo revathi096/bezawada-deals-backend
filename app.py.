@@ -1,21 +1,23 @@
 import os
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import uvicorn
 
-app = FastAPI()
+app = FastAPI(title="Bezawada Deals", version="1.0.0")
 
-# ఒకవేళ public, templates ఫోల్డర్లు ఉంటే వాటిని మౌంట్ చేస్తుంది
+# Static మరియు Templates ఫోల్డర్స్ సురక్షితంగా లోడ్ అవ్వడానికి
 if os.path.exists("public"):
     app.mount("/static", StaticFiles(directory="public"), name="static")
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="templates") if os.path.exists("templates") else None
 
 @app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+async def home(request: Request):
+    if templates and os.path.exists("templates/index.html"):
+        return templates.TemplateResponse("index.html", {"request": request})
+    return "<html><body><h1>Vijayawada Smart Needs Active!</h1></body></html>"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
